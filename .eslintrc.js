@@ -1,11 +1,15 @@
 module.exports = {
     env: {
+        browser: true,
         node: true,
         commonjs: true,
         es2021: true,
         jest: true
     },
-    extends: ["eslint:recommended"],
+    extends: [
+        "eslint:recommended",
+        "plugin:react/recommended"
+    ],
     overrides: [
         {
             files: [".eslintrc.{js,cjs}"],
@@ -16,7 +20,11 @@ module.exports = {
     ],
     parserOptions: {
         ecmaVersion: "latest",
+        sourceType: "module",
     },
+    plugins: [
+        "react" 
+    ],
     rules: {
         "no-console": "warn", // Avverte se viene utilizzato console.log() o simili
         "no-unused-vars": "warn", // Avverte se vengono dichiarate variabili non utilizzate
@@ -28,5 +36,11 @@ module.exports = {
         "comma-spacing": ["error", { before: false, after: true }], // Richiede uno spazio dopo la virgola e nessuno prima
         "brace-style": ["error", "1tbs"], // Tiene gli else sulla stessa linea della parentesi graffa.
         "no-useless-escape": 0,
+        "react/react-in-jsx-scope": "off",
     },
+    settings: {
+        react: {
+            version: "detect"
+        }
+    }
 };
