@@ -6,16 +6,31 @@
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "eslint-plugin-jest": "^27.9.0",
+    "husky": "^9.0.11",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-scripts": "5.0.1",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.0",
     "web-vitals": "^2.1.4"
+  },
+  
+  "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.16.7"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "coverage": "npm test -- --coverage --collectCoverageFrom=\"./**/*.js\" --collectCoverageFrom=!\"./**/coverage/**/*.js\" --collectCoverageFrom=!./.eslintrc.js --collectCoverageFrom=!./swagger.js \n",
+    "prepare": "husky",
+    "eslint": "npx eslint .",
+    "format": "npm run format-src && npm run format-test",
+    "format-src": "npx eslint --fix .\\*.js",
+    "format-test": "npx eslint --fix .\\test\\*.js",
+    "swagger": "node ./swagger.js"
   },
   "eslintConfig": {
     "extends": [
