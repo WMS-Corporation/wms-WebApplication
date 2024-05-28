@@ -6,3 +6,9 @@ npm-debug.log
 *.log
 *.swp
 /coverage
+build
+.dockerignore
+.git
+.gitignore
+Dockerfile
+README.md

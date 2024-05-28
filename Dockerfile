@@ -11,8 +11,9 @@ COPY package*.json ./
 RUN npm install
 
 # Copy the rest of the application files to the container
-COPY . .
-
+# Copia solo i file necessari per la build dell'applicazione
+COPY public ./public
+COPY src ./src
 
 RUN npm run build
 
