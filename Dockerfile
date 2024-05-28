@@ -17,7 +17,8 @@ COPY src ./src
 
 RUN npm run build
 
-# Expose port 4001 for the application to run on
+ENV PORT 5000
+# Expose port 5000 for the application to run on
 EXPOSE 5000
 
 # Start the application
