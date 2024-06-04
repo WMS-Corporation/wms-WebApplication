@@ -1,24 +1,20 @@
 # Use an official Node runtime as a parent image
-FROM node:20.2.0-alpine
+FROM node:21.6.2-alpine
 
-# Set the working directory to /app
 WORKDIR /wms-WebApplication
 
-# Copy the package.json and package-lock.json files to the container
-COPY package*.json ./
 
-# Install dependencies
-RUN npm install
-
-# Copy the rest of the application files to the container
-# Copia solo i file necessari per la build dell'applicazione
 COPY public ./public
 COPY src ./src
+COPY package*.json ./
+
+RUN npm ci
 
 RUN npm run build
 
+# Set the react app port
 ENV PORT 5000
-# Expose port 5000 for the application to run on
+# Expose the port the app runs in
 EXPOSE 5000
 
 # Start the application
