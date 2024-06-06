@@ -1,0 +1,21 @@
+/* src/components/About.css */
+.about {
+    padding: 20px;
+  }
+  
+  .about h1 {
+    margin-bottom: 20px;
+  }
+  
+  .about section {
+    margin-bottom: 20px;
+  }
+  
+  .about h2 {
+    margin-bottom: 10px;
+  }
+  
+  .about p {
+    margin-bottom: 10px;
+  }
+  
