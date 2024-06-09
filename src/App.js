@@ -5,6 +5,8 @@ import Header from './components/Header';
 import Sidebar from './components/Sidebar';
 import Home from './components/Home';
 import About from './components/About';
+import Product from './components/Product';
+import Login from './components/Login';
 import './App.css';
 
 const App = () => {
@@ -18,6 +20,8 @@ const App = () => {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/about" element={<About />} />
+              <Route path="/product" element={<Product />} />
+              <Route path="/login" element={<Login />} />
             </Routes>
           </div>
         </div>
