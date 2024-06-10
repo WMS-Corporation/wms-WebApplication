@@ -1,7 +1,7 @@
 
 import LoginModel from '../models/loginModel';
 
-const API_URL = 'http://localhost:3000';
+const API_URL = 'http://localhost:3000/api';
 
 export const login = async (username, password) => {
   try {
@@ -9,7 +9,6 @@ export const login = async (username, password) => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': 'http://localhost:3001', // Explicitly allow the frontend origin
     },
       body: JSON.stringify(new LoginModel(username, password)),
     });

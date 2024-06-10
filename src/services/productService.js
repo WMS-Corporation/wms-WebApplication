@@ -2,11 +2,11 @@
 import ProductModel from '../models/productModel';
 import { getAuthHeaders } from './authService';
 
-const API_URL = 'http://localhost:3000';
+const API_URL = 'http://localhost:3000/api';
 
 export const fetchProducts = async () => {
   try {
-    const response = await fetch(`${API_URL}/products`, {
+    const response = await fetch(`${API_URL}/products/all`, {
       method: 'GET',
       headers: getAuthHeaders(),
     });
