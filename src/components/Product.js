@@ -1,52 +1,39 @@
+// src/components/Product.js
 import React, { useEffect, useState } from 'react';
-import { getProducts, saveProduct } from '../controllers/ProductController';
-import ProductForm from './Forms/ProductForm';
+import { getProducts } from '../controllers/ProductController';
+import ProductList from './Forms/ProductList';
 
 const Product = () => {
   const [products, setProducts] = useState([]);
-  const [currentProduct, setCurrentProduct] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const loadProducts = async () => {
       try {
         const result = await getProducts();
         setProducts(result);
-        if (result.length > 0) setCurrentProduct(result[0]);
       } catch (error) {
-        console.error('Error loading products:', error);
+        setError(error);
+      } finally {
+        setLoading(false);
       }
     };
 
     loadProducts();
   }, []);
 
-  const handleSave = async (newData) => {
-    if (currentProduct) {
-      try {
-        const updatedProduct = await saveProduct(currentProduct.id, newData);
-        setProducts((prevProducts) =>
-          prevProducts.map((product) =>
-            product.id === updatedProduct.id ? updatedProduct : product
-          )
-        );
-        setCurrentProduct(updatedProduct);
-      } catch (error) {
-        console.error('Error saving product:', error);
-        throw error;
-      }
-    }
-  };
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error loading products: {error.message}</div>;
+  }
 
   return (
     <div>
-      <h1>Product Management</h1>
-      {currentProduct && (
-        <ProductForm
-          onSave={handleSave}
-          initialName={currentProduct.name}
-          initialQuantity={currentProduct.quantity}
-        />
-      )}
+      <ProductList products={products} />
     </div>
   );
 };

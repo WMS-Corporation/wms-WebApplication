@@ -1,0 +1,24 @@
+/* src/components/ProductList.css */
+.product-list {
+    padding: 20px;
+  }
+  
+  .product-list h1 {
+    margin-bottom: 20px;
+  }
+  
+  .product-list ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .product-list li {
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  .product-list li strong {
+    display: block;
+    font-size: 1.2em;
+  }
+  
