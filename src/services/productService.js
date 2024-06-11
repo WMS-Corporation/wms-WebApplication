@@ -12,7 +12,7 @@ export const fetchProducts = async () => {
     });
     if (!response.ok) throw new Error('Network response was not ok');
     const data = await response.json();
-    return data.map(item => new ProductModel(item.id, item.name, item.quantity));
+    return data.map(item => new ProductModel(item._codProduct, item._name, item._category, item._expirationDate, item._type));
   } catch (error) {
     console.error('Error fetching products:', error);
     throw error;

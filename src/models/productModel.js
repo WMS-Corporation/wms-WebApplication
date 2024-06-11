@@ -1,10 +1,11 @@
 class ProductModel {
-    constructor(id, name, quantity) {
-      this.id = id;
-      this.name = name;
-      this.quantity = quantity;
-    }
+  constructor(codProduct, name, category, expirationDate, type) {
+    this._codProduct = codProduct;
+    this._name = name;
+    this._category = category;
+    this._expirationDate = new Date(expirationDate);
+    this._type = type;
   }
-  
-  export default ProductModel;
-  
+}
+
+export default ProductModel;
