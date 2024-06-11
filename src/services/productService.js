@@ -35,7 +35,6 @@ export const updateProduct = async (id, newData) => {
   }
 };
 
-
 export const removeProduct = async (id) => {
   try {
     const response = await fetch(`${API_URL}/products/${id}`, {
