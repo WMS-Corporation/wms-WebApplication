@@ -34,3 +34,18 @@ export const updateProduct = async (id, newData) => {
     throw error;
   }
 };
+
+
+export const removeProduct = async (id) => {
+  try {
+    const response = await fetch(`${API_URL}/products/${id}`, {
+      method: 'DELETE',
+      headers: getAuthHeaders(),
+    });
+    if (!response.ok) throw new Error('Network response was not ok');
+    return id;
+  } catch (error) {
+    console.error('Error deleting product:', error);
+    throw error;
+  }
+};
