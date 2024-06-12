@@ -7,6 +7,7 @@ const Product = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [editingProduct, setEditingProduct] = useState(null);
 
   const loadProducts = async () => {
     try {
@@ -23,8 +24,8 @@ const Product = () => {
     loadProducts();
   }, []);
 
-  const handleEdit = async (product) => {
-    // Handle the edit operation here and than use saveProduct to save the changes
+  const handleEdit = (product) => {
+    setEditingProduct(product);
   };
 
   const handleDelete = async (product) => {    
