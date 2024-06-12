@@ -12,9 +12,12 @@ export const login = async (username, password) => {
     },
       body: JSON.stringify(new LoginModel(username, password)),
     });
-    if (!response.ok) throw new Error('Network response was not ok');
+    if (!response.ok) {
+      const errorResponse = await response.json();
+      throw new Error(errorResponse.message)
+    }
     const data = await response.json();
-    return data.token; // Assuming the token is returned in the 'token' field
+    return data
   } catch (error) {
     console.error('Error logging in:', error);
     throw error;

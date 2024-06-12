@@ -1,0 +1,50 @@
+
+.login-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    min-height: 100vh;
+    position: relative;
+    background: url('../../assets/wsm.jpg') no-repeat center center fixed;
+    background-size: cover;
+}
+
+.login-container {
+    width: 28vw;
+    min-height: 50vh;
+    padding: 20px;
+    background: #F0EAD6;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-top: 23vh;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.register-container {
+    width: 28vw;
+    min-height: 50vh;
+    padding: 20px;
+    background: #F0EAD6;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-top: 18vh;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.app-footer {
+    width: 100%;
+    text-align: center;
+    padding: 10px 0;
+    background: transparent;
+    z-index: 1;
+    position: relative;
+    margin-top: auto;
+}
