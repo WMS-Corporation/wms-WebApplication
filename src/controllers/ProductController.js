@@ -1,4 +1,3 @@
-// src/controllers/ProductController.js
 import { fetchProducts, updateProduct, removeProduct } from '../services/productService';
 
 export const getProducts = async () => {
@@ -6,11 +5,9 @@ export const getProducts = async () => {
 };
 
 export const saveProduct = async (id, newData) => {
-  return await updateProduct(id, newData);
-};
-
-export const editProduct = async (product) => {
-  return await updateProduct(product._codProduct, product);
+  const dataToSend = { ...newData };
+  delete dataToSend._codProduct;
+  return await updateProduct(id, dataToSend);
 };
 
 export const deleteProduct = async (product) => {

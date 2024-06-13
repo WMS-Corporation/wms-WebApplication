@@ -1,4 +1,3 @@
-// ProductItem.js
 import React from 'react';
 import PropTypes from 'prop-types';
 import ProductModel from '../../models/productModel';

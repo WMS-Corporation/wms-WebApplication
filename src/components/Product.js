@@ -1,7 +1,7 @@
-// src/components/Product.js
 import React, { useEffect, useState } from 'react';
 import { getProducts, saveProduct, deleteProduct  } from '../controllers/ProductController';
 import ProductList from './Forms/ProductList';
+import ProductEditForm from './Forms/ProductEditForm';
 
 const Product = () => {
   const [products, setProducts] = useState([]);
@@ -28,12 +28,25 @@ const Product = () => {
     setEditingProduct(product);
   };
 
+  const handleSave = async (editedProduct) => {
+    try {
+      await saveProduct(editedProduct._codProduct, editedProduct);
+      loadProducts();
+      setEditingProduct(null);
+    } catch (error) {
+      setError(error);
+    }
+  };
+
+  const handleCancel = () => {
+    setEditingProduct(null);
+  };
+
   const handleDelete = async (product) => {    
-    // Handle the delete operation here
     if (window.confirm('Are you sure you want to delete this product?')) {
       try {
         await deleteProduct(product);
-        loadProducts(); // Reload the products after deleting
+        loadProducts();
       } catch (error) {
         setError(error);
       }
@@ -47,8 +60,11 @@ const Product = () => {
   if (error) {
     return <div>Error: {error.message}</div>;
   }
-
-  return <ProductList products={products} onEdit={handleEdit} onDelete={handleDelete} />;
+  if (editingProduct) {
+    return <ProductEditForm product={editingProduct} onSave={handleSave} onCancel={handleCancel} />;
+  } else {
+    return <ProductList products={products} onEdit={handleEdit} onDelete={handleDelete} onSave={handleSave} />;
+  }
 };
 
 export default Product;

@@ -1,4 +1,3 @@
-// src/components/Login.js
 import React, {useState} from 'react';
 import { loginUser } from '../controllers/LoginController';
 import LoginForm from './Forms/LoginForm';
