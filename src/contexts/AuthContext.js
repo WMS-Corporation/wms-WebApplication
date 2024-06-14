@@ -23,6 +23,6 @@ export const AuthProvider = ({ children }) => {
   );
 };
 
-AuthContext.Provider.propTypes = {
+AuthProvider.propTypes = {
   children: PropTypes.node.isRequired,
 };
