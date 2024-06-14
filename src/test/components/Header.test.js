@@ -4,7 +4,7 @@ import '@testing-library/jest-dom/extend-expect';
 import Header from '../../components/Header';
 import { AuthContext } from '../../contexts/AuthContext';
 
-describe('Componente Header', () => {
+describe('Component Header', () => {
     const mockToggleSidebar = jest.fn();
     const mockLogout = jest.fn();
 
@@ -16,21 +16,21 @@ describe('Componente Header', () => {
         );
     };
 
-    test('dovrebbe rendere il logo e il logo della sidebar', () => {
+    test('should render logo and sidebar logo', () => {
         const { getByAltText, getByText } = renderHeader();
 
         expect(getByAltText('WMS Logo')).toBeInTheDocument();
         expect(getByText('WMS')).toBeInTheDocument();
     });
 
-    test('dovrebbe chiamare toggleSidebar quando si clicca su FaBars', () => {
+    test('should call toggleSidebar when FaBars is clicked', () => {
         const { container } = renderHeader();
         const sidebarToggle = container.querySelector('.sidebar-toggle');
         fireEvent.click(sidebarToggle);
         expect(mockToggleSidebar).toHaveBeenCalledTimes(1);
     });
 
-    test('dovrebbe chiamare logout quando si clicca su IoMdPower', () => {
+    test('should call logout when IoMdPower is clicked', () => {
         const { container } = renderHeader();
         const powerOff = container.querySelector('.power-off');
         fireEvent.click(powerOff);

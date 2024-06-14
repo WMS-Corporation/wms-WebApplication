@@ -2,7 +2,6 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
 import Home from './components/Home';
-import About from './components/About';
 import Product from './components/Product';
 import Login from './components/Login';
 import './App.css';
@@ -21,7 +20,6 @@ const AppContent = () => {
                     element={
                         <Layout>
                             <Routes>
-                                <Route path="/about" element={<About />} />
                                 <Route path="/products" element={<Product />} />
                                 <Route path="/home" element={<Home />} />
                             </Routes>

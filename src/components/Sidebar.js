@@ -15,32 +15,46 @@ const Sidebar = ({isOpen}) => {
         <nav className={isOpen ? 'sidebar-menu' : 'nav-menu'}>
           <ul className="nav-menu-items">
             <li className="sidebar-item">
-              <FaCube/>
-              <Link to="/home">Dashboard</Link>
+              <Link to="/home">
+                <FaCube/>
+                <span>Dashboard</span>
+              </Link>
             </li>
             <li className="sidebar-item">
-              <HiTemplate/>
-              <Link to="/products">Products</Link>
+              <Link to="/products">
+                <HiTemplate/>
+                <span>Products</span>
+              </Link>
             </li>
             <li className="sidebar-item">
-              <FaTasks/>
-              <Link to="/tasks">Tasks</Link>
+              <Link to="/tasks">
+                <FaTasks/>
+                <span>Tasks</span>
+              </Link>
             </li>
             <li className="sidebar-item">
-              <FaClipboardList/>
-              <Link to="/orders">Orders</Link>
+              <Link to="/orders">
+                <FaClipboardList/>
+                <span>Orders</span>
+              </Link>
             </li>
             <li className="sidebar-item">
-              <FaWarehouse/>
-              <Link to="/logistic">Logistic</Link>
+              <Link to="/logistic">
+                <FaWarehouse/>
+                <span>Logistic</span>
+              </Link>
             </li>
             <li className="sidebar-item">
-              <FaPeopleCarry/>
-              <Link to="/users">Users</Link>
+              <Link to="/users">
+                <FaPeopleCarry/>
+                <span>Users</span>
+              </Link>
             </li>
             <li className="sidebar-item">
-              <IoSettingsOutline/>
-              <Link to="/settings">Settings</Link>
+              <Link to="/settings">
+                <IoSettingsOutline/>
+                <span>Settings</span>
+              </Link>
             </li>
           </ul>
         </nav>

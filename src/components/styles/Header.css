@@ -3,7 +3,7 @@
     display: flex;
     justify-content: start;
     align-items: center;
-    height: 14vh;
+    height: 9vh;
     background-color: #fff;
     color: #007bff;
     position: fixed;
@@ -32,14 +32,14 @@
 }
 
 .sidebar-toggle {
-    font-size: 2vw;
+    font-size: 1.5vw;
     cursor: pointer;
-    margin-left: 2vw;
+    margin-left: 0.9vw;
 
 }
 
 .power-off{
-    font-size: 2.5vw;
+    font-size: 1.5vw;
     cursor: pointer;
     margin-left: auto;
     margin-right: 2vw;

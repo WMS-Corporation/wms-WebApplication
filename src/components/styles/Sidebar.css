@@ -1,38 +1,38 @@
 .navbar {
     align-items: center;
     background-color: #fff;
-    width: 15vw;
+    width: 3vw;
     transition: transform 0.5s ease;
-    height: calc(100vh - 14vh); /* Altezza dinamica per coprire il resto dello schermo */
+    height: calc(100vh - 9vh); /* Altezza dinamica per coprire il resto dello schermo */
     position: fixed;
     z-index: 1100;
     bottom: 0;
     left: 0;
-    transform: translateX(-100%);
 }
 .sidebar-menu {
-    width: 15vw;
+    width: 10vw;
     background: white;
     height: 100%;
     display: flex;
     left: 0;
-    transition: transform 0.5s ease;
+    transition: transform 1s ease;
     box-shadow: 2px 0 0 rgba(0, 0, 0, 0.1);
     z-index: 1100;
-    transform: translateX(+100%);
     padding: 0;
 }
 
 .nav-menu{
-    background: white;
     height: 100%;
-    width: 15vw;
+    width: 3vw;
     display: flex;
     justify-content: center;
     left: 0;
     transition: transform 0.5s ease;
     box-shadow: 2px 0 0 rgba(0, 0, 0, 0.1);
-    z-index: 1000;
+}
+
+.nav-menu .nav-menu-items li a span{
+    display: none;
 }
 
 .sidebar-item {
@@ -60,18 +60,22 @@
     height: 100%;
     display: flex;
     align-items: center;
-    padding: 0 1vw;
 }
 
 .sidebar-item svg {
-    font-size: 2.5vw;
+    font-size: 1vw;
     color: grey; /* Colore di base per le icone */
     transition: color 0.3s ease; /* Transizione per il colore delle icone */
 }
 
-.nav-menu-items{
-    padding: 0;
-    margin-left: 2vw;
+.nav-menu-items {
+    list-style: none;
+    padding: 0 1vw;
+    width: 100%; /* Assicura che gli elementi riempiano la larghezza del container */
 }
 
+span {
+    margin-left: 1vw;
+    font-size: 1vw;
+}
 
