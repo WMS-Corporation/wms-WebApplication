@@ -1,0 +1,66 @@
+/*.layout {*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*    height: 100%;*/
+/*}*/
+
+/*.content {*/
+/*    !*height: 86vh;*!*/
+/*    !*width: 100vw;*!*/
+/*    !*position: absolute;*!*/
+/*    !*margin-top: 14vh; !* Altezza dell'header *!*!*/
+/*    !*transition: margin-left 0.5s ease;*!*/
+/*    flex: 1;*/
+/*    transition: margin-right 0.5s ease;*/
+/*    overflow-y: auto; !* Aggiungi scroll verticali per il con*/
+/*}*/
+/*.content-open {*/
+/*    margin-left: 0; !* Quando la sidebar è chiusa *!*/
+/*    height: 86vh;*/
+/*    width: 100vw;*/
+/*    position: absolute;*/
+/*    margin-top: 14vh; !* Altezza dell'header *!*/
+/*}*/
+
+.layout {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.header {
+    height: 14vh;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    background-color: #fff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.main-content {
+    display: flex;
+    flex: 1;
+    margin-top: 14vh; /* Altezza dell'header */
+    width: 100%; /* Assicurati che prenda tutto lo spazio orizzontale */
+    overflow: hidden; /* Previene overflow non desiderati */
+    position: relative;
+}
+
+.content {
+    flex: 1;
+    transition: margin-left 0.5s ease;
+    overflow-y: auto;
+    margin-top: 14vh;
+    z-index: 1000;
+}
+
+.content-open {
+    flex: 1;
+    transition: margin-left 0.5s ease;
+    overflow-y: auto;
+    margin-top: 14vh;
+    margin-left: 0;
+}
+

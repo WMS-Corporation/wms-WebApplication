@@ -1,0 +1,45 @@
+.header{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    height: 14vh;
+    background-color: #fff;
+    color: #007bff;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    width: 6vw; /* Dimensione del logo */
+    height: 8vh; /* Dimensione del logo */
+    margin-left: 1vw;
+    margin-right: 1vw;
+    background: transparent;
+}
+
+.sidebar-logo {
+    font-size: 160%;
+}
+
+.sidebar-toggle {
+    font-size: 2vw;
+    cursor: pointer;
+    margin-left: 2vw;
+
+}
+
+.power-off{
+    font-size: 2.5vw;
+    cursor: pointer;
+    margin-left: auto;
+    margin-right: 2vw;
+}

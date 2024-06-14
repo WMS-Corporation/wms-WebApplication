@@ -20,12 +20,6 @@ const Home = () => {
 
   return (
     <div className="home">
-      <h1>Dashboard</h1>
-      <ul>
-        {data.map((item) => (
-          <li key={item.id}>{item.name}</li>
-        ))}
-      </ul>
     </div>
   );
 };
