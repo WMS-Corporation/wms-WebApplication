@@ -1,8 +1,6 @@
-// src/App.js
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
-import Header from './components/Header';
-import Sidebar from './components/Sidebar';
+import { AuthProvider } from './contexts/AuthContext';
 import Home from './components/Home';
 import About from './components/About';
 import Product from './components/Product';
@@ -37,9 +35,11 @@ const AppContent = () => {
 
 const App = () => {
     return (
-        <Router>
-            <AppContent />
-        </Router>
+        <AuthProvider>
+            <Router>
+                <AppContent />
+            </Router>
+        </AuthProvider>
     );
 };
 

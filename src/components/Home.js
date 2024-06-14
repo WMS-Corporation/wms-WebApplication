@@ -1,4 +1,3 @@
-// src/components/Home.js
 import React, { useEffect, useState } from 'react';
 import { getData } from '../controllers/DataController';
 

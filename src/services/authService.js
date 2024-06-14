@@ -24,6 +24,23 @@ export const login = async (username, password) => {
   }
 };
 
+export const logout = async () => {
+  try {
+    const response = await fetch(`${API_URL}/users/logout`, {
+      method: 'POST',
+      headers: getAuthHeaders(),
+    });
+    if (!response.ok) {
+      const errorResponse = await response.json();
+      throw new Error(errorResponse.message)
+    }
+    localStorage.removeItem('authToken');
+  } catch (error) {
+    console.error('Error logging out:', error);
+    throw error;
+  }
+};
+
 export const getAuthHeaders = () => {
   const token = localStorage.getItem('authToken');
   return {
