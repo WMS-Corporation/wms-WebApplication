@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { FaPeopleCarry, FaTasks, FaClipboardList, FaWarehouse } from 'react-icons/fa';
 import { IoSettingsOutline } from "react-icons/io5";
@@ -6,7 +6,6 @@ import { HiTemplate } from "react-icons/hi";
 import { FaCube } from "react-icons/fa6";
 import './styles/Sidebar.css';
 import PropTypes from "prop-types";
-import Header from "./Header";
 
 const Sidebar = ({isOpen}) => {
 
@@ -64,7 +63,7 @@ const Sidebar = ({isOpen}) => {
 };
 
 Sidebar.propTypes = {
-  isOpen: PropTypes.func.isRequired,
+  isOpen: PropTypes.bool.isRequired,
 };
 
 export default Sidebar;
