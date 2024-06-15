@@ -1,6 +1,5 @@
 import RegisterModel from "../models/registerModel";
-
-const API_URL = 'http://localhost:3000/api';
+import { API_URL } from '../config';
 
 export const register = async (username, password, name, surname) => {
     try {
