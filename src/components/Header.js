@@ -1,6 +1,5 @@
 
-import React, { useContext } from 'react';
-import { AuthContext } from '../contexts/AuthContext';
+import { useAuth } from '../contexts/AuthContext';
 import PropTypes from 'prop-types';
 import {FaBars} from "react-icons/fa";
 import { IoMdPower } from "react-icons/io";
@@ -8,7 +7,7 @@ import logo from "../assets/logo.png";
 import './styles/Header.css';
 
 const Header = ({toggleSidebar}) => {
-    const { logout } = useContext(AuthContext);
+    const { logout } = useAuth();
 
     const handleLogout = async () => {
         try {
@@ -34,7 +33,3 @@ Header.propTypes = {
 };
 
 export default Header;
-
-AuthContext.Provider.propTypes = {
-  children: PropTypes.node.isRequired,
-};

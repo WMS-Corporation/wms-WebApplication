@@ -1,6 +1,7 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
+import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
+import PrivateRoute from './utils/PrivateRoute';
 import Home from './components/Home';
 import Product from './components/Product';
 import Login from './components/Login';
@@ -8,20 +9,19 @@ import './App.css';
 import Layout from "./components/Layout";
 
 const AppContent = () => {
-    const location = useLocation();
-    const hideSidebar = location.pathname === '/';
-
     return (
         <div className="App">
             <Routes>
-                <Route path="/" element={<Login />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/" element={<Navigate to="/home" />} />
                 <Route
                     path="*"
                     element={
                         <Layout>
                             <Routes>
-                                <Route path="/products" element={<Product />} />
-                                <Route path="/home" element={<Home />} />
+                                <Route path="/products" element={<PrivateRoute><Product /></PrivateRoute>} />
+                                <Route path="/home" element={<PrivateRoute><Home /></PrivateRoute>} />
+                                <Route path="*" element={<Navigate to="/home" replace />} />
                             </Routes>
                         </Layout>
                     }
@@ -34,9 +34,9 @@ const AppContent = () => {
 const App = () => {
     return (
         <AuthProvider>
-            <Router>
+            <BrowserRouter>
                 <AppContent />
-            </Router>
+            </BrowserRouter>
         </AuthProvider>
     );
 };
