@@ -1,7 +1,7 @@
 import React, { createContext, useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 
-const AuthContext = createContext();
+export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem('authToken'));
