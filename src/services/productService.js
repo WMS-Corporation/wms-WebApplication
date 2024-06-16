@@ -27,7 +27,7 @@ export const updateProduct = async (id, newData) => {
     });
     if (!response.ok) throw new Error('Network response was not ok');
     const data = await response.json();
-    return new ProductModel(data.id, data.name, data.quantity);
+    return new ProductModel(data.id, data.name, data.category, data.expirationDate, data.type);
   } catch (error) {
     console.error('Error updating product:', error);
     throw error;
