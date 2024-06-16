@@ -6,7 +6,7 @@ jest.mock('../../services/authService');
 describe('loginUser', () => {
   it('should call the login service with the correct parameters', async () => {
     const username = 'testUser';
-    const password = 'testPassword';
+    const password = process.env.REACT_APP_LOGIN_TEST_PASSWORD;
 
     // Set up mock implementation
     login.mockImplementation(async (username, password) => {

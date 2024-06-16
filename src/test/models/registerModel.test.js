@@ -3,7 +3,7 @@ import RegisterModel from '../../models/registerModel';
 describe('RegisterModel', () => {
   it('should correctly set properties', () => {
     const username = 'testUser';
-    const password = 'testPassword';
+    const password = process.env.REACT_APP_LOGIN_TEST_PASSWORD;
     const name = 'testName';
     const surname = 'testSurname';
     const type = 'testType';

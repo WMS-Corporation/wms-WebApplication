@@ -6,7 +6,7 @@ jest.mock('../../services/registerUserService');
 describe('registerUser', () => {
   it('should call the register service with the correct parameters', async () => {
     const username = 'testUser';
-    const password = 'testPassword';
+    const password = process.env.REACT_APP_LOGIN_TEST_PASSWORD;
     const name = 'testName';
     const surname = 'testSurname';
 
