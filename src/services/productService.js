@@ -1,8 +1,7 @@
 // src/services/ProductService.js
 import ProductModel from '../models/productModel';
 import { getAuthHeaders } from './authService';
-
-const API_URL = 'http://localhost:3000/api';
+import { API_URL } from '../config';
 
 export const fetchProducts = async () => {
   try {

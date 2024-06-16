@@ -1,7 +1,6 @@
 
 import LoginModel from '../models/loginModel';
-
-const API_URL = 'http://localhost:3000/api';
+import { API_URL } from '../config';
 
 export const login = async (username, password) => {
   try {

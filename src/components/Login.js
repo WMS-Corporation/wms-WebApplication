@@ -1,22 +1,21 @@
-import React, {useState, useContext} from 'react';
+import React, {useState} from 'react';
 import { loginUser } from '../controllers/LoginController';
 import LoginForm from './Forms/LoginForm';
 import { useNavigate } from 'react-router-dom';
-import { AuthContext } from '../contexts/AuthContext';
-import './styles/LoginPage.css';
+import { useAuth } from '../contexts/AuthContext';
 import RegisterForm from "./Forms/RegisterForm";
 import {registerUser} from "../controllers/RegisterController";
-import PropTypes from 'prop-types';
+import './styles/LoginPage.css';
 
 const Login = () => {
     const navigate = useNavigate();
-    const { login } = useContext(AuthContext) || {};
+    const { login } = useAuth();
     const [isRegistering, setIsRegistering] = useState(false);
 
     const handleLogin = async (username, password) => {
         try {
             const data = await loginUser(username, password);
-            localStorage.setItem('authToken', data.token);
+            login(data.token);
             navigate("/home");
         } catch (error) {
             console.error('Error logging in:', error);
@@ -27,7 +26,7 @@ const Login = () => {
     const handleRegister = async (username, password, name, surname) => {
         try {
             const data = await registerUser(username, password, name, surname);
-            localStorage.setItem('authToken', data.token);
+            login(data.token);
             navigate("/home");
         } catch (error) {
             console.error('Error logging in:', error);
@@ -52,9 +51,5 @@ const Login = () => {
         </div>
     );
 };
-
-AuthContext.Provider.propTypes = {
-    children: PropTypes.node.isRequired,
-  };
 
 export default Login;
