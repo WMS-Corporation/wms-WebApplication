@@ -9,7 +9,7 @@ import './styles/LoginPage.css';
 
 const Login = () => {
     const navigate = useNavigate();
-    const { login } = useAuth();
+    const { login } = useAuth() || {};
     const [isRegistering, setIsRegistering] = useState(false);
 
     const handleLogin = async (username, password) => {

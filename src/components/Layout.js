@@ -7,7 +7,7 @@ import "./styles/Layout.css"
 
 const Layout = ({ children }) => {
     const [isOpen, setIsOpen] = useState(false);
-    let { isAuthenticated } = useAuth ();
+    let { isAuthenticated } = useAuth () || {};
 
     const toggleSidebar = () => {
         setIsOpen(!isOpen);

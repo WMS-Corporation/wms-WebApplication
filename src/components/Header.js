@@ -8,7 +8,7 @@ import './styles/Header.css';
 
 const Header = ({toggleSidebar}) => {
 
-    const { logout } = useAuth();
+    const { logout } = useAuth()  || {};
 
     const handleLogout = async () => {
         try {
