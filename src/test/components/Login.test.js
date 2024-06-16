@@ -2,20 +2,27 @@ import {fireEvent, render, screen, waitFor} from '@testing-library/react';
 import Login from '../../components/Login'
 import {MemoryRouter, Router} from 'react-router-dom';
 import React from "react";
+import PropTypes from "prop-types";
 
-jest.mock('../../components/Forms/RegisterForm', () => ({ onRegister, setIsRegistering }) => (
+const RegisterForm = ({ setIsRegistering }) => (
     <div data-testid="register-form">
         <button onClick={() => setIsRegistering(false)}>Login</button>
-        Register Form
     </div>
-));
+);
+RegisterForm.propTypes = {
+    setIsRegistering: PropTypes.func.isRequired,
+};
+jest.mock('../../components/Forms/RegisterForm', () => RegisterForm);
 
-jest.mock('../../components/Forms/LoginForm', () => ({onLogin, setIsRegistering}) => (
+const LoginForm = ({ setIsRegistering }) => (
     <div data-testid="login-form">
         <button onClick={() => setIsRegistering(true)}>Register</button>
-        Login Form
     </div>
-));
+);
+LoginForm.propTypes = {
+    setIsRegistering: PropTypes.func.isRequired,
+};
+jest.mock('../../components/Forms/LoginForm', () => LoginForm);
 
 describe('Login Component', () => {
     const renderComponent = () => {
