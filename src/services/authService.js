@@ -1,4 +1,3 @@
-
 import LoginModel from '../models/loginModel';
 import { API_URL } from '../config';
 

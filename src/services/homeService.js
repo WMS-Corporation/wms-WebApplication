@@ -1,6 +1,5 @@
-import DataModel from '../models/dataModel';
-
-const API_URL = 'https://api.example.com';
+import DataModel from '../models/homeModel';
+import { API_URL } from '../config';
 
 export const fetchData = async () => {
   try {

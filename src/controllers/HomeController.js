@@ -1,4 +1,4 @@
-import { fetchData } from '../services/apiService';
+import { fetchData } from '../services/homeService';
 
 export const getData = async () => {
   return await fetchData();

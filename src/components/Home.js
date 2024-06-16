@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { getData } from '../controllers/DataController';
+import { getData } from '../controllers/HomeController';
 
 const Home = () => {
   const [data, setData] = useState([]);
