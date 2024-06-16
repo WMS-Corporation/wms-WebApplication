@@ -1,4 +1,4 @@
-import ProductModel from '../../models/ProductModel';
+import ProductModel from '../../models/productModel';
 
 describe('ProductModel', () => {
   it('should correctly set properties', () => {

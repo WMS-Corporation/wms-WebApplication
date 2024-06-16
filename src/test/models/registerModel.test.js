@@ -1,4 +1,4 @@
-import RegisterModel from '../../models/RegisterModel';
+import RegisterModel from '../../models/registerModel';
 
 describe('RegisterModel', () => {
   it('should correctly set properties', () => {

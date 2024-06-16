@@ -1,4 +1,4 @@
-import HomeModel from '../../models/HomeModel';
+import HomeModel from '../../models/homeModel';
 
 describe('HomeModel', () => {
   it('should correctly set properties', () => {
