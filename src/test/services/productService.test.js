@@ -69,7 +69,6 @@ test('updateProduct › should update a product and return the updated ProductMo
     expect(data).toEqual(new ProductModel(mockData.id, mockData.name, mockData.category, mockData.expirationDate, mockData.type));
 });
 
-
 test('addProduct › should add a product and return the added product', async () => {
     const mockData = { id: '3', name: 'New Product', category: 'New Category', expirationDate: '2023-01-01', type: 'New Type' };
     fetchMock.mockResponseOnce(JSON.stringify(mockData), { status: 200 });
