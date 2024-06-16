@@ -1,0 +1,38 @@
+.action {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 5vh;
+    gap: 1vw;
+}
+
+.edit{
+    width: 3vw;
+    height: 4vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 1vw;
+    background: #78C091;
+}
+
+.edit-icon{
+    color: white;
+    font-size: 1vw;
+}
+
+.delete-icon{
+    color: white;
+    font-size: 1vw;
+}
+
+.delete{
+    width: 3vw;
+    height: 4vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 1vw;
+    background: #FF9770;
+}

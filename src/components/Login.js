@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
 
 const Login = () => {
     const navigate = useNavigate();
-    const { login } = useContext(AuthContext);
+    const { login } = useContext(AuthContext) || {};
     const [isRegistering, setIsRegistering] = useState(false);
 
     const handleLogin = async (username, password) => {

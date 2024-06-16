@@ -7,24 +7,31 @@ import '../styles/ProductList.css';
 const ProductList = ({ products, onEdit, onDelete, onSave }) => {
   return (
     <div className="product-list">
-      <h1>Product List</h1>
-      <table>
-        <thead>
+      <div className="header-list">
+        <h1>Product List</h1>
+        <button className="btn btn-primary add-list">
+          Add Product
+        </button>
+      </div>
+      <div className="table-product">
+        <table>
+          <thead>
           <tr>
             <th>Name</th>
             <th>Category</th>
             <th>Expiration Date</th>
             <th>Type</th>
-            <th>Edit</th>
-            <th>Delete</th>
+            <th>Action</th>
           </tr>
-        </thead>
-        <tbody>
-        {products.map((product) => (
-          <ProductItem key={product._codProduct} product={product} onEdit={onEdit} onDelete={onDelete} onSave={onSave} />
-        ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+          {products.map((product) => (
+              <ProductItem key={product._codProduct} product={product} onEdit={onEdit} onDelete={onDelete}
+                           onSave={onSave}/>
+          ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };

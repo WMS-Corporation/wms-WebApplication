@@ -18,4 +18,50 @@ describe('Component Sidebar', () => {
         expect(linkElement).toBeInTheDocument();
     });
 
+    test('renders Products link', () => {
+        renderSidebar(true);
+        const linkElement = screen.getByText(/Products/i);
+        expect(linkElement).toBeInTheDocument();
+    });
+
+    test('renders Tasks link', () => {
+        renderSidebar(true);
+        const linkElement = screen.getByText(/Tasks/i);
+        expect(linkElement).toBeInTheDocument();
+    });
+
+    test('renders Orders link', () => {
+        renderSidebar(true);
+        const linkElement = screen.getByText(/Orders/i);
+        expect(linkElement).toBeInTheDocument();
+    });
+
+    test('renders Logistic link', () => {
+        renderSidebar(true);
+        const linkElement = screen.getByText(/Logistic/i);
+        expect(linkElement).toBeInTheDocument();
+    });
+
+    test('renders Users link', () => {
+        renderSidebar(true);
+        const linkElement = screen.getByText(/Users/i);
+        expect(linkElement).toBeInTheDocument();
+    });
+
+    test('renders Settings link', () => {
+        renderSidebar(true);
+        const linkElement = screen.getByText(/Settings/i);
+        expect(linkElement).toBeInTheDocument();
+    });
+
+    test('applies the correct class when sidebar is open', () => {
+        const { container } = renderSidebar(true);
+        expect(container.querySelector('.sidebar-menu')).toBeInTheDocument();
+    });
+
+    test('applies the correct class when sidebar is closed', () => {
+        const { container } = renderSidebar(false);
+        expect(container.querySelector('.nav-menu')).toBeInTheDocument();
+    });
+
 });

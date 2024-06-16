@@ -1,6 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ProductModel from '../../models/productModel';
+import { FiEdit2 } from "react-icons/fi";
+import { MdDeleteOutline } from "react-icons/md";
+import '../styles/ProductItem.css';
 
 const ProductItem = ({ product, onEdit, onDelete }) => {
   return (
@@ -9,8 +12,10 @@ const ProductItem = ({ product, onEdit, onDelete }) => {
       <td>{product._category}</td>
       <td>{product._expirationDate instanceof Date && !isNaN(product._expirationDate) ? product._expirationDate.toISOString().substring(0, 10) : 'N/A'}</td>
       <td>{product._type}</td>
-      <td><button onClick={() => onEdit(product)}>Edit</button></td>
-      <td><button onClick={() => onDelete(product)}>Delete</button></td>
+        <td className="action">
+            <div className="edit"><FiEdit2 className="edit-icon" onClick={() => onEdit(product)}/></div>
+            <div className="delete"><MdDeleteOutline className="delete-icon" onClick={() => onDelete(product)}/></div>
+        </td>
     </tr>
   );
 };

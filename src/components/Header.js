@@ -8,7 +8,7 @@ import logo from "../assets/logo.png";
 import './styles/Header.css';
 
 const Header = ({toggleSidebar}) => {
-    const { logout } = useContext(AuthContext);
+    const { logout } = useContext(AuthContext) || {};
 
     const handleLogout = async () => {
         try {
