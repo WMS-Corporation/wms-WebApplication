@@ -1,5 +1,5 @@
-import { getProducts, saveProduct, deleteProduct } from '../../controllers/ProductController';
-import { fetchProducts, updateProduct, removeProduct } from '../../services/productService';
+import { getProducts, saveProduct, deleteProduct, addProduct } from '../../controllers/ProductController';
+import { fetchProducts, updateProduct, removeProduct, addProduct as addProductToService } from '../../services/productService';
 
 jest.mock('../../services/productService');
 
@@ -16,6 +16,7 @@ describe('ProductController', () => {
     expect(fetchProducts).toHaveBeenCalled();
     expect(result).toEqual(products);
   });
+
   it('should call the updateProduct service with correct parameters', async () => {
     const id = 1;
     const newData = { _codProduct: '123', name: 'Updated Product' };
@@ -29,6 +30,20 @@ describe('ProductController', () => {
 
     expect(updateProduct).toHaveBeenCalledWith(id, expectedData);
     expect(result).toEqual({ id, ...expectedData });
+  });
+
+  it('should call the addProduct service with correct parameters', async () => {
+    const product = { _codProduct: '123', name: 'New Product', category: 'Category', expirationDate: '2022-12-31', type: 'Type' };
+    const expectedData = { name: 'New Product', category: 'Category', expirationDate: '2022-12-31', type: 'Type' };
+
+    addProductToService.mockImplementation(async (data) => {
+      return { id: 3, ...data };
+    });
+
+    const result = await addProduct(product);
+
+    expect(addProductToService).toHaveBeenCalledWith(expectedData);
+    expect(result).toEqual({ id: 3, ...expectedData });
   });
 
   it('should call the removeProduct service with correct parameters', async () => {

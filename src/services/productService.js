@@ -34,6 +34,22 @@ export const updateProduct = async (id, newData) => {
   }
 };
 
+export const addProduct = async (product) => {
+  try {
+    const response = await fetch(`${API_URL}/products/create`, {
+      method: 'POST',
+      headers: getAuthHeaders(),
+      body: JSON.stringify(product),
+    });
+    if (!response.ok) throw new Error('Network response was not ok');
+    const data = await response.json();
+    return new ProductModel(data.id, data.name, data.category, data.expirationDate, data.type);
+  } catch (error) {
+    console.error('Error adding product:', error);
+    throw error;
+  }
+};
+
 export const removeProduct = async (id) => {
   try {
     const response = await fetch(`${API_URL}/products/${id}`, {

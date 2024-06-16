@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { getProducts, saveProduct, deleteProduct  } from '../controllers/ProductController';
+import { getProducts, saveProduct, deleteProduct, addProduct  } from '../controllers/ProductController';
 import ProductList from './Forms/ProductList';
 import ProductEditForm from './Forms/ProductEditForm';
+import ProductModel from '../models/productModel';
 
 const Product = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [editingProduct, setEditingProduct] = useState(null);
+  const [addingProduct, setAddingProduct] = useState(false);
 
   const loadProducts = async () => {
     try {
@@ -28,9 +30,18 @@ const Product = () => {
     setEditingProduct(product);
   };
 
-  const handleSave = async (editedProduct) => {
+  const handleAdd = () => {
+    setAddingProduct(true);
+  };
+
+  const handleSave = async (product) => {
     try {
-      await saveProduct(editedProduct._codProduct, editedProduct);
+      if (addingProduct) {
+        await addProduct(product);
+        setAddingProduct(false);
+      } else {
+        await saveProduct(product._codProduct, product);
+      }
       loadProducts();
       setEditingProduct(null);
     } catch (error) {
@@ -60,10 +71,12 @@ const Product = () => {
   if (error) {
     return <div>Error: {error.message}</div>;
   }
-  if (editingProduct) {
+  if (addingProduct) {
+    return <ProductEditForm product={new ProductModel()} onSave={handleSave} onCancel={handleCancel} />;
+  } else if (editingProduct) {
     return <ProductEditForm product={editingProduct} onSave={handleSave} onCancel={handleCancel} />;
   } else {
-    return <ProductList products={products} onEdit={handleEdit} onDelete={handleDelete} onSave={handleSave} />;
+    return <ProductList products={products} onAdd={handleAdd} onEdit={handleEdit} onDelete={handleDelete} onSave={handleSave} />;
   }
 };
 

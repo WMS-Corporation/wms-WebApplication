@@ -1,4 +1,4 @@
-import { fetchProducts, updateProduct, removeProduct } from '../../services/productService';
+import { fetchProducts, updateProduct, removeProduct, addProduct } from '../../services/productService';
 import ProductModel from '../../models/productModel';
 import { API_URL } from '../../config';
 import fetchMock from 'jest-fetch-mock';
@@ -66,6 +66,24 @@ test('updateProduct › should update a product and return the updated ProductMo
         }),
     });
 
+    expect(data).toEqual(new ProductModel(mockData.id, mockData.name, mockData.category, mockData.expirationDate, mockData.type));
+});
+
+
+test('addProduct › should add a product and return the added product', async () => {
+    const mockData = { id: '3', name: 'New Product', category: 'New Category', expirationDate: '2023-01-01', type: 'New Type' };
+    fetchMock.mockResponseOnce(JSON.stringify(mockData), { status: 200 });
+
+    const data = await addProduct(mockData);
+
+    expect(fetchMock).toHaveBeenCalledWith(`${API_URL}/products/create`, {
+        method: 'POST',
+        headers: {
+            'Authorization': 'Bearer token',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(mockData)
+    });
     expect(data).toEqual(new ProductModel(mockData.id, mockData.name, mockData.category, mockData.expirationDate, mockData.type));
 });
 
