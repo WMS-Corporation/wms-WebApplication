@@ -4,6 +4,8 @@ import { AuthProvider } from './contexts/AuthContext';
 import PrivateRoute from './utils/PrivateRoute';
 import Home from './components/Home';
 import Product from './components/Product';
+import Task from './components/Task';
+// import Order from './components/Order';
 import Login from './components/Login';
 import './App.css';
 import Layout from "./components/Layout";
@@ -19,6 +21,8 @@ const AppContent = () => {
                     element={
                         <Layout>
                             <Routes>
+                                <Route path="/tasks" element={<PrivateRoute><Task /></PrivateRoute>} />
+                                {/* <Route path="/orders" element={<PrivateRoute><Order /></PrivateRoute>} /> */}
                                 <Route path="/products" element={<PrivateRoute><Product /></PrivateRoute>} />
                                 <Route path="/home" element={<PrivateRoute><Home /></PrivateRoute>} />
                                 <Route path="*" element={<Navigate to="/home" replace />} />
