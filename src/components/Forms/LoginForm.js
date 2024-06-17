@@ -47,7 +47,7 @@ const LoginForm = ({ onLogin, setIsRegistering }) => {
               </div>
           </form>
           {errors && <div className="error">{errors.message}</div>}
-          <button onClick={handleLogin} disabled={loading}>Login</button>
+          <button className="btn-login" onClick={handleLogin} disabled={loading}>Login</button>
           <div className="register-link">
               <p>Don&apos;t have an account? <a onClick={() => setIsRegistering(true)} onKeyPress={(e) => {
                   if (e.key === 'Enter' || e.key === ' ') {

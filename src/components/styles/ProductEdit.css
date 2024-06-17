@@ -1,0 +1,115 @@
+.edit-page{
+    background: #fff;
+    border-radius: 1vw;
+    border: 1px solid #DCDFE8;
+    box-shadow: none;
+    margin-left: 2vw;
+    margin-top: 12vh;
+    margin-right: 2vw;
+    height: 65vh;
+}
+
+.header-edit{
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    display: flex;
+    background: transparent;
+    border-radius: 0;
+    -ms-flex-align: center !important;
+    border: 0;
+    border-bottom: 1px solid #DCDFE8;
+}
+
+.header-edit h1{
+    margin-top: 2vh;
+    margin-left: 2vw;
+    font-weight: 600;
+    font-size: 2vw;
+    color: gray;
+}
+
+.body-edit{
+    padding: 2vw;
+    height: 49vh;
+}
+
+.content-edit{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    flex-wrap: wrap;
+    margin-right: -1.5vw;
+    margin-left: -1.5vw;
+}
+
+.col-md-6{
+    position: relative;
+    width: 100%;
+    padding-right: 1.5vw;
+    padding-left: 1.5vw;
+    max-width: 90%;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+}
+
+label{
+    color: #01041b;
+    display: inline-block;
+    margin-bottom: 0.5rem;
+}
+
+.form-control{
+    height: 6vh;
+    line-height: 4.5vh;
+    background: #ffffff;
+    border: 1px solid #DCDFE8;
+    font-size: 1.4vw;
+    color: #676E8A;
+    border-radius: 1vw;
+    box-shadow: none;
+    display: block;
+    width: 100%;
+    padding: 0.375rem 0.75rem;
+    font-weight: 400;
+    background-clip: padding-box;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.btn-Submit{
+    display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+    user-select: none;
+    font-size: 2vw;
+    border-radius: 1vw;
+    color: #fff;
+    background-color: #32BDEA;
+    border-color: #32BDEA;
+    width: 10vw;
+    margin-top: 5vh;
+    cursor: pointer;
+}
+
+.btn-Cancel{
+    color: #fff;
+    background-color: #E08DB4;
+    border-color: #E08DB4;
+    display: inline-block;
+    font-size: 2vw;
+    text-align: center;
+    vertical-align: middle;
+    user-select: none;
+    border-radius: 1vw;
+    width: 10vw;
+    margin-left: 2vw;
+    margin-top: 5vh;
+    cursor: pointer;
+}
+
+form{
+    height: 52vh;
+}

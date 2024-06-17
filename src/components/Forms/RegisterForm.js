@@ -70,7 +70,7 @@ const RegisterForm = ({ onRegister, setIsRegistering }) => {
                 </div>
             </form>
             {errors && <div className="error">{errors.message}</div>}
-            <button onClick={handleRegister} disabled={loading}>Register</button>
+            <button className="btn-register" onClick={handleRegister} disabled={loading}>Register</button>
             <div className="login-link">
                 <p>Back to <a onClick={() => setIsRegistering(false)} onKeyPress={(e) => {
                     if (e.key === 'Enter' || e.key === ' ') {

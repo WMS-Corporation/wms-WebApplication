@@ -9,7 +9,7 @@ const ProductList = ({ products, onAdd, onEdit, onDelete, onSave }) => {
     <div className="product-list">
       <div className="header-list">
         <h1>Product List</h1>
-        <button className="btn btn-primary add-list" onClick={onAdd}>
+        <button className="btn-Add" onClick={onAdd}>
           Add Product
         </button>
       </div>

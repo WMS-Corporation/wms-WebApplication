@@ -25,7 +25,10 @@ export const updateProduct = async (id, newData) => {
       headers: getAuthHeaders(),
       body: JSON.stringify(newData),
     });
-    if (!response.ok) throw new Error('Network response was not ok');
+    if (!response.ok){
+      const errorResponse = await response.json();
+      throw new Error(errorResponse.message)
+    }
     const data = await response.json();
     return new ProductModel(data.id, data.name, data.category, data.expirationDate, data.type);
   } catch (error) {
@@ -41,7 +44,10 @@ export const addProduct = async (product) => {
       headers: getAuthHeaders(),
       body: JSON.stringify(product),
     });
-    if (!response.ok) throw new Error('Network response was not ok');
+    if (!response.ok){
+      const errorResponse = await response.json();
+      throw new Error(errorResponse.message)
+    }
     const data = await response.json();
     return new ProductModel(data.id, data.name, data.category, data.expirationDate, data.type);
   } catch (error) {
@@ -56,7 +62,10 @@ export const removeProduct = async (id) => {
       method: 'DELETE',
       headers: getAuthHeaders(),
     });
-    if (!response.ok) throw new Error('Network response was not ok');
+    if (!response.ok){
+      const errorResponse = await response.json();
+      throw new Error(errorResponse.message)
+    }
     return id;
   } catch (error) {
     console.error('Error deleting product:', error);

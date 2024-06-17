@@ -3,6 +3,7 @@ import { getProducts, saveProduct, deleteProduct, addProduct  } from '../control
 import ProductList from './Forms/ProductList';
 import ProductEditForm from './Forms/ProductEditForm';
 import ProductModel from '../models/productModel';
+import ProductAddForm from "./Forms/ProductAddForm";
 
 const Product = () => {
   const [products, setProducts] = useState([]);
@@ -45,12 +46,14 @@ const Product = () => {
       loadProducts();
       setEditingProduct(null);
     } catch (error) {
-      setError(error);
+      setError(error.message);
     }
   };
 
   const handleCancel = () => {
     setEditingProduct(null);
+    setAddingProduct(false);
+    setError(null)
   };
 
   const handleDelete = async (product) => {    
@@ -68,11 +71,8 @@ const Product = () => {
     return <div>Loading...</div>;
   }
 
-  if (error) {
-    return <div>Error: {error.message}</div>;
-  }
   if (addingProduct) {
-    return <ProductEditForm product={new ProductModel()} onSave={handleSave} onCancel={handleCancel} />;
+    return <ProductAddForm product={new ProductModel()} onSave={handleSave} onCancel={handleCancel} error={error}/>;
   } else if (editingProduct) {
     return <ProductEditForm product={editingProduct} onSave={handleSave} onCancel={handleCancel} />;
   } else {
