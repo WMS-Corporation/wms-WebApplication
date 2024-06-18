@@ -17,6 +17,22 @@
     background: #78C091;
 }
 
+.view{
+    width: 3vw;
+    height: 4vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 1vw;
+    background: #7EE2FF;
+}
+
+.view-icon{
+    color: white;
+    font-size: 1vw;
+    cursor: pointer;
+}
+
 .edit-icon{
     color: white;
     font-size: 1vw;

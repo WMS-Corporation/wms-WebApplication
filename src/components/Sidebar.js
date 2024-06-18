@@ -6,9 +6,26 @@ import { HiTemplate } from "react-icons/hi";
 import { FaCube } from "react-icons/fa6";
 import './styles/Sidebar.css';
 import PropTypes from "prop-types";
+import {useAuth} from "../contexts/AuthContext";
+import {useApplicationGlobal} from "../contexts/AppGlobalContext";
 
 const Sidebar = ({isOpen}) => {
 
+  const {
+    setEditingTask,
+    setAddingTask,
+    setViewProductDetailTask,
+    setEditingProduct,
+    setAddingProduct
+  } = useApplicationGlobal() || {};
+
+  const handleLinkClick = () => {
+    setViewProductDetailTask(null);
+    setAddingTask(false);
+    setEditingTask(null);
+    setEditingProduct(null);
+    setAddingProduct(false);
+  };
   return (
       <div className='navbar'>
         <nav className={isOpen ? 'sidebar-menu' : 'nav-menu'}>
@@ -20,19 +37,19 @@ const Sidebar = ({isOpen}) => {
               </Link>
             </li>
             <li className="sidebar-item">
-              <Link to="/products">
+              <Link to="/products" onClick={handleLinkClick}>
                 <HiTemplate/>
                 <span>Products</span>
               </Link>
             </li>
             <li className="sidebar-item">
-              <Link to="/tasks">
+              <Link to="/tasks" onClick={handleLinkClick}>
                 <FaTasks/>
                 <span>Tasks</span>
               </Link>
             </li>
             <li className="sidebar-item">
-              <Link to="/orders">
+              <Link to="/orders" >
                 <FaClipboardList/>
                 <span>Orders</span>
               </Link>

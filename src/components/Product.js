@@ -4,13 +4,19 @@ import ProductList from './Forms/ProductList';
 import ProductEditForm from './Forms/ProductEditForm';
 import ProductModel from '../models/productModel';
 import ProductAddForm from "./Forms/ProductAddForm";
+import {useApplicationGlobal} from "../contexts/AppGlobalContext";
 
 const Product = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [editingProduct, setEditingProduct] = useState(null);
-  const [addingProduct, setAddingProduct] = useState(false);
+
+  const {
+    editingProduct,
+    setEditingProduct,
+    addingProduct,
+    setAddingProduct
+  } = useApplicationGlobal() || {};
 
   const loadProducts = async () => {
     try {

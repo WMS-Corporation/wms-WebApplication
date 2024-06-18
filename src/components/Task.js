@@ -4,13 +4,22 @@ import TaskList from './Forms/TaskList';
 import TaskEditForm from './Forms/TaskEditForm';
 import { TaskModel } from '../models/taskModel';
 import TaskAddForm from "./Forms/TaskAddForm";
+import TaskProductDetail from "./Forms/TaskProductDetails";
+import {useApplicationGlobal} from "../contexts/AppGlobalContext";
 
 const Task = () => {
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [editingTask, setEditingTask] = useState(null);
-  const [addingTask, setAddingTask] = useState(false);
+
+  const {
+    editingTask,
+    setEditingTask,
+    addingTask,
+    setAddingTask,
+    viewProductDetailTask,
+    setViewProductDetailTask,
+  } = useApplicationGlobal() || {};
 
   const loadTasks = async () => {
     try {
@@ -30,6 +39,10 @@ const Task = () => {
   const handleEdit = (task) => {
     setEditingTask(task);
   };
+  
+  const handleView = (task) => {
+    setViewProductDetailTask(task)
+  }
 
   const handleAdd = () => {
     setAddingTask(true);
@@ -45,6 +58,7 @@ const Task = () => {
       }
       loadTasks();
       setEditingTask(null);
+      setViewProductDetailTask(null)
     } catch (error) {
       setError(error.message);
     }
@@ -53,6 +67,7 @@ const Task = () => {
   const handleCancel = () => {
     setEditingTask(null);
     setAddingTask(false);
+    setViewProductDetailTask(null)
     setError(null)
   };
 
@@ -76,7 +91,7 @@ const Task = () => {
   } else if (editingTask) {
     return <TaskEditForm task={editingTask} onSave={handleSave} onCancel={handleCancel} />;
   } else {
-    return <TaskList tasks={tasks} onAdd={handleAdd} onEdit={handleEdit} onDelete={handleDelete} onSave={handleSave} />;
+    return <TaskList tasks={tasks} onAdd={handleAdd} onEdit={handleEdit} onDelete={handleDelete} onSave={handleSave} onView={handleView} viewProductDetailTask={viewProductDetailTask} />;
   }
 };
 

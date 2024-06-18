@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 import { TaskModel } from '../../models/taskModel';
 import TaskItem from './TaskItem';
 import '../styles/TaskList.css';
+import TaskProductDetails from "./TaskProductDetails";
 
-const TaskList = ({ tasks, onAdd, onEdit, onDelete, onSave }) => {
+const TaskList = ({ tasks, onAdd, onEdit, onDelete, onSave, onView, viewProductDetailTask }) => {
     return (
         <div className="task-list">
             <div className="header-list">
@@ -14,25 +15,42 @@ const TaskList = ({ tasks, onAdd, onEdit, onDelete, onSave }) => {
                 </button>
             </div>
             <div className="table-task">
-                <table>
-                    <thead>
+                {viewProductDetailTask && viewProductDetailTask._productList ? (
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Product Code</th>
+                            <th>From</th>
+                            <th>To</th>
+                            <th>Quantity</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {viewProductDetailTask._productList.map((product) => (
+                            <TaskProductDetails key={product._codProduct} product={product}/>
+                        ))}
+                        </tbody>
+                    </table>
+                ) : (
+                    <table>
+                        <thead>
                         <tr>
                             <th>Operator Code</th>
                             <th>Date</th>
                             <th>Type</th>
                             <th>Status</th>
-                            <th>Product List</th>
-                            <th>Task Code</th>
                             <th>Action</th>
                         </tr>
-                    </thead>
-                    <tbody>
+                        </thead>
+                        <tbody>
                         {tasks.map((task) => (
                             <TaskItem key={task._codTask} task={task} onEdit={onEdit} onDelete={onDelete}
-                                onSave={onSave} />
+                                      onSave={onSave} onView={onView}/>
                         ))}
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
+                )}
+
             </div>
         </div>
     );
@@ -44,6 +62,8 @@ TaskList.propTypes = {
     onDelete: PropTypes.func.isRequired,
     onSave: PropTypes.func.isRequired,
     onAdd: PropTypes.func.isRequired,
+    onView: PropTypes.func.isRequired,
+    viewProductDetailTask: PropTypes.instanceOf(TaskModel)
 };
 
 export default TaskList;

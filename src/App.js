@@ -9,6 +9,7 @@ import Task from './components/Task';
 import Login from './components/Login';
 import './App.css';
 import Layout from "./components/Layout";
+import {AppGlobalProvider} from "./contexts/AppGlobalContext";
 
 const AppContent = () => {
     return (
@@ -38,9 +39,11 @@ const AppContent = () => {
 const App = () => {
     return (
         <AuthProvider>
-            <BrowserRouter>
-                <AppContent />
-            </BrowserRouter>
+            <AppGlobalProvider>
+                <BrowserRouter>
+                    <AppContent />
+                </BrowserRouter>
+            </AppGlobalProvider>
         </AuthProvider>
     );
 };
