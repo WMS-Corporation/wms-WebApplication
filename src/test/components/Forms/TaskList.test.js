@@ -12,7 +12,7 @@ describe('TaskList Component', () => {
     const viewProductDetailTask = new TaskModel('Operator3', '2024-06-17', 'Type3', 'Status3', [
         { _codProduct: 'Product1', from: 'Location1', to: 'Location2', quantity: 10 },
         { _codProduct: 'Product2', from: 'Location3', to: 'Location4', quantity: 20 }
-    ],'_codTask3');
+    ], '_codTask3');
 
     const mockOnAdd = jest.fn();
     const mockOnEdit = jest.fn();
