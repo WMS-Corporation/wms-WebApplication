@@ -63,8 +63,10 @@ const ProductEditForm = ({ product, onSave, onCancel }) => {
                           </div>
                       </div>
                   </div>
-                  <button className="btn-Submit" type="submit">Save</button>
-                  <button className="btn-Cancel" type="button" onClick={onCancel}>Cancel</button>
+                  <div className="button-div">
+                      <button className="btn-Submit" type="submit">Save</button>
+                      <button className="btn-Cancel" type="button" onClick={onCancel}>Cancel</button>
+                  </div>
               </form>
           </div>
       </div>

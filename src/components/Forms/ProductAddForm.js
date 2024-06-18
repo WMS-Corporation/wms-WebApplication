@@ -63,9 +63,12 @@ const ProductAddForm = ({ product, onSave, onCancel, error }) => {
                             </div>
                         </div>
                     </div>
-                    {error && <div className="error">Please ensure all required fields are included</div>}
-                    <button className="btn-Submit" type="submit">Save</button>
-                    <button className="btn-Cancel" type="button" onClick={onCancel}>Cancel</button>
+                    {error && <div className="error-form">Please ensure all required fields are included</div>}
+                    <div className="button-div">
+                        <button className="btn-Submit" type="submit">Save</button>
+                        <button className="btn-Cancel" type="button" onClick={onCancel}>Cancel</button>
+                    </div>
+
                 </form>
             </div>
         </div>
