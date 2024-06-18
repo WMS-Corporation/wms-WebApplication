@@ -9,6 +9,9 @@ export const AppGlobalProvider = ({ children }) => {
     const [editingTask, setEditingTask] = useState(null);
     const [addingTask, setAddingTask] = useState(false);
     const [viewProductDetailTask, setViewProductDetailTask] = useState(null);
+    const [editingOrder, setEditingOrder] = useState(null);
+    const [addingOrder, setAddingOrder] = useState(false);
+    const [viewProductDetailOrder, setViewProductDetailOrder] = useState(null);
 
     return (
         <AppGlobalContext.Provider
@@ -23,6 +26,12 @@ export const AppGlobalProvider = ({ children }) => {
                 setAddingTask,
                 viewProductDetailTask,
                 setViewProductDetailTask,
+                editingOrder,
+                setEditingOrder,
+                addingOrder,
+                setAddingOrder,
+                viewProductDetailOrder,
+                setViewProductDetailOrder,
             }}
         >
             {children}
@@ -34,6 +43,4 @@ AppGlobalProvider.propTypes = {
     children: PropTypes.node.isRequired,
 };
 
-export const useApplicationGlobal = () => {
-    return useContext(AppGlobalContext);
-};
+export const useApplicationGlobal = () => useContext(AppGlobalContext);

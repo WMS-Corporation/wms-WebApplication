@@ -1,0 +1,70 @@
+.order-list {
+    display: flex;
+    flex-direction: column;
+    padding: 2vw;
+}
+tbody tr{
+    padding: 2vw;
+    text-align: center;
+}
+tbody tr td{
+    padding: 1vw;
+    border-bottom: 1px solid #DCDFE8;
+}
+.header-list{
+    width: 100%;
+    margin-bottom: 1.5rem;
+    align-items: center;
+    justify-content: space-between;
+    display: flex;
+}
+.header-list h1{
+    font-weight: 600;
+    font-size: 2vw;
+    margin-top: 0;
+    color: gray;
+}
+.btn:not(:disabled):not(.disabled) {
+    cursor: pointer;
+}
+.btn-Add {
+    color: #fff;
+    background-color: #32BDEA;
+    border-color: #32BDEA;
+    box-shadow: unset;
+    margin-top: 0;
+    width: 10vw;
+    display: inline-block;
+    font-family: "Lato", sans-serif;
+    font-weight: 400;
+    user-select: none;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    text-align: center;
+    cursor: pointer;
+    font-size: 1.5vw;
+}
+table{
+    clear: both;
+    margin-top: 1vh !important;
+    margin-bottom: 1vh !important;
+    width: 100%;
+    border-collapse: separate !important;
+    border-spacing: 0;
+    border: 1px solid #DCDFE8;
+    border-radius: 10px;
+    overflow: hidden;
+    color: #110A57;
+}
+thead tr{
+    background: #f4f5fa;
+    text-align: center;
+}
+thead tr th{
+    padding: 1vw;
+}
+th{
+    text-align: center;
+    border-bottom: 1px solid #DCDFE8;
+}

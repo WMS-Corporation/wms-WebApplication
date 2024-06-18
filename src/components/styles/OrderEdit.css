@@ -1,0 +1,112 @@
+.edit-order-page {
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.header-edit {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.body-order-edit {
+    display: flex;
+    justify-content: center;
+}
+
+.form-content {
+    width: 100%;
+    max-width: 600px;
+}
+
+.order-section,
+.product-section {
+    margin-bottom: 20px;
+}
+
+.content-section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.col-md-6 {
+    width: 100%;
+    max-width: 290px;
+    margin-bottom: 10px;
+}
+
+.form-group {
+    width: 100%;
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.btn-AddProduct {
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.product-list-section {
+    margin-top: 20px;
+}
+
+.table-section {
+    width: 100%;
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table th,
+table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+.delete-icon {
+    cursor: pointer;
+}
+
+.error-form-order {
+    color: red;
+    margin-bottom: 10px;
+}
+
+.button-div {
+    margin-top: 3vh;
+    display: flex;
+    flex-direction: row;
+}
+
+.btn-Submit-order,
+.btn-Cancel-order {
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-Submit-order {
+    background-color: #28a745;
+    color: white;
+    cursor: pointer;
+}
+
+.btn-Cancel-order {
+    background-color: #dc3545;
+    color: white;
+    margin-left: 2vw;
+    cursor: pointer;
+}

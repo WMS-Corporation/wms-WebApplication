@@ -16,7 +16,10 @@ const Sidebar = ({isOpen}) => {
     setAddingTask,
     setViewProductDetailTask,
     setEditingProduct,
-    setAddingProduct
+    setAddingProduct,
+    setEditingOrder,
+    setAddingOrder,
+    setViewProductDetailOrder,
   } = useApplicationGlobal() || {};
 
   const handleLinkClick = () => {
@@ -25,6 +28,9 @@ const Sidebar = ({isOpen}) => {
     setEditingTask(null);
     setEditingProduct(null);
     setAddingProduct(false);
+    setEditingOrder(null);
+    setAddingOrder(false);
+    setViewProductDetailOrder(null);
   };
   return (
       <div className='navbar'>
@@ -49,7 +55,7 @@ const Sidebar = ({isOpen}) => {
               </Link>
             </li>
             <li className="sidebar-item">
-              <Link to="/orders" >
+              <Link to="/orders" onClick={handleLinkClick}>
                 <FaClipboardList/>
                 <span>Orders</span>
               </Link>
