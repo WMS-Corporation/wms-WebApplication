@@ -4,7 +4,6 @@ import TaskList from './Forms/TaskList';
 import TaskEditForm from './Forms/TaskEditForm';
 import { TaskModel } from '../models/taskModel';
 import TaskAddForm from "./Forms/TaskAddForm";
-import TaskProductDetail from "./Forms/TaskProductDetails";
 import {useApplicationGlobal} from "../contexts/AppGlobalContext";
 
 const Task = () => {
@@ -59,6 +58,7 @@ const Task = () => {
       loadTasks();
       setEditingTask(null);
       setViewProductDetailTask(null)
+      setError(null)
     } catch (error) {
       setError(error.message);
     }
@@ -89,7 +89,7 @@ const Task = () => {
   if (addingTask) {
     return <TaskAddForm task={new TaskModel()} onSave={handleSave} onCancel={handleCancel} error={error}/>;
   } else if (editingTask) {
-    return <TaskEditForm task={editingTask} onSave={handleSave} onCancel={handleCancel} />;
+    return <TaskEditForm task={editingTask} onSave={handleSave} onCancel={handleCancel} error={error}/>;
   } else {
     return <TaskList tasks={tasks} onAdd={handleAdd} onEdit={handleEdit} onDelete={handleDelete} onSave={handleSave} onView={handleView} viewProductDetailTask={viewProductDetailTask} />;
   }

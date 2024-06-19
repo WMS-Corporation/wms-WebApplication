@@ -8,9 +8,9 @@ import OrderProductDetails from "./OrderProductDetails";
 const OrderList = ({ orders, onAdd, onEdit, onDelete, onSave, onView, viewProductDetailOrder }) => {
     return (
         <div className="order-list">
-            <div className="header-list">
+            <div className="header-list-order">
                 <h1>Order List</h1>
-                <button className="btn-Add" onClick={onAdd}>
+                <button className="btn-Add-order" onClick={onAdd}>
                     Add Order
                 </button>
             </div>

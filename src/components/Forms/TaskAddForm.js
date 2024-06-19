@@ -8,12 +8,11 @@ import {getProducts} from "../../controllers/ProductController";
 const TaskAddForm = ({ task, onSave, onCancel, error }) => {
     const [editedTask, setEditedTask] = React.useState(task);
     const [product, setProduct] = React.useState({
-        productCode: '',
-        from: '',
-        to: '',
-        quantity: ''
+        _codProduct: '',
+        _from: '',
+        _to: '',
+        _quantity: ''
     });
-    const [products, setProducts] = React.useState([]);
     const [availableProducts, setAvailableProducts] = React.useState([]);
 
     React.useEffect(() => {
@@ -43,7 +42,7 @@ const TaskAddForm = ({ task, onSave, onCancel, error }) => {
         const { name, value } = event.target;
         setProduct(prevState => ({
             ...prevState,
-            [name]: value
+            [name]: value === '' ? null : value
         }));
     };
 
@@ -53,12 +52,20 @@ const TaskAddForm = ({ task, onSave, onCancel, error }) => {
     };
 
     const addProduct = () => {
-        setProducts([...products, product]);
-        setProduct({ productCode: '', from: '', to: '', quantity: '' });
+        const updatedProductList = [...(editedTask._productList || []), product];
+        setEditedTask({
+            ...editedTask,
+            _productList: updatedProductList
+        });
+        setProduct({ _codProduct: '', _from: '', _to: '', _quantity: '' });
     };
 
     const deleteProduct = (index) => {
-        setProducts(products.filter((_, i) => i !== index));
+        const updatedProductList = editedTask._productList.filter((_, i) => i !== index);
+        setEditedTask({
+            ...editedTask,
+            _productList: updatedProductList
+        });
     };
 
     return (
@@ -90,16 +97,25 @@ const TaskAddForm = ({ task, onSave, onCancel, error }) => {
                                 <div className="col-md-6">
                                     <div className="form-group">
                                         <label>Type *</label>
-                                        <input className="form-control" type="text" name="_type"
-                                               value={editedTask._type}
-                                               onChange={handleTaskChange}/>
+                                        <select className="form-control" name="_type" value={editedTask._type}
+                                                onChange={handleTaskChange}>
+                                            <option value="">Select type</option>
+                                            <option value="Loading">Loading</option>
+                                            <option value="Unloading">Unloading</option>
+                                        </select>
                                     </div>
                                 </div>
                                 <div className="col-md-6">
                                     <div className="form-group">
                                         <label>Status*</label>
-                                        <input className="form-control" type="text" name="_status"
-                                               value={editedTask._status} onChange={handleTaskChange}/>
+                                        <select className="form-control" name="_status" value={editedTask._status}
+                                                onChange={handleTaskChange}>
+                                            <option value="">Select status</option>
+                                            <option value="Pending">Pending</option>
+                                            <option value="Completed">Completed</option>
+                                            <option value="Suspended">Suspended</option>
+                                            <option value="Processing">Processing</option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
@@ -108,12 +124,12 @@ const TaskAddForm = ({ task, onSave, onCancel, error }) => {
                             <div className="content-section">
                                 <div className="col-md-6">
                                     <div className="form-group">
-                                        <label>Product Code*</label>
-                                        <select className="form-control" name="productCode" value={product.productCode}
+                                    <label>Product Code*</label>
+                                        <select className="form-control" name="_codProduct" value={product._codProduct}
                                                 onChange={handleProductChange}>
                                             <option value="">Select a product</option>
                                             {availableProducts.map(prod => (
-                                                <option key={prod.code} value={prod.code}>{prod.name}</option>
+                                                <option key={prod._codProduct} value={prod._codProduct}>{prod._codProduct}</option>
                                             ))}
                                         </select>
                                     </div>
@@ -121,22 +137,22 @@ const TaskAddForm = ({ task, onSave, onCancel, error }) => {
                                 <div className="col-md-6">
                                     <div className="form-group">
                                         <label>From*</label>
-                                        <input className="form-control" type="text" name="from" value={product.from}
+                                        <input className="form-control" type="text" name="_from" value={product._from}
                                                onChange={handleProductChange}/>
                                     </div>
                                 </div>
                                 <div className="col-md-6">
                                     <div className="form-group">
                                         <label>To*</label>
-                                        <input className="form-control" type="text" name="to" value={product.to}
+                                        <input className="form-control" type="text" name="_to" value={product._to}
                                                onChange={handleProductChange}/>
                                     </div>
                                 </div>
                                 <div className="col-md-6">
                                     <div className="form-group">
                                         <label>Quantity*</label>
-                                        <input className="form-control" type="number" name="quantity"
-                                               value={product.quantity} onChange={handleProductChange}/>
+                                        <input className="form-control" type="number" name="_quantity"
+                                               value={product._quantity} onChange={handleProductChange}/>
                                     </div>
                                 </div>
                                 <button type="button" onClick={addProduct} className="btn-AddProduct">Add Product
@@ -158,12 +174,12 @@ const TaskAddForm = ({ task, onSave, onCancel, error }) => {
                                 </tr>
                                 </thead>
                                 <tbody>
-                                {products.map((prod, index) => (
+                                {(editedTask._productList || []).map((prod, index) => (
                                     <tr key={index}>
-                                        <td>{prod.productCode}</td>
-                                        <td>{prod.from}</td>
-                                        <td>{prod.to}</td>
-                                        <td>{prod.quantity}</td>
+                                        <td>{prod._codProduct}</td>
+                                        <td>{prod._from}</td>
+                                        <td>{prod._to}</td>
+                                        <td>{prod._quantity}</td>
                                         <td className="action">
                                             <div className="delete"><MdDeleteOutline className="delete-icon"
                                                                                      onClick={() => deleteProduct(index)}/>
@@ -175,7 +191,7 @@ const TaskAddForm = ({ task, onSave, onCancel, error }) => {
                             </table>
                         </div>
                     </div>
-                    {error && <div className="error-form-task">Please ensure all required fields are included</div>}
+                    {error && <div className="error-form-task">{error}</div>}
                     <div className="button-div">
                         <button className="btn-Submit-task" type="submit">Save</button>
                         <button className="btn-Cancel-task" type="button" onClick={onCancel}>Cancel</button>

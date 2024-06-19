@@ -4,7 +4,7 @@
     box-sizing: border-box;
 }
 
-.header-edit {
+.header-edit-order {
     text-align: center;
     margin-bottom: 20px;
 }
@@ -14,39 +14,39 @@
     justify-content: center;
 }
 
-.form-content {
+.form-content-order {
     width: 100%;
     max-width: 600px;
 }
 
 .order-section,
-.product-section {
+.product-section-order {
     margin-bottom: 20px;
 }
 
-.content-section {
+.content-section-order {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
 }
 
-.col-md-6 {
+.col-md-6-order {
     width: 100%;
     max-width: 290px;
     margin-bottom: 10px;
 }
 
-.form-group {
+.form-group-order {
     width: 100%;
 }
 
-.form-control {
+.form-control-order {
     width: 100%;
     padding: 10px;
     box-sizing: border-box;
 }
 
-.btn-AddProduct {
+.btn-AddProduct-order {
     margin-top: 10px;
     padding: 10px 20px;
     background-color: #007bff;
@@ -55,11 +55,11 @@
     cursor: pointer;
 }
 
-.product-list-section {
+.product-list-section-order {
     margin-top: 20px;
 }
 
-.table-section {
+.table-section-order {
     width: 100%;
     overflow-x: auto;
 }
@@ -85,7 +85,7 @@ table td {
     margin-bottom: 10px;
 }
 
-.button-div {
+.button-div-order {
     margin-top: 3vh;
     display: flex;
     flex-direction: row;

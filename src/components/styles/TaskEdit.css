@@ -5,8 +5,8 @@
     box-shadow: none;
     margin-left: 2vw;
     margin-top: 6vh;
-    margin-bottom: 6vh;
     margin-right: 2vw;
+    margin-bottom: 6vh;
     display: flex;
     flex-direction: column;
 }
@@ -30,7 +30,7 @@
 }
 .body-task-edit{
     padding: 2vw;
-    height: 100vh;
+    height: 120vh;
     display: flex;
     flex-direction: column;
     flex-grow: 1;
@@ -109,7 +109,8 @@ label{
 }
 
 .button-div{
-    margin-top: 3vh;
+    margin-top: 7vh;
+    justify-content: flex-start;
     display: flex;
     flex-direction: row;
 }

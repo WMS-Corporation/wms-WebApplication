@@ -11,14 +11,14 @@ tbody tr td{
     padding: 1vw;
     border-bottom: 1px solid #DCDFE8;
 }
-.header-list{
+.header-list-order{
     width: 100%;
     margin-bottom: 1.5rem;
     align-items: center;
     justify-content: space-between;
     display: flex;
 }
-.header-list h1{
+.header-list-order h1{
     font-weight: 600;
     font-size: 2vw;
     margin-top: 0;
@@ -27,7 +27,7 @@ tbody tr td{
 .btn:not(:disabled):not(.disabled) {
     cursor: pointer;
 }
-.btn-Add {
+.btn-Add-order {
     color: #fff;
     background-color: #32BDEA;
     border-color: #32BDEA;

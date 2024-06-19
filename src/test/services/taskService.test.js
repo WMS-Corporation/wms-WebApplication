@@ -77,7 +77,7 @@ test('addTask › should add a task and return the added task', async () => {
 
     const data = await addTask(mockData);
 
-    expect(fetchMock).toHaveBeenCalledWith(`${API_URL}/tasks/create`, {
+    expect(fetchMock).toHaveBeenCalledWith(`${API_URL}/tasks/assignment`, {
         method: 'POST',
         headers: {
             'Authorization': 'Bearer token',

@@ -38,13 +38,15 @@ export const updateTask = async (codTask, newData) => {
 
 export const addTask = async (task) => {
   try {
-    const response = await fetch(`${API_URL}/tasks/create`, {
+    console.log(task)
+    const response = await fetch(`${API_URL}/tasks/assignment`, {
       method: 'POST',
       headers: getAuthHeaders(),
       body: JSON.stringify(task),
     });
     if (!response.ok){
       const errorResponse = await response.json();
+      console.log(errorResponse)
       throw new Error(errorResponse.message)
     }
     const data = await response.json();
