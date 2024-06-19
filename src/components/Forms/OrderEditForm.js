@@ -72,7 +72,7 @@ const OrderEditForm = ({ order, onSave, onCancel, error }) => {
                 <h1>Add Order</h1>
             </div>
             <div className="body-order-edit">
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit} data-testid="order-edit-form" >
                     <div className="form-content-order">
                         <div className="order-section">
                             <div className="content-section-order">
@@ -80,7 +80,7 @@ const OrderEditForm = ({ order, onSave, onCancel, error }) => {
                                     <div className="form-group-order">
                                         <label>Date*</label>
                                         <input className="form-control-order" type="date" name="_date"
-                                               value={new Date(editedOrder._date).toISOString().split('T')[0]}
+                                               value={editedOrder._date && !isNaN(new Date(editedOrder._date)) ? new Date(editedOrder._date).toISOString().split('T')[0] : ''}
                                                onChange={handleOrderChange}/>
                                     </div>
                                 </div>

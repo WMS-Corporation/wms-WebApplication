@@ -14,7 +14,7 @@ const OrderItem = ({ order, onEdit, onDelete, onView }) => {
       <td>{order._status}</td>
       <td>{order._productList.length}</td>
       <td className="action">
-          <div className="view"><FaEye className="view-icon" onClick={() => onView(order)}/></div>
+          <div className="view"><FaEye data-testid="view-icon" className="view-icon" onClick={() => onView(order)}/></div>
           <div className="edit"><FiEdit2 className="edit-icon" onClick={() => onEdit(order)}/></div>
           <div className="delete"><MdDeleteOutline className="delete-icon" onClick={() => onDelete(order)}/></div>
       </td>
