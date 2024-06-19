@@ -5,7 +5,8 @@ import TaskItem from './TaskItem';
 import '../styles/TaskList.css';
 import TaskProductDetails from "./TaskProductDetails";
 
-const TaskList = ({ tasks, onAdd, onEdit, onDelete, onSave, onView, viewProductDetailTask }) => {
+const TaskList = ({ tasks, onAdd, onEdit, onDelete, onSave, onView, viewProductDetailTask, onError }) => {
+    onError(null)
     return (
         <div className="task-list">
             <div className="header-list">
@@ -63,6 +64,7 @@ TaskList.propTypes = {
     onSave: PropTypes.func.isRequired,
     onAdd: PropTypes.func.isRequired,
     onView: PropTypes.func.isRequired,
+    onError: PropTypes.func.isRequired,
     viewProductDetailTask: PropTypes.instanceOf(TaskModel)
 };
 

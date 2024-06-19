@@ -37,8 +37,9 @@ export const updateOrder = async (codOrder, newData) => {
 };
 
 export const addOrder = async (order) => {
+  console.log(order)
   try {
-    const response = await fetch(`${API_URL}/orders/create`, {
+    const response = await fetch(`${API_URL}/orders/generation`, {
       method: 'POST',
       headers: getAuthHeaders(),
       body: JSON.stringify(order),

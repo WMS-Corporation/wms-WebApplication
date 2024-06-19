@@ -86,9 +86,9 @@ const Order = () => {
     if (addingOrder) {
         return <OrderAddForm order={new OrderModel()} onSave={handleSave} onCancel={handleCancel} error={error} />;
     } else if (editingOrder) {
-        return <OrderEditForm order={editingOrder} onSave={handleSave} onCancel={handleCancel} />;
+        return <OrderEditForm order={editingOrder} onSave={handleSave} onCancel={handleCancel} error={error}/>;
     } else {
-        return <OrderList orders={orders} onAdd={handleAdd} onEdit={handleEdit} onDelete={handleDelete} onSave={handleSave} onView={handleView} viewProductDetailOrder={viewProductDetailOrder} />;
+        return <OrderList orders={orders} onAdd={handleAdd} onEdit={handleEdit} onDelete={handleDelete} onSave={handleSave} onView={handleView} viewProductDetailOrder={viewProductDetailOrder} onError={setError}/>;
     }
 };
 

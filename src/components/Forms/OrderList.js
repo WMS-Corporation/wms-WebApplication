@@ -5,7 +5,8 @@ import OrderItem from './OrderItem';
 import '../styles/OrderList.css';
 import OrderProductDetails from "./OrderProductDetails";
 
-const OrderList = ({ orders, onAdd, onEdit, onDelete, onSave, onView, viewProductDetailOrder }) => {
+const OrderList = ({ orders, onAdd, onEdit, onDelete, onSave, onView, viewProductDetailOrder, onError }) => {
+    onError(null)
     return (
         <div className="order-list">
             <div className="header-list-order">
@@ -61,6 +62,7 @@ OrderList.propTypes = {
     onSave: PropTypes.func.isRequired,
     onAdd: PropTypes.func.isRequired,
     onView: PropTypes.func.isRequired,
+    onError: PropTypes.func.isRequired,
     viewProductDetailOrder: PropTypes.instanceOf(OrderModel)
 };
 

@@ -8,10 +8,9 @@ import {getProducts} from "../../controllers/ProductController";
 const OrderAddForm = ({ order, onSave, onCancel, error }) => {
     const [editedOrder, setEditedOrder] = React.useState(order);
     const [product, setProduct] = React.useState({
-        productCode: '',
-        quantity: ''
+        _codProduct: '',
+        _quantity: ''
     });
-    const [products, setProducts] = React.useState([]);
     const [availableProducts, setAvailableProducts] = React.useState([]);
 
     React.useEffect(() => {
@@ -51,12 +50,20 @@ const OrderAddForm = ({ order, onSave, onCancel, error }) => {
     };
 
     const addProduct = () => {
-        setProducts([...products, product]);
-        setProduct({ productCode: '', quantity: '' });
+        const updatedProductList = [...(editedOrder._productList || []), product];
+        setEditedOrder({
+            ...editedOrder,
+            _productList: updatedProductList
+        });
+        setProduct({ _codProduct: '', _quantity: '' });
     };
 
     const deleteProduct = (index) => {
-        setProducts(products.filter((_, i) => i !== index));
+        const updatedProductList = editedOrder._productList.filter((_, i) => i !== index);
+        setEditedOrder({
+            ...editedOrder,
+            _productList: updatedProductList
+        });
     };
 
     return (
@@ -80,8 +87,14 @@ const OrderAddForm = ({ order, onSave, onCancel, error }) => {
                                 <div className="col-md-6-order">
                                     <div className="form-group-order">
                                         <label>Status*</label>
-                                        <input className="form-control-order" type="text" name="_status"
-                                               value={editedOrder._status} onChange={handleOrderChange}/>
+                                        <select className="form-control" name="_status" value={editedOrder._status}
+                                                onChange={handleOrderChange}>
+                                            <option value="">Select status</option>
+                                            <option value="Pending">Pending</option>
+                                            <option value="Completed">Completed</option>
+                                            <option value="Suspended">Suspended</option>
+                                            <option value="Processing">Processing</option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
@@ -91,11 +104,12 @@ const OrderAddForm = ({ order, onSave, onCancel, error }) => {
                                 <div className="col-md-6-order">
                                     <div className="form-group-order">
                                         <label>Product Code*</label>
-                                        <select className="form-control" name="productCode" value={product.productCode}
+                                        <select className="form-control" name="_codProduct" value={product._codProduct}
                                                 onChange={handleProductChange}>
                                             <option value="">Select a product</option>
                                             {availableProducts.map(prod => (
-                                                <option key={prod.code} value={prod.code}>{prod.name}</option>
+                                                <option key={prod._codProduct}
+                                                        value={prod._codProduct}>{prod._codProduct}</option>
                                             ))}
                                         </select>
                                     </div>
@@ -103,8 +117,8 @@ const OrderAddForm = ({ order, onSave, onCancel, error }) => {
                                 <div className="col-md-6-order">
                                     <div className="form-group-order">
                                         <label>Quantity*</label>
-                                        <input className="form-control-order" type="number" name="quantity"
-                                               value={product.quantity} onChange={handleProductChange}/>
+                                        <input className="form-control-order" type="number" name="_quantity"
+                                               value={product._quantity} onChange={handleProductChange}/>
                                     </div>
                                 </div>
                                 <button type="button" onClick={addProduct} className="btn-AddProduct-order">Add Product
@@ -124,10 +138,10 @@ const OrderAddForm = ({ order, onSave, onCancel, error }) => {
                                 </tr>
                                 </thead>
                                 <tbody>
-                                {products.map((prod, index) => (
+                                {(editedOrder._productList || []).map((prod, index) => (
                                     <tr key={index}>
-                                        <td>{prod.productCode}</td>
-                                        <td>{prod.quantity}</td>
+                                        <td>{prod._codProduct}</td>
+                                        <td>{prod._quantity}</td>
                                         <td className="action">
                                             <div className="delete"><MdDeleteOutline className="delete-icon"
                                                                                      onClick={() => deleteProduct(index)}/>

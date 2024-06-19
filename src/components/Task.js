@@ -91,7 +91,7 @@ const Task = () => {
   } else if (editingTask) {
     return <TaskEditForm task={editingTask} onSave={handleSave} onCancel={handleCancel} error={error}/>;
   } else {
-    return <TaskList tasks={tasks} onAdd={handleAdd} onEdit={handleEdit} onDelete={handleDelete} onSave={handleSave} onView={handleView} viewProductDetailTask={viewProductDetailTask} />;
+    return <TaskList tasks={tasks} onAdd={handleAdd} onEdit={handleEdit} onDelete={handleDelete} onSave={handleSave} onView={handleView} viewProductDetailTask={viewProductDetailTask} onError={setError}/>;
   }
 };
 
