@@ -71,7 +71,7 @@ test('addOrder › should add an order and return the added order', async () => 
 
     const data = await addOrder(mockData);
 
-    expect(fetchMock).toHaveBeenCalledWith(`${API_URL}/orders/create`, {
+    expect(fetchMock).toHaveBeenCalledWith(`${API_URL}/orders/generation`, {
         method: 'POST',
         headers: {
             'Authorization': 'Bearer token',

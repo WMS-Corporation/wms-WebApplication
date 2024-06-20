@@ -19,6 +19,7 @@ describe('TaskList Component', () => {
     const mockOnDelete = jest.fn();
     const mockOnSave = jest.fn();
     const mockOnView = jest.fn();
+    const mockOnError = jest.fn();
 
     const renderTaskList = (viewProductDetailTask) => {
         return render(
@@ -30,6 +31,7 @@ describe('TaskList Component', () => {
                 onSave={mockOnSave}
                 onView={mockOnView}
                 viewProductDetailTask={viewProductDetailTask}
+                onError={mockOnError}
             />
         );
     };
