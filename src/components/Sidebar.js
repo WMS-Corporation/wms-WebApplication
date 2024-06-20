@@ -20,6 +20,8 @@ const Sidebar = ({isOpen}) => {
     setEditingOrder,
     setAddingOrder,
     setViewProductDetailOrder,
+    setEditingUser,
+    setAddingUser
   } = useApplicationGlobal() || {};
 
   const handleLinkClick = () => {
@@ -31,6 +33,8 @@ const Sidebar = ({isOpen}) => {
     setEditingOrder(null);
     setAddingOrder(false);
     setViewProductDetailOrder(null);
+    setEditingUser(null);
+    setAddingUser(false);
   };
   return (
       <div className='navbar'>
@@ -67,7 +71,7 @@ const Sidebar = ({isOpen}) => {
               </Link>
             </li>
             <li className="sidebar-item">
-              <Link to="/users">
+              <Link to="/users" onClick={handleLinkClick}>
                 <FaPeopleCarry/>
                 <span>Users</span>
               </Link>

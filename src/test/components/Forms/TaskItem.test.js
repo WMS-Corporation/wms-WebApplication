@@ -11,7 +11,6 @@ const mockTask = {
 };
 
 const mockOnEdit = jest.fn();
-const mockOnDelete = jest.fn();
 const mockOnView = jest.fn();
 describe('Component Task item', () => {
 
@@ -19,7 +18,6 @@ describe('Component Task item', () => {
         const props = {
             task: mockTask,
             onEdit: mockOnEdit,
-            onDelete: mockOnDelete,
             onView: mockOnView,
             ...overrideProps,
         };
@@ -42,14 +40,6 @@ describe('Component Task item', () => {
         const editIcon = container.querySelector('.edit-icon');
         fireEvent.click(editIcon);
         expect(mockOnEdit).toHaveBeenCalledWith(mockTask);
-    });
-
-    test('calls onDelete when the delete icon is clicked', () => {
-        const { container } = renderComponent();
-
-        const deleteIcon = container.querySelector('.delete-icon');
-        fireEvent.click(deleteIcon);
-        expect(mockOnDelete).toHaveBeenCalledWith(mockTask);
     });
 
     test('calls onView when the view icon is clicked', () => {

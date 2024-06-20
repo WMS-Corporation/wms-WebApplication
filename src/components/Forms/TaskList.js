@@ -5,7 +5,7 @@ import TaskItem from './TaskItem';
 import '../styles/TaskList.css';
 import TaskProductDetails from "./TaskProductDetails";
 
-const TaskList = ({ tasks, onAdd, onEdit, onDelete, onSave, onView, viewProductDetailTask, onError }) => {
+const TaskList = ({ tasks, onAdd, onEdit, onSave, onView, viewProductDetailTask, onError }) => {
     onError(null)
     return (
         <div className="task-list">
@@ -45,7 +45,7 @@ const TaskList = ({ tasks, onAdd, onEdit, onDelete, onSave, onView, viewProductD
                         </thead>
                         <tbody>
                         {tasks.map((task) => (
-                            <TaskItem key={task._codTask} task={task} onEdit={onEdit} onDelete={onDelete}
+                            <TaskItem key={task._codTask} task={task} onEdit={onEdit}
                                       onSave={onSave} onView={onView}/>
                         ))}
                         </tbody>
@@ -60,7 +60,6 @@ const TaskList = ({ tasks, onAdd, onEdit, onDelete, onSave, onView, viewProductD
 TaskList.propTypes = {
     tasks: PropTypes.arrayOf(PropTypes.instanceOf(TaskModel)).isRequired,
     onEdit: PropTypes.func.isRequired,
-    onDelete: PropTypes.func.isRequired,
     onSave: PropTypes.func.isRequired,
     onAdd: PropTypes.func.isRequired,
     onView: PropTypes.func.isRequired,

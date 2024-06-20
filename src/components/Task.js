@@ -71,17 +71,6 @@ const Task = () => {
     setError(null)
   };
 
-  const handleDelete = async (task) => {    
-    if (window.confirm('Are you sure you want to delete this task?')) {
-      try {
-        await deleteTask(task);
-        loadTasks();
-      } catch (error) {
-        setError(error);
-      }
-    }
-  };
-
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -91,7 +80,7 @@ const Task = () => {
   } else if (editingTask) {
     return <TaskEditForm task={editingTask} onSave={handleSave} onCancel={handleCancel} error={error}/>;
   } else {
-    return <TaskList tasks={tasks} onAdd={handleAdd} onEdit={handleEdit} onDelete={handleDelete} onSave={handleSave} onView={handleView} viewProductDetailTask={viewProductDetailTask} onError={setError}/>;
+    return <TaskList tasks={tasks} onAdd={handleAdd} onEdit={handleEdit} onSave={handleSave} onView={handleView} viewProductDetailTask={viewProductDetailTask} onError={setError}/>;
   }
 };
 

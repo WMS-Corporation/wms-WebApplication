@@ -68,17 +68,6 @@ const Order = () => {
         setError(null)
     };
 
-    const handleDelete = async (order) => {
-        if (window.confirm('Are you sure you want to delete this order?')) {
-            try {
-                await deleteOrder(order);
-                loadOrders();
-            } catch (error) {
-                setError(error);
-            }
-        }
-    };
-
     if (loading) {
         return <div>Loading...</div>;
     }
@@ -88,7 +77,7 @@ const Order = () => {
     } else if (editingOrder) {
         return <OrderEditForm order={editingOrder} onSave={handleSave} onCancel={handleCancel} error={error}/>;
     } else {
-        return <OrderList orders={orders} onAdd={handleAdd} onEdit={handleEdit} onDelete={handleDelete} onSave={handleSave} onView={handleView} viewProductDetailOrder={viewProductDetailOrder} onError={setError}/>;
+        return <OrderList orders={orders} onAdd={handleAdd} onEdit={handleEdit} onSave={handleSave} onView={handleView} viewProductDetailOrder={viewProductDetailOrder} onError={setError}/>;
     }
 };
 

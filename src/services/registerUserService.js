@@ -1,14 +1,17 @@
 import RegisterModel from "../models/registerModel";
 import { API_URL } from '../config';
 
-export const register = async (username, password, name, surname) => {
+export const register = async (username, password, name, surname, type) => {
+    if(!type){
+        type = "Operational"
+    }
     try {
         const response = await fetch(`${API_URL}/users/register`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(new RegisterModel(username, password, name, surname, "Operational")),
+            body: JSON.stringify(new RegisterModel(username, password, name, surname, type)),
         });
         if (!response.ok) {
             const errorResponse = await response.json();

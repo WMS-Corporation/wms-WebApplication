@@ -5,7 +5,7 @@ import OrderItem from './OrderItem';
 import '../styles/OrderList.css';
 import OrderProductDetails from "./OrderProductDetails";
 
-const OrderList = ({ orders, onAdd, onEdit, onDelete, onSave, onView, viewProductDetailOrder, onError }) => {
+const OrderList = ({ orders, onAdd, onEdit, onSave, onView, viewProductDetailOrder, onError }) => {
     onError(null)
     return (
         <div className="order-list">
@@ -43,7 +43,7 @@ const OrderList = ({ orders, onAdd, onEdit, onDelete, onSave, onView, viewProduc
                         </thead>
                         <tbody>
                             {orders.map((order) => (
-                                <OrderItem key={order._codOrder} order={order} onEdit={onEdit} onDelete={onDelete}
+                                <OrderItem key={order._codOrder} order={order} onEdit={onEdit}
                                     onSave={onSave} onView={onView} />
                             ))}
                         </tbody>
@@ -58,7 +58,6 @@ const OrderList = ({ orders, onAdd, onEdit, onDelete, onSave, onView, viewProduc
 OrderList.propTypes = {
     orders: PropTypes.arrayOf(PropTypes.instanceOf(OrderModel)).isRequired,
     onEdit: PropTypes.func.isRequired,
-    onDelete: PropTypes.func.isRequired,
     onSave: PropTypes.func.isRequired,
     onAdd: PropTypes.func.isRequired,
     onView: PropTypes.func.isRequired,

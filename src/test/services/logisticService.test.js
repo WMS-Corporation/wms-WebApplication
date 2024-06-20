@@ -12,7 +12,6 @@ beforeEach(() => {
     global.localStorage.__proto__.getItem = jest.fn(() => 'token');
 });
 
-
 describe('ShelfProductModel related functions', () => {
     const mockCodShelf = '123';
     const mockCodProduct = '456';

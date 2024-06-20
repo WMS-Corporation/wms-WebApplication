@@ -19,7 +19,7 @@ test('fetchUser › should fetch user and return a UserModel', async () => {
 
     const data = await fetchUser(mockData._codUser);
 
-    expect(fetchMock).toHaveBeenCalledWith(`${API_URL}/${mockData._codUser}`, {
+    expect(fetchMock).toHaveBeenCalledWith(`${API_URL}/users/${mockData._codUser}`, {
         method: 'GET',
         headers: {
             'Authorization': 'Bearer token',
@@ -42,7 +42,7 @@ test('updateUser › should update a user and return the updated UserModel', asy
         _type: mockData._type,
     });
 
-    expect(fetchMock).toHaveBeenCalledWith(`${API_URL}/${mockData._codUser}`, {
+    expect(fetchMock).toHaveBeenCalledWith(`${API_URL}/users/${mockData._codUser}`, {
         method: 'PUT',
         headers: {
             'Authorization': 'Bearer token',
@@ -66,7 +66,7 @@ test('deleteUser › should delete a user and return a success message', async (
 
     const data = await deleteUser('1');
 
-    expect(fetchMock).toHaveBeenCalledWith(`${API_URL}/1`, {
+    expect(fetchMock).toHaveBeenCalledWith(`${API_URL}/users/1`, {
         method: 'DELETE',
         headers: {
             'Authorization': 'Bearer token',
@@ -86,7 +86,7 @@ test('fetchAllUsers › should fetch all users and return an array of UserModel'
 
     const data = await fetchAllUsers();
 
-    expect(fetchMock).toHaveBeenCalledWith(`${API_URL}/all`, {
+    expect(fetchMock).toHaveBeenCalledWith(`${API_URL}/users/all`, {
         method: 'GET',
         headers: {
             'Authorization': 'Bearer token',

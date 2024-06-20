@@ -6,7 +6,7 @@ import { MdDeleteOutline } from "react-icons/md";
 import { FaEye } from "react-icons/fa";
 import '../styles/OrderItem.css';
 
-const OrderItem = ({ order, onEdit, onDelete, onView }) => {
+const OrderItem = ({ order, onEdit, onView }) => {
   return (
     <tr key={order._codOrder}>
       <td>{order._codOrder}</td>
@@ -16,7 +16,6 @@ const OrderItem = ({ order, onEdit, onDelete, onView }) => {
       <td className="action">
           <div className="view"><FaEye data-testid="view-icon" className="view-icon" onClick={() => onView(order)}/></div>
           <div className="edit"><FiEdit2 className="edit-icon" onClick={() => onEdit(order)}/></div>
-          <div className="delete"><MdDeleteOutline className="delete-icon" onClick={() => onDelete(order)}/></div>
       </td>
     </tr>
   );
@@ -25,7 +24,6 @@ const OrderItem = ({ order, onEdit, onDelete, onView }) => {
 OrderItem.propTypes = {
   order: PropTypes.instanceOf(OrderModel).isRequired,
   onEdit: PropTypes.func.isRequired,
-  onDelete: PropTypes.func.isRequired,
   onView: PropTypes.func.isRequired,
 };
 

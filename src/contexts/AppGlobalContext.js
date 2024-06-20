@@ -12,6 +12,8 @@ export const AppGlobalProvider = ({ children }) => {
     const [editingOrder, setEditingOrder] = useState(null);
     const [addingOrder, setAddingOrder] = useState(false);
     const [viewProductDetailOrder, setViewProductDetailOrder] = useState(null);
+    const [editingUser, setEditingUser] = useState(null);
+    const [addingUser, setAddingUser] = useState(false);
 
     return (
         <AppGlobalContext.Provider
@@ -32,6 +34,10 @@ export const AppGlobalProvider = ({ children }) => {
                 setAddingOrder,
                 viewProductDetailOrder,
                 setViewProductDetailOrder,
+                editingUser,
+                setEditingUser,
+                addingUser,
+                setAddingUser
             }}
         >
             {children}

@@ -13,7 +13,7 @@ const RegisterForm = ({ onRegister, setIsRegistering }) => {
 
     const handleRegister = () => {
         setLoading(true);
-        onRegister(username, password, name, surname)
+        onRegister(username, password, name, surname, "")
             .catch((error) => {
                 setErrors(error);
             })

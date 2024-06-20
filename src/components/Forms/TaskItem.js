@@ -6,7 +6,7 @@ import { MdDeleteOutline } from "react-icons/md";
 import { FaEye } from "react-icons/fa";
 import '../styles/TaskItem.css';
 
-const TaskItem = ({ task, onEdit, onDelete, onView }) => {
+const TaskItem = ({ task, onEdit, onView }) => {
   return (
     <tr key={task._codTask}>
       <td>{task._codOperator}</td>
@@ -16,7 +16,6 @@ const TaskItem = ({ task, onEdit, onDelete, onView }) => {
         <td className="action">
             <div className="view"><FaEye className="view-icon" onClick={() => onView(task)}/></div>
             <div className="edit"><FiEdit2 className="edit-icon" onClick={() => onEdit(task)}/></div>
-            <div className="delete"><MdDeleteOutline className="delete-icon" onClick={() => onDelete(task)}/></div>
         </td>
     </tr>
   );
@@ -25,7 +24,6 @@ const TaskItem = ({ task, onEdit, onDelete, onView }) => {
 TaskItem.propTypes = {
     task: PropTypes.instanceOf(TaskModel).isRequired,
     onEdit: PropTypes.func.isRequired,
-    onDelete: PropTypes.func.isRequired,
     onView: PropTypes.func.isRequired,
 };
 

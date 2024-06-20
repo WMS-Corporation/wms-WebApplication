@@ -10,6 +10,7 @@ import Login from './components/Login';
 import './App.css';
 import Layout from "./components/Layout";
 import {AppGlobalProvider} from "./contexts/AppGlobalContext";
+import User from "./components/User";
 
 const AppContent = () => {
     return (
@@ -25,6 +26,7 @@ const AppContent = () => {
                                 <Route path="/tasks" element={<PrivateRoute><Task /></PrivateRoute>} />
                                 <Route path="/orders" element={<PrivateRoute><Order /></PrivateRoute>} />
                                 <Route path="/products" element={<PrivateRoute><Product /></PrivateRoute>} />
+                                <Route path="/users" element={<PrivateRoute><User /></PrivateRoute>} />
                                 <Route path="/home" element={<PrivateRoute><Home /></PrivateRoute>} />
                                 <Route path="*" element={<Navigate to="/home" replace />} />
                             </Routes>

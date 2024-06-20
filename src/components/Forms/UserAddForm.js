@@ -1,30 +1,29 @@
-import React, {useState} from 'react';
-import PropTypes from 'prop-types';
-import ProductModel from '../../models/productModel';
-import '../styles/ProductEdit.css';
+import React from "react";
+import PropTypes from "prop-types";
+import UserModel from "../../models/userModel";
 
-const ProductAddForm = ({ product, onSave, onCancel, error }) => {
-    const [editedProduct, setEditedProduct] = React.useState(product);
-
+const UserAddForm = ({ user, onSave, onCancel, error }) => {
+    const [editedUser, setEditedUser] = React.useState(user);
+    editedUser._password = ""
     const handleChange = (event) => {
-        if (event.target.name === "_expirationDate" && !event.target.value) {
+        if (!event.target.value) {
             return;
         }
-        setEditedProduct({
-            ...editedProduct,
+        setEditedUser({
+            ...editedUser,
             [event.target.name]: event.target.value,
         });
     };
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        onSave(editedProduct);
+        onSave(editedUser);
     };
 
     return (
         <div className="edit-page">
             <div className="header-edit">
-                <h1>Add Product</h1>
+                <h1>Add User</h1>
             </div>
             <div className="body-edit">
                 <form onSubmit={handleSubmit}>
@@ -32,33 +31,42 @@ const ProductAddForm = ({ product, onSave, onCancel, error }) => {
                         <div className="col-md-6">
                             <div className="form-group">
                                 <label>Name *</label>
-                                <input className="form-control" type="text" name="_name" value={editedProduct._name}
+                                <input className="form-control" type="text" name="_name" value={editedUser._name}
                                        onChange={handleChange}/>
                             </div>
                         </div>
                         <div className="col-md-6">
                             <div className="form-group">
-                                <label>Category *</label>
-                                <input className="form-control" type="text" name="_category"
-                                       value={editedProduct._category} onChange={handleChange}/>
+                                <label>Surname *</label>
+                                <input className="form-control" type="text" name="_surname"
+                                       value={editedUser._surname} onChange={handleChange}/>
                             </div>
                         </div>
                         <div className="col-md-6">
                             <div className="form-group">
-                                <label>Expiration Date *</label>
-                                <input className="form-control" type="date"
-                                       name="_expirationDate"
-                                       value={new Date(editedProduct._expirationDate).toISOString().split('T')[0]}
+                                <label>Username *</label>
+                                <input className="form-control" type="text"
+                                       name="_username"
+                                       value={editedUser._username}
+                                       onChange={handleChange}/>
+                            </div>
+                        </div>
+                        <div className="col-md-6">
+                            <div className="form-group">
+                                <label>Password *</label>
+                                <input className="form-control" type="password"
+                                       name="_password"
+                                       value={editedUser._password}
                                        onChange={handleChange}/>
                             </div>
                         </div>
                         <div className="col-md-6">
                             <div className="form-group">
                                 <label>Type *</label>
-                                <select className="form-control" name="_type" value={editedProduct._type}
+                                <select className="form-control" name="_type" value={editedUser._type}
                                         onChange={handleChange}>
-                                    <option value="Refrigerated">Refrigerated</option>
-                                    <option value="NoRefrigerated">NoRefrigerated</option>
+                                    <option value="Admin">Admin</option>
+                                    <option value="Operational">Operational</option>
                                 </select>
                             </div>
                         </div>
@@ -75,11 +83,11 @@ const ProductAddForm = ({ product, onSave, onCancel, error }) => {
     );
 };
 
-ProductAddForm.propTypes = {
-    product: PropTypes.instanceOf(ProductModel).isRequired,
+UserAddForm.propTypes = {
+    user: PropTypes.instanceOf(UserModel).isRequired,
     onSave: PropTypes.func.isRequired,
     onCancel: PropTypes.func.isRequired,
     error: PropTypes.string,
 };
 
-export default ProductAddForm;
+export default UserAddForm;

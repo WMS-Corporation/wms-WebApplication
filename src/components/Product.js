@@ -5,6 +5,7 @@ import ProductEditForm from './Forms/ProductEditForm';
 import ProductModel from '../models/productModel';
 import ProductAddForm from "./Forms/ProductAddForm";
 import {useApplicationGlobal} from "../contexts/AppGlobalContext";
+import {registerUser} from "../controllers/RegisterController";
 
 const Product = () => {
   const [products, setProducts] = useState([]);

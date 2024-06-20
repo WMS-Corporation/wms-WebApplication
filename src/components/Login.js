@@ -23,9 +23,9 @@ const Login = () => {
         }
     };
 
-    const handleRegister = async (username, password, name, surname) => {
+    const handleRegister = async (username, password, name, surname, type) => {
         try {
-            const data = await registerUser(username, password, name, surname);
+            const data = await registerUser(username, password, name, surname, type);
             login(data.token);
             navigate("/home");
         } catch (error) {
