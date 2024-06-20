@@ -6,7 +6,7 @@
     margin-left: 2vw;
     margin-top: 12vh;
     margin-right: 2vw;
-    height: 65vh;
+    height: auto;
 }
 
 .header-edit{
@@ -31,7 +31,7 @@
 
 .body-edit{
     padding: 2vw;
-    height: 49vh;
+    height: auto;
 }
 
 .content-edit{
@@ -115,6 +115,3 @@ label{
     cursor: pointer;
 }
 
-form{
-    height: 52vh;
-}

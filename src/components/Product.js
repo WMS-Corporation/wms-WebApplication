@@ -82,7 +82,7 @@ const Product = () => {
   } else if (editingProduct) {
     return <ProductEditForm product={editingProduct} onSave={handleSave} onCancel={handleCancel} />;
   } else {
-    return <ProductList products={products} onAdd={handleAdd} onEdit={handleEdit} onDelete={handleDelete} onSave={handleSave} />;
+    return <ProductList products={products} onAdd={handleAdd} onEdit={handleEdit} onDelete={handleDelete} onSave={handleSave} onError={setError}/>;
   }
 };
 

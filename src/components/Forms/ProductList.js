@@ -4,7 +4,8 @@ import ProductModel from '../../models/productModel';
 import ProductItem from './ProductItem';
 import '../styles/ProductList.css';
 
-const ProductList = ({ products, onAdd, onEdit, onDelete, onSave }) => {
+const ProductList = ({ products, onAdd, onEdit, onDelete, onSave, onError }) => {
+  onError(null)
   return (
     <div className="product-list">
       <div className="header-list">
@@ -41,6 +42,7 @@ ProductList.propTypes = {
   onEdit: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired,
   onSave: PropTypes.func.isRequired,
+  onError: PropTypes.func.isRequired,
   onAdd: PropTypes.func.isRequired,
 };
 

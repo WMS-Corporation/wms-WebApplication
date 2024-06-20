@@ -127,31 +127,29 @@ const OrderAddForm = ({ order, onSave, onCancel, error }) => {
                         </div>
                     </div>
                     <h1>Products Details</h1>
-                    <div className="product-list-section-order">
-                        <div className="table-section-order">
-                            <table>
-                                <thead>
-                                <tr>
-                                    <th>Product Code</th>
-                                    <th>Quantity</th>
-                                    <th>Action</th>
+                    <div className="table-section-order">
+                        <table>
+                            <thead>
+                            <tr>
+                                <th>Product Code</th>
+                                <th>Quantity</th>
+                                <th>Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {(editedOrder._productList || []).map((prod, index) => (
+                                <tr key={index}>
+                                    <td>{prod._codProduct}</td>
+                                    <td>{prod._quantity}</td>
+                                    <td className="action">
+                                        <div className="delete"><MdDeleteOutline className="delete-icon"
+                                                                                 onClick={() => deleteProduct(index)}/>
+                                        </div>
+                                    </td>
                                 </tr>
-                                </thead>
-                                <tbody>
-                                {(editedOrder._productList || []).map((prod, index) => (
-                                    <tr key={index}>
-                                        <td>{prod._codProduct}</td>
-                                        <td>{prod._quantity}</td>
-                                        <td className="action">
-                                            <div className="delete"><MdDeleteOutline className="delete-icon"
-                                                                                     onClick={() => deleteProduct(index)}/>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                ))}
-                                </tbody>
-                            </table>
-                        </div>
+                            ))}
+                            </tbody>
+                        </table>
                     </div>
                     {error && <div className="error-form-order">Please ensure all required fields are included</div>}
                     <div className="button-div-order">

@@ -1,13 +1,13 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
-import OrderList from './OrderList';
-import { OrderModel } from '../../models/orderModel';
+import OrderList from "../../../components/Forms/OrderList";
+import {OrderModel} from "../../../models/orderModel";
 
 describe('OrderList', () => {
     test('renders order list correctly', () => {
         const testOrders = [
-            new OrderModel({ _id: '1', _date: '2022-01-01', _status: 'Pending' }),
-            new OrderModel({ _id: '2', _date: '2022-01-02', _status: 'Shipped' }),
+            new OrderModel( '2022-01-01', 'Pending', [], '1'),
+            new OrderModel('2022-01-02', 'Shipped', [], '2')
         ];
 
         render(<OrderList orders={testOrders} onAdd={() => {}} onEdit={() => {}} onDelete={() => {}} onSave={() => {}} onView={() => {}} onError={() => {}} />);
@@ -15,8 +15,8 @@ describe('OrderList', () => {
         expect(screen.getByText('Order List')).toBeInTheDocument();
         expect(screen.getByText('Add Order')).toBeInTheDocument();
         testOrders.forEach(order => {
-            expect(screen.getByText(order._id)).toBeInTheDocument();
-            expect(screen.getByText(order._date)).toBeInTheDocument();
+            expect(screen.getByText(order._codOrder)).toBeInTheDocument();
+            expect(screen.getByText(order._date.toISOString().split('T')[0])).toBeInTheDocument();
             expect(screen.getByText(order._status)).toBeInTheDocument();
         });
     });

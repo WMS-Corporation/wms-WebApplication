@@ -163,35 +163,33 @@ const TaskEditForm = ({ task, onSave, onCancel, error }) => {
                         </div>
                     </div>
                     <h1>Products Details</h1>
-                    <div className="product-list-section">
-                        <div className="table-section">
-                            <table>
-                                <thead>
-                                <tr>
-                                    <th>Product Code</th>
-                                    <th>From</th>
-                                    <th>To</th>
-                                    <th>Quantity</th>
-                                    <th>Action</th>
+                    <div className="table-section">
+                        <table>
+                            <thead>
+                            <tr>
+                                <th>Product Code</th>
+                                <th>From</th>
+                                <th>To</th>
+                                <th>Quantity</th>
+                                <th>Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {(editedTask._productList || []).map((prod, index) => (
+                                <tr key={index}>
+                                    <td>{prod._codProduct}</td>
+                                    <td>{prod._from}</td>
+                                    <td>{prod._to}</td>
+                                    <td>{prod._quantity}</td>
+                                    <td className="action">
+                                        <div className="delete"><MdDeleteOutline className="delete-icon"
+                                                                                 onClick={() => deleteProduct(index)}/>
+                                        </div>
+                                    </td>
                                 </tr>
-                                </thead>
-                                <tbody>
-                                {(editedTask._productList || []).map((prod, index) => (
-                                    <tr key={index}>
-                                        <td>{prod._codProduct}</td>
-                                        <td>{prod._from}</td>
-                                        <td>{prod._to}</td>
-                                        <td>{prod._quantity}</td>
-                                        <td className="action">
-                                            <div className="delete"><MdDeleteOutline className="delete-icon"
-                                                                                     onClick={() => deleteProduct(index)}/>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                ))}
-                                </tbody>
-                            </table>
-                        </div>
+                            ))}
+                            </tbody>
+                        </table>
                     </div>
                     {error && <div className="error-form-task">{error}</div>}
                     <div className="button-div">
