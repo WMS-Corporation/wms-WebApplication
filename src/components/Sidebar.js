@@ -6,10 +6,11 @@ import { HiTemplate } from "react-icons/hi";
 import { FaCube } from "react-icons/fa6";
 import './styles/Sidebar.css';
 import PropTypes from "prop-types";
-import {useAuth} from "../contexts/AuthContext";
-import {useApplicationGlobal} from "../contexts/AppGlobalContext";
+import { useAuth } from "../contexts/AuthContext";
+import { useApplicationGlobal } from "../contexts/AppGlobalContext";
 
-const Sidebar = ({isOpen}) => {
+const Sidebar = ({ isOpen }) => {
+  const { user } = useAuth();
 
   const {
     setEditingTask,
@@ -37,54 +38,58 @@ const Sidebar = ({isOpen}) => {
     setAddingUser(false);
   };
   return (
-      <div className='navbar'>
-        <nav className={isOpen ? 'sidebar-menu' : 'nav-menu'}>
-          <ul className="nav-menu-items">
-            <li className="sidebar-item">
-              <Link to="/home">
-                <FaCube/>
-                <span>Dashboard</span>
-              </Link>
-            </li>
-            <li className="sidebar-item">
-              <Link to="/products" onClick={handleLinkClick}>
-                <HiTemplate/>
-                <span>Products</span>
-              </Link>
-            </li>
-            <li className="sidebar-item">
-              <Link to="/tasks" onClick={handleLinkClick}>
-                <FaTasks/>
-                <span>Tasks</span>
-              </Link>
-            </li>
+    <div className='navbar'>
+      <nav className={isOpen ? 'sidebar-menu' : 'nav-menu'}>
+        <ul className="nav-menu-items">
+          <li className="sidebar-item">
+            <Link to="/home">
+              <FaCube />
+              <span>Dashboard</span>
+            </Link>
+          </li>
+          <li className="sidebar-item">
+            <Link to="/products" onClick={handleLinkClick}>
+              <HiTemplate />
+              <span>Products</span>
+            </Link>
+          </li>
+          <li className="sidebar-item">
+            <Link to="/tasks" onClick={handleLinkClick}>
+              <FaTasks />
+              <span>Tasks</span>
+            </Link>
+          </li>
+          {user && user._type === 'Admin' && (
             <li className="sidebar-item">
               <Link to="/orders" onClick={handleLinkClick}>
-                <FaClipboardList/>
+                <FaClipboardList />
                 <span>Orders</span>
               </Link>
             </li>
-            <li className="sidebar-item">
-              <Link to="/logistic">
-                <FaWarehouse/>
-                <span>Logistic</span>
-              </Link>
-            </li>
+          )}
+          <li className="sidebar-item">
+            <Link to="/logistic">
+              <FaWarehouse />
+              <span>Logistic</span>
+            </Link>
+          </li>
+          {user && user._type === 'Admin' && (
             <li className="sidebar-item">
               <Link to="/users" onClick={handleLinkClick}>
-                <FaPeopleCarry/>
+                <FaPeopleCarry />
                 <span>Users</span>
               </Link>
             </li>
-            <li className="sidebar-item">
-              <Link to="/settings">
-                <IoSettingsOutline/>
-                <span>Settings</span>
-              </Link>
-            </li>
-          </ul>
-        </nav>
-      </div>
+          )}
+          <li className="sidebar-item">
+            <Link to="/settings">
+              <IoSettingsOutline />
+              <span>Settings</span>
+            </Link>
+          </li>
+        </ul>
+      </nav>
+    </div>
 
   );
 };

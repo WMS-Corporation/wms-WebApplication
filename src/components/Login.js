@@ -15,7 +15,7 @@ const Login = () => {
     const handleLogin = async (username, password) => {
         try {
             const data = await loginUser(username, password);
-            login(data.token);
+            login(data.token, data.user);
             navigate("/home");
         } catch (error) {
             console.error('Error logging in:', error);
