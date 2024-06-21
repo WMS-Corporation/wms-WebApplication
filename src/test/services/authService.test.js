@@ -13,8 +13,10 @@ beforeEach(() => {
 });
 
 test('login › should log in a user and return the user data', async () => {
-
-  const mockData = { token: undefined,  user: undefined};
+  const mockData = {
+    token: 'fakeToken123',
+    user: { id: 1, username: 'TestUser', name: 'Test', surname: 'User', role: 'Operational' },
+  };
 
   fetchMock.mockResponseOnce(JSON.stringify(mockData));
 
