@@ -12,8 +12,13 @@ import {
     addProductToShelf,
     getProductFromShelf,
     updateProductInShelf,
-    deleteProductFromShelf
+    deleteProductFromShelf,
+    searchStoragesByName, 
+    deleteCorridor, 
+    deleteShelf, 
+    updateZone 
 } from '../../services/logisticService';
+
 
 jest.mock('../../services/logisticService');
 
@@ -294,4 +299,88 @@ describe('getStorage', () => {
         expect(fetchStorageByCode).toHaveBeenCalledWith(codStorage);
         expect(result).toEqual(storage);
     });
+});
+
+it('should create a storage', async () => {
+    const storageData = { zoneCodeList: [], codStorage: 'storage123' };
+    const expectedResponse = { success: true };
+
+    generateStorage.mockImplementation(async () => expectedResponse);
+
+    const result = await logisticController.createStorage(storageData);
+
+    expect(generateStorage).toHaveBeenCalledWith(storageData);
+    expect(result).toEqual(expectedResponse);
+});
+
+it('should get all storages', async () => {
+    const expectedResponse = [{ codStorage: 'storage123', zoneCodeList: [] }];
+
+    getAllStorages.mockImplementation(async () => expectedResponse);
+
+    const result = await logisticController.getStorages();
+
+    expect(getAllStorages).toHaveBeenCalled();
+    expect(result).toEqual(expectedResponse);
+});
+
+it('should get a specific storage by code', async () => {
+    const codStorage = 'storage123';
+    const expectedResponse = { codStorage: 'storage123', zoneCodeList: [] };
+
+    fetchStorageByCode.mockImplementation(async () => expectedResponse);
+
+    const result = await logisticController.getStorage(codStorage);
+
+    expect(fetchStorageByCode).toHaveBeenCalledWith(codStorage);
+    expect(result).toEqual(expectedResponse);
+});
+
+it('should search storages by name', async () => {
+    const name = 'Warehouse A';
+    const expectedResponse = [{ codStorage: 'storage123', name: 'Warehouse A' }];
+
+    searchStoragesByName.mockImplementation(async () => expectedResponse);
+
+    const result = await logisticController.searchStorages(name);
+
+    expect(searchStoragesByName).toHaveBeenCalledWith(name);
+    expect(result).toEqual(expectedResponse);
+});
+
+it('should remove a corridor', async () => {
+    const codCorridor = 'corridor123';
+    const expectedResponse = { success: true };
+
+    deleteCorridor.mockImplementation(async () => expectedResponse);
+
+    const result = await logisticController.removeCorridor(codCorridor);
+
+    expect(deleteCorridor).toHaveBeenCalledWith(codCorridor);
+    expect(result).toEqual(expectedResponse);
+});
+
+it('should remove a shelf', async () => {
+    const codShelf = 'shelf123';
+    const expectedResponse = { success: true };
+
+    deleteShelf.mockImplementation(async () => expectedResponse);
+
+    const result = await logisticController.removeShelf(codShelf);
+
+    expect(deleteShelf).toHaveBeenCalledWith(codShelf);
+    expect(result).toEqual(expectedResponse);
+});
+
+it('should modify a zone', async () => {
+    const codZone = 'zone123';
+    const zoneData = { temperature: 5, coolingSystemStatus: 'active' };
+    const expectedResponse = { success: true };
+
+    updateZone.mockImplementation(async () => expectedResponse);
+
+    const result = await logisticController.modifyZone(codZone, zoneData);
+
+    expect(updateZone).toHaveBeenCalledWith(codZone, zoneData);
+    expect(result).toEqual(expectedResponse);
 });
