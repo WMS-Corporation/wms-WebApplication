@@ -19,7 +19,6 @@ import {
     updateZone 
 } from '../../services/logisticService';
 
-
 jest.mock('../../services/logisticService');
 
 describe('LogisticController', () => {
