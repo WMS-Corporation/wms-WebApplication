@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { getData } from '../controllers/HomeController';
+import Dashboard from './Forms/Dashboard';
 
 const Home = () => {
   const [data, setData] = useState([]);
@@ -19,6 +20,7 @@ const Home = () => {
 
   return (
     <div className="home">
+      <Dashboard />
     </div>
   );
 };

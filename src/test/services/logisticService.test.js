@@ -2,7 +2,6 @@ import { addProductToShelf, getProductFromShelf, updateProductInShelf, deletePro
 import { API_URL } from '../../config';
 import fetchMock from 'jest-fetch-mock';
 
-// Enable fetch mocks
 fetchMock.enableMocks();
 
 beforeEach(() => {
