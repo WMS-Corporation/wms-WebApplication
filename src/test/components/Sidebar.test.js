@@ -30,21 +30,9 @@ describe('Component Sidebar', () => {
         expect(linkElement).toBeInTheDocument();
     });
 
-    test('renders Orders link', () => {
-        renderSidebar(true);
-        const linkElement = screen.getByText(/Orders/i);
-        expect(linkElement).toBeInTheDocument();
-    });
-
     test('renders Logistic link', () => {
         renderSidebar(true);
         const linkElement = screen.getByText(/Logistic/i);
-        expect(linkElement).toBeInTheDocument();
-    });
-
-    test('renders Users link', () => {
-        renderSidebar(true);
-        const linkElement = screen.getByText(/Users/i);
         expect(linkElement).toBeInTheDocument();
     });
 

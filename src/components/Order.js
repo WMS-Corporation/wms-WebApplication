@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { getOrders, saveOrder, deleteOrder, addOrder } from '../controllers/OrderController';
+import { getOrders, saveOrder, addOrder } from '../controllers/OrderController';
 import OrderList from './Forms/OrderList';
-import OrderEditForm from './Forms/OrderEditForm';
 import { OrderModel } from '../models/orderModel';
 import OrderAddForm from "./Forms/OrderAddForm";
 import { useApplicationGlobal } from "../contexts/AppGlobalContext";
@@ -75,7 +74,7 @@ const Order = () => {
     if (addingOrder) {
         return <OrderAddForm order={new OrderModel()} onSave={handleSave} onCancel={handleCancel} error={error} />;
     } else if (editingOrder) {
-        return <OrderEditForm order={editingOrder} onSave={handleSave} onCancel={handleCancel} error={error}/>;
+        return <OrderAddForm order={editingOrder} onSave={handleSave} onCancel={handleCancel} error={error} />;
     } else {
         return <OrderList orders={orders} onAdd={handleAdd} onEdit={handleEdit} onSave={handleSave} onView={handleView} viewProductDetailOrder={viewProductDetailOrder} onError={setError}/>;
     }

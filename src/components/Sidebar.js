@@ -10,7 +10,7 @@ import { useAuth } from "../contexts/AuthContext";
 import { useApplicationGlobal } from "../contexts/AppGlobalContext";
 
 const Sidebar = ({ isOpen }) => {
-  const { user } = useAuth();
+  const { user } = useAuth() || {};
 
   const {
     setEditingTask,

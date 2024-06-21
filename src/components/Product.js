@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { getProducts, saveProduct, deleteProduct, addProduct  } from '../controllers/ProductController';
 import ProductList from './Forms/ProductList';
-import ProductEditForm from './Forms/ProductEditForm';
 import ProductModel from '../models/productModel';
 import ProductAddForm from "./Forms/ProductAddForm";
 import {useApplicationGlobal} from "../contexts/AppGlobalContext";
-import {registerUser} from "../controllers/RegisterController";
 
 const Product = () => {
   const [products, setProducts] = useState([]);
@@ -81,7 +79,7 @@ const Product = () => {
   if (addingProduct) {
     return <ProductAddForm product={new ProductModel()} onSave={handleSave} onCancel={handleCancel} error={error}/>;
   } else if (editingProduct) {
-    return <ProductEditForm product={editingProduct} onSave={handleSave} onCancel={handleCancel} />;
+    return <ProductAddForm product={editingProduct} onSave={handleSave} onCancel={handleCancel} error={error}/>;
   } else {
     return <ProductList products={products} onAdd={handleAdd} onEdit={handleEdit} onDelete={handleDelete} onSave={handleSave} onError={setError}/>;
   }

@@ -4,7 +4,6 @@ import UserModel from "../../models/userModel";
 
 const UserAddForm = ({ user, onSave, onCancel, error }) => {
     const [editedUser, setEditedUser] = React.useState(user);
-    editedUser._password = ""
     const handleChange = (event) => {
         if (!event.target.value) {
             return;
@@ -56,7 +55,6 @@ const UserAddForm = ({ user, onSave, onCancel, error }) => {
                                 <label>Password *</label>
                                 <input className="form-control" type="password"
                                        name="_password"
-                                       value={editedUser._password}
                                        onChange={handleChange}/>
                             </div>
                         </div>

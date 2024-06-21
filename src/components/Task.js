@@ -78,7 +78,7 @@ const Task = () => {
   if (addingTask) {
     return <TaskAddForm task={new TaskModel()} onSave={handleSave} onCancel={handleCancel} error={error}/>;
   } else if (editingTask) {
-    return <TaskEditForm task={editingTask} onSave={handleSave} onCancel={handleCancel} error={error}/>;
+    return <TaskAddForm task={editingTask} onSave={handleSave} onCancel={handleCancel} error={error}/>;
   } else {
     return <TaskList tasks={tasks} onAdd={handleAdd} onEdit={handleEdit} onSave={handleSave} onView={handleView} viewProductDetailTask={viewProductDetailTask} onError={setError}/>;
   }

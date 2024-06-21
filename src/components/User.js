@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from "react";
 import {useApplicationGlobal} from "../contexts/AppGlobalContext";
-import ProductEditForm from "./Forms/ProductEditForm";
 import {getAllUsers, saveUser} from "../controllers/UserController";
 import {deleteUser} from "../services/userService";
 import UserList from "./Forms/UserList";

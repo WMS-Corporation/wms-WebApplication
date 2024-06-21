@@ -1,5 +1,6 @@
 import React, { createContext, useState, useContext } from 'react';
 import PropTypes from 'prop-types';
+import {useTheme} from "./ThemeContext";
 
 export const AuthContext = createContext();
 
@@ -11,6 +12,7 @@ export const AuthProvider = ({ children }) => {
     localStorage.setItem('authToken', token);
     setIsAuthenticated(true);
     setUser(user);
+
   };
 
   const logout = () => {

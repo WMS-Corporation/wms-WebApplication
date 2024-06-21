@@ -1,6 +1,5 @@
 .navbar {
     align-items: center;
-    background-color: #fff;
     width: 3vw;
     transition: transform 0.5s ease;
     height: calc(100vh - 9vh); /* Altezza dinamica per coprire il resto dello schermo */
@@ -11,7 +10,6 @@
 }
 .sidebar-menu {
     width: 10vw;
-    background: white;
     height: 100%;
     display: flex;
     left: 0;

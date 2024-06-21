@@ -18,6 +18,9 @@ export const fetchUser = async (codUser) => {
 };
 
 export const updateUser = async (codUser, userData) => {
+  if (userData._password === '') {
+    delete userData._password;
+  }
   try {
     const response = await fetch(`${API_URL}/users/${codUser}`, {
       method: 'PUT',

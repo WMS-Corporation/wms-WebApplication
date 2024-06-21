@@ -6,11 +6,15 @@ import { useAuth } from '../contexts/AuthContext';
 import RegisterForm from "./Forms/RegisterForm";
 import {registerUser} from "../controllers/RegisterController";
 import './styles/LoginPage.css';
+import {useTheme} from "../contexts/ThemeContext";
 
 const Login = () => {
     const navigate = useNavigate();
     const { login } = useAuth() || {};
     const [isRegistering, setIsRegistering] = useState(false);
+    const {
+        setTheme
+    } = useTheme() || {}
 
     const handleLogin = async (username, password) => {
         try {

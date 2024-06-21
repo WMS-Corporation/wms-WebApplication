@@ -9,4 +9,73 @@
   height: 100%;
 }
 
+/* styles.css */
+:root {
+  --background-color-light: #ffffff;
+  --text-color-light: #000000;
+  --background-color-dark: #001f3f;
+  --text-color-dark: #ffffff;
+  --title-color-light: gray;
+  --title-color-dark: #ffffff;
+}
+
+body.light {
+  background-color: var(--background-color-light);
+  color: var(--text-color-light);
+}
+
+body.dark {
+  background-color: var(--background-color-dark);
+  color: var(--text-color-dark);
+}
+
+body.dark h1,
+body.dark h2 {
+  color: var(--title-color-dark);
+}
+
+body.dark label{
+  color: var(--title-color-dark);
+}
+
+body.dark .header{
+  color: var(--title-color-dark);
+  border-bottom: 1px solid white;
+}
+
+body.dark .navbar{
+}
+
+body.dark .sidebar-item svg{
+  color: var(--title-color-dark);
+}
+
+body.dark .sidebar-item a{
+  color: var(--title-color-dark);
+}
+
+body.dark table {
+  color: var(--title-color-dark);
+}
+
+body.dark table thead{
+  color: grey;
+}
+
+body.light h1,
+body.light h2 {
+  color: var(--title-color-light);
+}
+
+
+/* Per assicurarsi che tutti gli elementi all'interno dell'applicazione ereditino il tema */
+.app-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: inherit;
+  color: inherit;
+}
+
+
 

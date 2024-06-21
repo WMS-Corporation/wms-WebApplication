@@ -3,7 +3,6 @@ import LoginModel from '../../models/loginModel';
 import { API_URL } from '../../config';
 import fetchMock from 'jest-fetch-mock';
 
-// Enable fetch mocks
 fetchMock.enableMocks();
 
 beforeEach(() => {
@@ -11,7 +10,7 @@ beforeEach(() => {
 });
 
 test('login › should log in a user and return the user data', async () => {
-  const mockData = { id: 1, username: 'TestUser', name: 'Test', surname: 'User', role: 'Operational' };
+  const mockData = { token: undefined,  user: undefined};
   fetchMock.mockResponseOnce(JSON.stringify(mockData));
 
   const data = await login('TestUser', process.env.REACT_APP_LOGIN_TEST_PASSWORD);

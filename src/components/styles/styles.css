@@ -1,0 +1,26 @@
+/* styles.css */
+:root {
+    --background-color-light: #ffffff;
+    --text-color-light: #000000;
+    --background-color-dark: #000000;
+    --text-color-dark: #ffffff;
+}
+
+body.light {
+    background-color: var(--background-color-light);
+    color: var(--text-color-light);
+}
+
+body.dark {
+    background-color: var(--background-color-dark);
+    color: var(--text-color-dark);
+}
+
+/* Per assicurarsi che tutti gli elementi all'interno dell'applicazione ereditino il tema */
+.app-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: inherit;
+    color: inherit;
+}
