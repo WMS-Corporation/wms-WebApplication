@@ -37,7 +37,7 @@ describe('ShelfProductModel related functions', () => {
     it('gets a product from a shelf', async () => {
       const result = await getProductFromShelf(mockCodShelf, mockCodProduct);
       expect(result).toEqual(mockProductData);
-      expect(fetch).toHaveBeenCalledWith(`${API_URL}/shelf/${mockCodShelf}/product/${mockCodProduct}`, expect.anything());
+      expect(fetch).toHaveBeenCalledWith(`${API_URL}/logistics/shelf/${mockCodShelf}/product/${mockCodProduct}`, expect.anything());
     });
   
     it('updates a product in a shelf', async () => {
