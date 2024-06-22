@@ -1,46 +1,46 @@
 
 import PropTypes from "prop-types";
 import React from "react";
-import {ZoneModel} from "../../models/logisticModel";
+import {ShelfModel, ZoneModel} from "../../models/logisticModel";
 import ZoneItem from "./ZoneItem";
+import ShelfItem from "./ShelfItem";
 
-const ZoneList = ({ zones, onAdd, onSave, onEdit, onDelete, onView, onError, onBack }) => {
+const ShelfList = ({ shelfs, onAdd, onSave, onEdit, onDelete, onView, onError, onBack }) => {
     onError(null)
+    console.log(shelfs)
     return (
         <div className="task-list">
             <div className="header-list">
-                <h1>Zone List</h1>
+                <h1>Shelf List</h1>
                 <button className="btn-Add" onClick={onAdd}>
-                    Add Zone
+                    Add Shelf
                 </button>
             </div>
             <div className="table-task">
                 <table>
                     <thead>
                     <tr>
-                        <th>Zone Code</th>
-                        <th>Temperature</th>
-                        <th>Cooling System Status</th>
-                        <th>Humidity Level</th>
-                        <th>Corridors</th>
+                        <th>Shelf Code</th>
+                        <th>Name</th>
+                        <th>Products</th>
                         <th>Action</th>
                     </tr>
                     </thead>
                     <tbody>
-                    {zones.map((zone) => (
-                        <ZoneItem key={zone._codZone} zone={zone}
+                    {shelfs.map((shelf) => (
+                        <ShelfItem key={shelf._codShelf} shelf={shelf}
                                   onSave={onSave} onEdit={onEdit} onDelete={onDelete} onView={onView}/>
                     ))}
                     </tbody>
                 </table>
-                <button className="btn-Back" type="submit" onClick={() => onBack(zones)}>Back To Storage</button>
+                <button className="btn-Back" type="submit" onClick={() => onBack(shelfs)}>Back To Corridor</button>
             </div>
         </div>
     );
 };
 
-ZoneList.propTypes = {
-    zones: PropTypes.arrayOf(PropTypes.instanceOf(ZoneModel)).isRequired,
+ShelfList.propTypes = {
+    shelfs: PropTypes.arrayOf(PropTypes.instanceOf(ShelfModel)).isRequired,
     onSave: PropTypes.func.isRequired,
     onAdd: PropTypes.func.isRequired,
     onView: PropTypes.func.isRequired,
@@ -50,4 +50,4 @@ ZoneList.propTypes = {
     onBack: PropTypes.func.isRequired,
 };
 
-export default ZoneList;
+export default ShelfList;

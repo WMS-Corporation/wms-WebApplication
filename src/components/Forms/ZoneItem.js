@@ -1,12 +1,22 @@
 import {FaEye} from "react-icons/fa";
 import PropTypes from "prop-types";
-import React, {useEffect} from "react";
-import {StorageModel, ZoneModel} from "../../models/logisticModel";
+import React, {useEffect, useState} from "react";
+import { ZoneModel} from "../../models/logisticModel";
 import {FiEdit2} from "react-icons/fi";
 import {MdDeleteOutline} from "react-icons/md";
-import {getStorages} from "../../controllers/LogisticController";
+import {getCorridors, getZones} from "../../controllers/LogisticController";
 
 const ZoneItem = ({ zone, onSave, onEdit, onDelete, onView }) => {
+
+    const [corridors, setCorridors] = useState(null)
+    const loadCorridors = async () => {
+        const result = await getCorridors(zone._codZone);
+        setCorridors(result);
+    };
+
+    useEffect(() => {
+        loadCorridors();
+    }, []);
 
     return (
         <tr key={zone._codZone}>
@@ -16,7 +26,7 @@ const ZoneItem = ({ zone, onSave, onEdit, onDelete, onView }) => {
             <td>{zone._humidityLevel}</td>
             <td>{zone._corridorCodeList.length}</td>
             <td className="action">
-                <div className="view"><FaEye className="view-icon" onClick={() => onView(zone)}/></div>
+                <div className="view"><FaEye className="view-icon" onClick={() => onView(corridors)}/></div>
                 <div className="edit"><FiEdit2 className="edit-icon" onClick={() => onEdit(zone)}/></div>
                 <div className="delete"><MdDeleteOutline className="delete-icon" onClick={() => onDelete(zone)}/></div>
             </td>

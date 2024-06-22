@@ -8,7 +8,11 @@ import {fetchAllStorages, generateStorage} from "../services/logisticService";
 import {createStorage, getStorages} from "../controllers/LogisticController";
 import StorageList from "./Forms/StorageList";
 import ZoneList from "./Forms/ZoneList";
-import {ZoneModel} from "../models/logisticModel";
+import {CorridorModel, ShelfModel, ShelfProductModel, ZoneModel} from "../models/logisticModel";
+import CorridorList from "./Forms/CorridorList";
+import ShelfList from "./Forms/ShelfList";
+import ProductShelfItem from "./Forms/ProductShelfItem";
+import ProductShelfList from "./Forms/ProductShelfList";
 
 const Logistic = () => {
     const [storage, setStorage] = useState([]);
@@ -16,7 +20,14 @@ const Logistic = () => {
     const [error, setError] = useState(null);
     const [editingStorage, setEditingStorage] = useState(null);
     const [addingStorage, setAddingStorage] = useState(false);
-    const [zones, setZones] = useState(null)
+    const [zones, setZones] = useState(null);
+    const [corridors, setCorridors] = useState(null);
+    const [viewZones, setViewZones] = useState(false);
+    const [viewCorridors, setViewCorridors] = useState(false);
+    const [shelfs, setShelfs] = useState(null);
+    const [viewShelf, setViewShelf] = useState(false);
+    const [product, setProduct] = useState(null);
+    const [viewProduct, setViewProduct] = useState(false);
 
     const {
         editingOrder,
@@ -48,8 +59,55 @@ const Logistic = () => {
 
     const handleView = (item) => {
         if (Array.isArray(item) && item.every(item => item instanceof ZoneModel)) {
-            console.log(item)
+            setViewCorridors(false)
+            setViewZones(true)
+            setViewShelf(false)
+            setViewProduct(false)
             setZones(item);
+        } else if (Array.isArray(item) && item.every(item => item instanceof CorridorModel)) {
+            setViewCorridors(true)
+            setViewZones(false)
+            setViewShelf(false)
+            setViewProduct(false)
+            setCorridors(item);
+        } else if (Array.isArray(item) && item.every(item => item instanceof ShelfModel)) {
+            setViewCorridors(false)
+            setViewZones(false)
+            setViewShelf(true)
+            setViewProduct(false)
+            setShelfs(item);
+        }else {
+            console.log("ciao")
+            console.log(item)
+            setViewCorridors(false)
+            setViewZones(false)
+            setViewShelf(false)
+            setViewProduct(true)
+            setProduct(item);
+        }
+    }
+
+    const handleBack = (item) => {
+        if (Array.isArray(item) && item.every(item => item instanceof ZoneModel)) {
+            setViewCorridors(false)
+            setViewZones(false)
+            setViewShelf(false)
+            setViewProduct(false)
+        } else if (Array.isArray(item) && item.every(item => item instanceof CorridorModel)) {
+            setViewCorridors(false)
+            setViewZones(true)
+            setViewShelf(false)
+            setViewProduct(false)
+        } else if (Array.isArray(item) && item.every(item => item instanceof ShelfModel)) {
+            setViewCorridors(true)
+            setViewZones(false)
+            setViewShelf(false)
+            setViewProduct(false)
+        } else if (Array.isArray(item) && item.every(item => item instanceof ShelfProductModel)) {
+            setViewCorridors(false)
+            setViewZones(false)
+            setViewShelf(true)
+            setViewProduct(false)
         }
     }
 
@@ -80,10 +138,15 @@ const Logistic = () => {
         return <div>Loading...</div>;
     }
 
-    if (zones) {
-        //return <OrderAddForm order={new OrderModel()} onSave={handleSave} onCancel={handleCancel} error={error} />;
-        return <ZoneList zones={zones} onAdd={handleAdd} onSave={handleSave} onEdit={handleEdit} onDelete={handleCancel} onView={handleView} viewProductDetailOrder={viewProductDetailOrder} onError={setError}/>;
-    } else {
+    if (viewZones) {
+        return <ZoneList zones={zones} onAdd={handleAdd} onSave={handleSave} onEdit={handleEdit} onDelete={handleCancel} onView={handleView} viewProductDetailOrder={viewProductDetailOrder} onError={setError} onBack={handleBack}/>;
+    } else if(viewCorridors) {
+        return <CorridorList corridors={corridors} onAdd={handleAdd} onSave={handleSave} onEdit={handleEdit} onDelete={handleCancel} onView={handleView} viewProductDetailOrder={viewProductDetailOrder} onError={setError} onBack={handleBack}/>;
+    } else if(viewShelf) {
+        return <ShelfList shelfs={shelfs} onAdd={handleAdd} onSave={handleSave} onEdit={handleEdit} onDelete={handleCancel} onView={handleView} viewProductDetailOrder={viewProductDetailOrder} onError={setError} onBack={handleBack}/>;
+    } else if(viewProduct) {
+        return <ProductShelfList products={product} onAdd={handleAdd} onSave={handleSave} onEdit={handleEdit} onDelete={handleCancel} onView={handleView} viewProductDetailOrder={viewProductDetailOrder} onError={setError} onBack={handleBack}/>;
+    }else {
         return <StorageList storage={storage} onAdd={handleAdd} onSave={handleSave} onView={handleView} viewProductDetailOrder={viewProductDetailOrder} onError={setError}/>;
     }
 };

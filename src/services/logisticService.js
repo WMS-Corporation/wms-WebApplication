@@ -96,15 +96,31 @@ export const generateCorridor = async (codZone, corridorData) => {
   }
 };
 
-export const getAllCorridors = async (codZone) => {
+export const fetchCorridorByCode = async (codCorridor) => {
   try {
-    const response = await fetch(`${API_URL}/zone/${codZone}/corridor`, {
+    const response = await fetch(`${API_URL}/logistics/corridor/${codCorridor}`, {
       method: 'GET',
       headers: getAuthHeaders(),
     });
     if (!response.ok) throw new Error('Network response was not ok');
     const data = await response.json();
-    return data.map(item => new CorridorModel(item._name, item._shelfCodeList, item._codCorridor));
+    return new CorridorModel(data._name, data._shelfCodeList, data._codCorridor);
+  } catch (error) {
+    console.error(`Error fetching corridor with code ${codCorridor}:`, error);
+    throw error;
+  }
+};
+
+export const getAllCorridors = async (codZone) => {
+  try {
+    const response = await fetch(`${API_URL}/logistics/zone/${codZone}/corridor`, {
+      method: 'GET',
+      headers: getAuthHeaders(),
+    });
+    if (!response.ok) throw new Error('Network response was not ok');
+    const data = await response.json();
+    const promises = data.map(item => fetchCorridorByCode(item));
+    return await Promise.all(promises);
   } catch (error) {
     console.error('Error fetching all corridors:', error);
     throw error;
@@ -127,15 +143,31 @@ export const generateShelf = async (codCorridor, shelfData) => {
   }
 };
 
-export const getAllShelfs = async (codCorridor) => {
+export const fetchShelfByCode = async (codShelf) => {
   try {
-    const response = await fetch(`${API_URL}/corridor/${codCorridor}/shelf`, {
+    const response = await fetch(`${API_URL}/logistics/shelf/${codShelf}`, {
       method: 'GET',
       headers: getAuthHeaders(),
     });
     if (!response.ok) throw new Error('Network response was not ok');
     const data = await response.json();
-    return data.map(item => new ShelfModel(item._name, item._productList, item._codShelf));
+    return new ShelfModel(data._name, data._productList, data._codShelf);
+  } catch (error) {
+    console.error(`Error fetching shelf with code ${codShelf}:`, error);
+    throw error;
+  }
+};
+
+export const getAllShelfs = async (codCorridor) => {
+  try {
+    const response = await fetch(`${API_URL}/logistics/corridor/${codCorridor}/shelf`, {
+      method: 'GET',
+      headers: getAuthHeaders(),
+    });
+    if (!response.ok) throw new Error('Network response was not ok');
+    const data = await response.json();
+    const promises = data.map(item => fetchShelfByCode(item));
+    return await Promise.all(promises);
   } catch (error) {
     console.error('Error fetching all shelfs:', error);
     throw error;
@@ -191,7 +223,7 @@ export const addProductToShelf = async (codShelf, productData) => {
 
 export const getProductFromShelf = async (codShelf, codProduct) => {
   try {
-    const response = await fetch(`${API_URL}/shelf/${codShelf}/product/${codProduct}`, {
+    const response = await fetch(`${API_URL}/logistics/shelf/${codShelf}/product/${codProduct}`, {
       method: 'GET',
       headers: getAuthHeaders(),
     });
