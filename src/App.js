@@ -13,6 +13,7 @@ import { AppGlobalProvider } from "./contexts/AppGlobalContext";
 import User from "./components/User";
 import Setting from "./components/Setting";
 import {ThemeProvider} from "./contexts/ThemeContext";
+import Logistic from "./components/Logistic";
 
 const AppContent = () => {
     const { user } = useAuth();
@@ -37,6 +38,7 @@ const AppContent = () => {
                                 <Route path="/products" element={<PrivateRoute><Product /></PrivateRoute>} />
                                 <Route path="/settings" element={<PrivateRoute><Setting /></PrivateRoute>} />
                                 <Route path="/home" element={<PrivateRoute><Home /></PrivateRoute>} />
+                                <Route path="/logistic" element={<PrivateRoute><Logistic /></PrivateRoute>} />
                                 <Route path="*" element={<Navigate to="/home" replace />} />
                             </Routes>
                         </Layout>

@@ -48,15 +48,32 @@ export const generateZone = async (codStorage, zoneData) => {
   }
 };
 
-export const getAllZones = async (codStorage) => {
+export const fetchZoneByCode = async (codZone) => {
   try {
-    const response = await fetch(`${API_URL}/storage/${codStorage}/zone`, {
+    const response = await fetch(`${API_URL}/logistics/zone/${codZone}`, {
       method: 'GET',
       headers: getAuthHeaders(),
     });
     if (!response.ok) throw new Error('Network response was not ok');
     const data = await response.json();
-    return data.map(item => new ZoneModel(item._temperature, item._coolingSystemStatus, item._humidityLevel, item._corridorCodeList, item._codZone));
+    return new ZoneModel(data._temperature, data._coolingSystemStatus, data._humidityLevel, data._corridorCodeList, data._codZone);
+  } catch (error) {
+    console.error(`Error fetching storage with code ${codZone}:`, error);
+    throw error;
+  }
+};
+
+export const getAllZones = async (codStorage) => {
+  try {
+    const response = await fetch(`${API_URL}/logistics/storage/${codStorage}/zone`, {
+      method: 'GET',
+      headers: getAuthHeaders(),
+    });
+    if (!response.ok) throw new Error('Network response was not ok');
+    const data = await response.json();
+    const promises = data.map(item => fetchZoneByCode(item));
+    const zones = await Promise.all(promises);
+    return zones;
   } catch (error) {
     console.error('Error fetching all zones:', error);
     throw error;
@@ -143,7 +160,7 @@ export const generateStorage = async (storageData) => {
 
 export const getAllStorages = async () => {
   try {
-    const response = await fetch(`${API_URL}/storage/all`, {
+    const response = await fetch(`${API_URL}/logistics/storage/all`, {
       method: 'GET',
       headers: getAuthHeaders(),
     });
