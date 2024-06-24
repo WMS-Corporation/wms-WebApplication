@@ -1,12 +1,11 @@
 
 import PropTypes from "prop-types";
 import React from "react";
-import {ShelfModel, ShelfProductModel, ZoneModel} from "../../models/logisticModel";
+import {ShelfProductModel} from "../../models/logisticModel";
 import ProductShelfItem from "./ProductShelfItem";
+import ProductShelfForm from "./ProductShelfForm";
 
-const ProductShelfList = ({ products, onAdd, onSave, onEdit, onDelete, onError, onBack }) => {
-    onError(null)
-    console.log(products)
+const ProductShelfList = ({ products, onAdd, onSave, onCancel, onEdit, onDelete, addingProduct, editingProduct, onError, onBack, error }) => {
     return (
         <div className="task-list">
             <div className="header-list">
@@ -15,6 +14,12 @@ const ProductShelfList = ({ products, onAdd, onSave, onEdit, onDelete, onError, 
                     Add Product
                 </button>
             </div>
+            {addingProduct ? (
+                <ProductShelfForm product={new ShelfProductModel()} onSave={onSave} onCancel={onCancel} onError={onError} error={error}/>
+            ) : editingProduct ? (
+                <ProductShelfForm product={editingProduct} onSave={onSave} onCancel={onCancel} onError={onError} error={error}/>
+            ) : null
+            }
             <div className="table-task">
                 <table>
                     <thead>
@@ -31,7 +36,7 @@ const ProductShelfList = ({ products, onAdd, onSave, onEdit, onDelete, onError, 
                     ))}
                     </tbody>
                 </table>
-                <button className="btn-Back" type="submit" onClick={() => onBack(products)}>Back To Corridor</button>
+                <button className="btn-Back" type="submit" onClick={() => onBack(products)}>Back To Shelf</button>
             </div>
         </div>
     );
@@ -45,6 +50,10 @@ ProductShelfList.propTypes = {
     onDelete: PropTypes.func.isRequired,
     onError: PropTypes.func.isRequired,
     onBack: PropTypes.func.isRequired,
+    onCancel: PropTypes.func.isRequired,
+    addingProduct: PropTypes.bool,
+    error: PropTypes.string,
+    editingProduct: PropTypes.element
 };
 
 export default ProductShelfList;

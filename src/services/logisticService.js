@@ -17,6 +17,36 @@ export const fetchAllStorages = async () => {
   }
 };
 
+function simpleStringify (object){
+  var simpleObject = {};
+  for (var prop in object ){
+    if (!Object.prototype.hasOwnProperty.call(object, prop)){
+      continue;
+    }
+    if (typeof(object[prop]) == 'object'){
+      continue;
+    }
+    if (typeof(object[prop]) == 'function'){
+      continue;
+    }
+    if (prop === '_corridorCodeList' && typeof(object[prop]) == 'undefined') {
+      simpleObject[prop] = [];
+      continue;
+    }
+    if (prop === '_shelfCodeList' && typeof(object[prop]) == 'undefined') {
+      simpleObject[prop] = [];
+      continue;
+    }
+    if (prop === '_productList' && typeof(object[prop]) == 'undefined') {
+      simpleObject[prop] = [];
+      continue;
+    }
+    simpleObject[prop] = object[prop];
+  }
+  console.log(simpleObject)
+  return JSON.stringify(simpleObject); // returns cleaned up JSON
+}
+
 export const fetchStorageByCode = async (codStorage) => {
   try {
     const response = await fetch(`${API_URL}/storage/${codStorage}`, {
@@ -34,12 +64,15 @@ export const fetchStorageByCode = async (codStorage) => {
 
 export const generateZone = async (codStorage, zoneData) => {
   try {
-    const response = await fetch(`${API_URL}/storage/${codStorage}/zone`, {
+    const response = await fetch(`${API_URL}/logistics/storage/${codStorage}/zone`, {
       method: 'POST',
       headers: getAuthHeaders(),
-      body: JSON.stringify(zoneData),
+      body: simpleStringify(zoneData),
     });
-    if (!response.ok) throw new Error('Network response was not ok');
+    if (!response.ok){
+      const errorResponse = await response.json();
+      throw new Error(errorResponse.message)
+    }
     const data = await response.json();
     return new ZoneModel(data._temperature, data._coolingSystemStatus, data._humidityLevel, data._corridorCodeList, data._codZone);
   } catch (error) {
@@ -82,12 +115,15 @@ export const getAllZones = async (codStorage) => {
 
 export const generateCorridor = async (codZone, corridorData) => {
   try {
-    const response = await fetch(`${API_URL}/zone/${codZone}/corridor`, {
+    const response = await fetch(`${API_URL}/logistics/zone/${codZone}/corridor`, {
       method: 'POST',
       headers: getAuthHeaders(),
-      body: JSON.stringify(corridorData),
+      body: simpleStringify(corridorData),
     });
-    if (!response.ok) throw new Error('Network response was not ok');
+    if (!response.ok){
+      const errorResponse = await response.json();
+      throw new Error(errorResponse.message)
+    }
     const data = await response.json();
     return new CorridorModel(data._name, data._shelfCodeList, data._codCorridor);
   } catch (error) {
@@ -129,12 +165,15 @@ export const getAllCorridors = async (codZone) => {
 
 export const generateShelf = async (codCorridor, shelfData) => {
   try {
-    const response = await fetch(`${API_URL}/corridor/${codCorridor}/shelf`, {
+    const response = await fetch(`${API_URL}/logistics/corridor/${codCorridor}/shelf`, {
       method: 'POST',
       headers: getAuthHeaders(),
-      body: JSON.stringify(shelfData),
+      body: simpleStringify(shelfData),
     });
-    if (!response.ok) throw new Error('Network response was not ok');
+    if (!response.ok){
+      const errorResponse = await response.json();
+      throw new Error(errorResponse.message)
+    }
     const data = await response.json();
     return new ShelfModel(data._name, data._productList, data._codShelf);
   } catch (error) {
@@ -176,7 +215,7 @@ export const getAllShelfs = async (codCorridor) => {
 
 export const generateStorage = async (storageData) => {
   try {
-    const response = await fetch(`${API_URL}/storage/generation`, {
+    const response = await fetch(`${API_URL}/logistics/storage/generation`, {
       method: 'POST',
       headers: getAuthHeaders(),
       body: JSON.stringify(storageData),
@@ -207,12 +246,15 @@ export const getAllStorages = async () => {
 
 export const addProductToShelf = async (codShelf, productData) => {
   try {
-    const response = await fetch(`${API_URL}/shelf/${codShelf}/product`, {
-      method: 'POST',
+    const response = await fetch(`${API_URL}/logistics/shelf/${codShelf}/product`, {
+      method: 'PUT',
       headers: getAuthHeaders(),
-      body: JSON.stringify(productData),
+      body: simpleStringify(productData),
     });
-    if (!response.ok) throw new Error('Network response was not ok');
+    if (!response.ok){
+      const errorResponse = await response.json();
+      throw new Error(errorResponse.message)
+    }
     const data = await response.json();
     return new ShelfProductModel(data._codProduct, data._stock);
   } catch (error) {

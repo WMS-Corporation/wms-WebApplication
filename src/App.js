@@ -17,7 +17,7 @@ import Logistic from "./components/Logistic";
 
 const AppContent = () => {
     const { user } = useAuth();
-
+    const viewStorage = true
     return (
         <div className="App">
             <Routes>
@@ -38,7 +38,7 @@ const AppContent = () => {
                                 <Route path="/products" element={<PrivateRoute><Product /></PrivateRoute>} />
                                 <Route path="/settings" element={<PrivateRoute><Setting /></PrivateRoute>} />
                                 <Route path="/home" element={<PrivateRoute><Home /></PrivateRoute>} />
-                                <Route path="/logistic" element={<PrivateRoute><Logistic /></PrivateRoute>} />
+                                <Route path="/logistic" element={<PrivateRoute><Logistic viewStorage={viewStorage}/></PrivateRoute>} />
                                 <Route path="*" element={<Navigate to="/home" replace />} />
                             </Routes>
                         </Layout>

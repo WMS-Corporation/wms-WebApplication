@@ -10,7 +10,7 @@ const StorageList = ({ storage, onAdd, onSave, onView, onError }) => {
         <div className="task-list">
             <div className="header-list">
                 <h1>Storage List</h1>
-                <button className="btn-Add" onClick={onAdd}>
+                <button className="btn-Add" onClick={onSave}>
                     Add Storage
                 </button>
             </div>
@@ -26,7 +26,7 @@ const StorageList = ({ storage, onAdd, onSave, onView, onError }) => {
                     <tbody>
                     {storage.map((store) => (
                         <StorageItem key={store._codStorage} storage={store}
-                                  onSave={onSave} onView={onView}/>
+                                   onView={onView}/>
                     ))}
                     </tbody>
                 </table>

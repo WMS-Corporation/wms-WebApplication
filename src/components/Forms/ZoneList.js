@@ -33,7 +33,7 @@ const ZoneList = ({ zones, onAdd, onSave, onEdit, onDelete, onView, onError, onB
                     ))}
                     </tbody>
                 </table>
-                <button className="btn-Back" type="submit" onClick={() => onBack(zones)}>Back To Storage</button>
+                <button className="btn-Back" type="submit" onClick={() => onBack()}>Back To Storage</button>
             </div>
         </div>
     );

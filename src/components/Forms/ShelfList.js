@@ -1,13 +1,11 @@
 
 import PropTypes from "prop-types";
 import React from "react";
-import {ShelfModel, ZoneModel} from "../../models/logisticModel";
-import ZoneItem from "./ZoneItem";
+import { ShelfModel} from "../../models/logisticModel";
 import ShelfItem from "./ShelfItem";
+import ShelfForm from "./ShelfForm";
 
-const ShelfList = ({ shelfs, onAdd, onSave, onEdit, onDelete, onView, onError, onBack }) => {
-    onError(null)
-    console.log(shelfs)
+const ShelfList = ({ shelfs, onAdd, onSave, onCancel, onEdit, onDelete, onView, addingShelf, onError, onBack, error }) => {
     return (
         <div className="task-list">
             <div className="header-list">
@@ -16,6 +14,10 @@ const ShelfList = ({ shelfs, onAdd, onSave, onEdit, onDelete, onView, onError, o
                     Add Shelf
                 </button>
             </div>
+            {addingShelf ? (
+                <ShelfForm shelf={new ShelfModel()} onSave={onSave} onCancel={onCancel} onError={onError} error={error}/>
+            ) : null
+            }
             <div className="table-task">
                 <table>
                     <thead>
@@ -48,6 +50,9 @@ ShelfList.propTypes = {
     onDelete: PropTypes.func.isRequired,
     onError: PropTypes.func.isRequired,
     onBack: PropTypes.func.isRequired,
+    onCancel: PropTypes.func.isRequired,
+    addingShelf: PropTypes.bool,
+    error: PropTypes.string
 };
 
 export default ShelfList;
