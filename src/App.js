@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import PrivateRoute from './utils/PrivateRoute';
@@ -23,26 +23,18 @@ const socket = io(SERVER_URL);
 const AppContent = () => {
     const { user } = useAuth();
 
-    const [name, setName] = useState('');
-    const [message, setMessage] = useState('');
-    const [messages, setMessages] = useState([]);
-
-    const [isChatVisible, setIsChatVisible] = useState(true);
-
-    useEffect(() => {
-        socket.on('message', (message) => {
-            setMessages((messages) => [...messages, message]);
+    useEffect(() => {    
+        // Ascolto degli eventi di alert di temperatura
+        socket.on('temperature-alert', (data) => {
+          console.log('Temperature Alert:', data);
         });
-    }, []);
-
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        if (name && message) {
-            socket.emit('sendMessage', { name, message });
-            setName('');
-            setMessage('');
-        }
-    };
+    
+        // Pulizia alla disconnessione
+        return () => {
+          socket.off('temperature-alert');
+          socket.disconnect();
+        };
+      }, []);
 
     const viewStorage = true
     return (
@@ -74,29 +66,6 @@ const AppContent = () => {
                     />
                 </Routes>
             </div>
-            {isChatVisible && (
-                <div className={`chat-container ${isChatVisible ? "visible" : ""}`}>
-                    <div className="chat-messages">
-                        <ul>
-                            {messages.map((message, index) => (
-                                <li key={index}>
-                                    {message.name}: {message.message}
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
-                    <div className="chat-form">
-                        <form onSubmit={handleSubmit}>
-                            <input type="text" value={name} placeholder="Your name" onChange={(event) => setName(event.target.value)} />
-                            <input type="text" value={message} placeholder="Your message" onChange={(event) => setMessage(event.target.value)} />
-                            <button type="submit">Send</button>
-                        </form>
-                    </div>
-                </div>
-            )}
-            <button onClick={() => setIsChatVisible(!isChatVisible)} className={`chat-toggle-button ${isChatVisible ? "chat-toggle-button-open" : ""}`}>
-                {isChatVisible ? '-' : '+'}
-            </button>
         </div>
     );
 };
