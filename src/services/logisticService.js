@@ -299,11 +299,14 @@ export const updateProductInShelf = async (codShelf, codProduct, productData) =>
 
 export const deleteProductFromShelf = async (codShelf, codProduct) => {
   try {
-    const response = await fetch(`${API_URL}/shelf/${codShelf}/product/${codProduct}`, {
+    const response = await fetch(`${API_URL}/logistics/shelf/${codShelf}/product/${codProduct}`, {
       method: 'DELETE',
       headers: getAuthHeaders(),
     });
-    if (!response.ok) throw new Error('Network response was not ok');
+    if (!response.ok){
+      const errorResponse = await response.json();
+      throw new Error(errorResponse.message)
+    }
     return;
   } catch (error) {
     console.error('Error deleting product from shelf:', error);
@@ -313,11 +316,14 @@ export const deleteProductFromShelf = async (codShelf, codProduct) => {
 
 export const deleteZone = async (codZone) => {
   try {
-    const response = await fetch(`${API_URL}/zone/${codZone}`, {
+    const response = await fetch(`${API_URL}/logistics/zone/${codZone}`, {
       method: 'DELETE',
       headers: getAuthHeaders(),
     });
-    if (!response.ok) throw new Error('Network response was not ok');
+    if (!response.ok){
+      const errorResponse = await response.json();
+      throw new Error(errorResponse.message)
+    }
     return;
   } catch (error) {
     console.error('Error deleting zone:', error);
@@ -342,11 +348,14 @@ export const searchProductsOnShelves = async (productName) => {
 // Elimina un corridoio dato il suo codice
 export const deleteCorridor = async (codCorridor) => {
   try {
-    const response = await fetch(`${API_URL}/corridor/${codCorridor}`, {
+    const response = await fetch(`${API_URL}/logistics/corridor/${codCorridor}`, {
       method: 'DELETE',
       headers: getAuthHeaders(),
     });
-    if (!response.ok) throw new Error('Network response was not ok');
+    if (!response.ok){
+      const errorResponse = await response.json();
+      throw new Error(errorResponse.message)
+    }
     return;
   } catch (error) {
     console.error('Error deleting corridor:', error);
@@ -356,11 +365,31 @@ export const deleteCorridor = async (codCorridor) => {
 
 export const deleteShelf = async (codShelf) => {
   try {
-    const response = await fetch(`${API_URL}/shelf/${codShelf}`, {
+    const response = await fetch(`${API_URL}/logistics/shelf/${codShelf}`, {
       method: 'DELETE',
       headers: getAuthHeaders(),
     });
-    if (!response.ok) throw new Error('Network response was not ok');
+    if (!response.ok){
+      const errorResponse = await response.json();
+      throw new Error(errorResponse.message)
+    }
+    return;
+  } catch (error) {
+    console.error('Error deleting shelf:', error);
+    throw error;
+  }
+};
+
+export const deleteStorage = async (codStorage) => {
+  try {
+    const response = await fetch(`${API_URL}/logistics/storage/${codStorage}`, {
+      method: 'DELETE',
+      headers: getAuthHeaders(),
+    });
+    if (!response.ok){
+      const errorResponse = await response.json();
+      throw new Error(errorResponse.message)
+    }
     return;
   } catch (error) {
     console.error('Error deleting shelf:', error);

@@ -15,7 +15,7 @@ const ShelfItem = ({ shelf, onSave, onEdit, onDelete, onView }) => {
             <td className="action">
                 <div className="view"><FaEye className="view-icon" onClick={() => onView(shelf._productList.map(product => new ShelfProductModel(product._codProduct, product._stock)), shelf._codShelf)}/></div>
                 <div className="edit"><FiEdit2 className="edit-icon" onClick={() => onEdit(shelf)}/></div>
-                <div className="delete"><MdDeleteOutline className="delete-icon" onClick={() => onDelete(shelf)}/></div>
+                <div className="delete"><MdDeleteOutline className="delete-icon" onClick={() => onDelete(shelf._codShelf)}/></div>
             </td>
         </tr>
     );

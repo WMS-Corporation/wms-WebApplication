@@ -6,12 +6,23 @@ import OrderAddForm from "./Forms/OrderAddForm";
 import { useApplicationGlobal } from "../contexts/AppGlobalContext";
 import {fetchAllStorages, generateStorage} from "../services/logisticService";
 import {
-    createCorridor, createShelf,
+    createCorridor,
+    createShelf,
     createStorage,
     createZone,
-    getCorridors, getShelfs,
+    getCorridors,
+    getShelfs,
     getStorages,
-    getZones, addProduct, getShelf, updateProduct, updateShelf, updateCorridor, modifyZone
+    getZones,
+    addProduct,
+    getShelf,
+    updateProduct,
+    updateShelf,
+    updateCorridor,
+    modifyZone,
+    deleteProduct,
+    removeShelf,
+    removeCorridor, removeZone, removeStorage
 } from "../controllers/LogisticController";
 import StorageList from "./Forms/StorageList";
 import ZoneList from "./Forms/ZoneList";
@@ -45,9 +56,9 @@ const Logistic = (viewStorage) => {
     const [currentShelf, setCurrentShelf] = useState(null)
     const [currentProduct, setCurrentProduct] = useState(null)
     const [addingProduct, setAddingProduct] = useState(false);
-    const [editingProduct, setEditingProduct] = useState(false);
-    const [editingShelf, setEditingShelf] = useState(false);
-    const [editingCorridor, setEditingCorridor] = useState(false);
+    const [editingProduct, setEditingProduct] = useState(null);
+    const [editingShelf, setEditingShelf] = useState(null);
+    const [editingCorridor, setEditingCorridor] = useState(null);
     const [editingZone, setEditingZone] = useState(null);
 
     const {
@@ -199,15 +210,15 @@ const Logistic = (viewStorage) => {
             setError(null)
         } else if (viewCorridors){
             setAddingCorridor(true)
-            setEditingCorridor(false)
+            setEditingCorridor(null)
             setError(null)
         } else if (viewShelf){
             setAddingShelf(true)
-            setEditingShelf(false)
+            setEditingShelf(null)
             setError(null)
         } else if (viewProduct){
             setAddingProduct(true)
-            setEditingProduct(false)
+            setEditingProduct(null)
             setError(null)
         }
 
@@ -234,15 +245,15 @@ const Logistic = (viewStorage) => {
                 load();
             } else if (editingProduct){
                 await updateProduct(currentShelf, currentProduct, item);
-                setEditingProduct(false);
+                setEditingProduct(null);
                 load();
             }else if (editingShelf){
                 await updateShelf(currentShelf, item)
-                setEditingShelf(false);
+                setEditingShelf(null);
                 load();
             } else if (editingCorridor){
                 await updateCorridor(currentCorridor, item)
-                setEditingCorridor(false);
+                setEditingCorridor(null);
                 load();
             } else if (editingZone){
                 await modifyZone(currentZone, item)
@@ -273,11 +284,11 @@ const Logistic = (viewStorage) => {
         } else if(addingProduct){
             setAddingProduct(false)
         } else if(editingProduct){
-            setEditingProduct(false)
+            setEditingProduct(null)
         } else if(editingShelf){
-            setEditingShelf(false)
+            setEditingShelf(null)
         } else if(editingCorridor){
-            setEditingCorridor(false)
+            setEditingCorridor(null)
         } else if(editingZone){
             setEditingZone(null)
             setViewZones(true)
@@ -285,35 +296,73 @@ const Logistic = (viewStorage) => {
         setError(null)
     };
 
-    // const handleDelete = async (product) => {
-    //     if (window.confirm('Are you sure you want to delete this product?')) {
-    //         try {
-    //             await deleteProduct(product);
-    //             loadProducts();
-    //         } catch (error) {
-    //             setError(error);
-    //         }
-    //     }
-    // };
+    const handleDelete = async (item) => {
+        if(viewProduct){
+            if (window.confirm('Are you sure you want to delete this product?')) {
+                try {
+                    await deleteProduct(currentShelf, item);
+                    load();
+                } catch (error) {
+                    setError(error);
+                }
+            }
+        } else if(viewShelf){
+            if (window.confirm('Are you sure you want to delete this shelf?')) {
+                try {
+                    await removeShelf(item);
+                    load();
+                } catch (error) {
+                    setError(error);
+                }
+            }
+        } else if(viewCorridors){
+            if (window.confirm('Are you sure you want to delete this corridor?')) {
+                try {
+                    await removeCorridor(item);
+                    load();
+                } catch (error) {
+                    setError(error);
+                }
+            }
+        } else if(viewZones){
+            if (window.confirm('Are you sure you want to delete this zone?')) {
+                try {
+                    await removeZone(item);
+                    load();
+                } catch (error) {
+                    setError(error);
+                }
+            }
+        } else {
+            if (window.confirm('Are you sure you want to delete this storage?')) {
+                try {
+                    await removeStorage(item);
+                    load();
+                } catch (error) {
+                    setError(error);
+                }
+            }
+        }
+    };
 
     if (loading) {
         return <div>Loading...</div>;
     }
 
     if (viewZones) {
-        return <ZoneList zones={zones} onAdd={handleAdd} onSave={handleSave} onEdit={handleEdit} onDelete={handleCancel} onView={handleView} viewProductDetailOrder={viewProductDetailOrder} onError={setError} onBack={handleBack}/>;
+        return <ZoneList zones={zones} onAdd={handleAdd} onSave={handleSave} onEdit={handleEdit} onDelete={handleDelete} onView={handleView} viewProductDetailOrder={viewProductDetailOrder} onError={setError} onBack={handleBack}/>;
     } else if(viewCorridors) {
-        return <CorridorList corridors={corridors} onAdd={handleAdd} onSave={handleSave} onCancel={handleCancel} onEdit={handleEdit} onDelete={handleCancel} onView={handleView} addingCorridor={addingCorridor} editingCorridor={editingCorridor} onError={setError} onBack={handleBack} error={error}/>;
+        return <CorridorList corridors={corridors} onAdd={handleAdd} onSave={handleSave} onCancel={handleCancel} onEdit={handleEdit} onDelete={handleDelete} onView={handleView} addingCorridor={addingCorridor} editingCorridor={editingCorridor} onError={setError} onBack={handleBack} error={error}/>;
     } else if(viewShelf) {
-        return <ShelfList shelfs={shelfs} onAdd={handleAdd} onSave={handleSave} onCancel={handleCancel} onEdit={handleEdit} onDelete={handleCancel} onView={handleView} addingShelf={addingShelf} editingShelf={editingShelf} onError={setError} onBack={handleBack} error={error}/>;
+        return <ShelfList shelfs={shelfs} onAdd={handleAdd} onSave={handleSave} onCancel={handleCancel} onEdit={handleEdit} onDelete={handleDelete} onView={handleView} addingShelf={addingShelf} editingShelf={editingShelf} onError={setError} onBack={handleBack} error={error}/>;
     } else if(viewProduct) {
-        return <ProductShelfList products={product} onAdd={handleAdd} onSave={handleSave} onCancel={handleCancel} onEdit={handleEdit} onDelete={handleCancel} onView={handleView} addingProduct={addingProduct} editingProduct={editingProduct} onError={setError} onBack={handleBack} error={error}/>;
+        return <ProductShelfList products={product} onAdd={handleAdd} onSave={handleSave} onCancel={handleCancel} onEdit={handleEdit} onDelete={handleDelete} onView={handleView} addingProduct={addingProduct} editingProduct={editingProduct} onError={setError} onBack={handleBack} error={error}/>;
     }else if(addingZone) {
         return <ZoneForm zone={new ZoneModel()} onSave={handleSave} onCancel={handleCancel} error={error}/>;
     } else if(editingZone) {
         return <ZoneForm zone={editingZone} onSave={handleSave} onCancel={handleCancel} error={error}/>;
     }else {
-        return <StorageList storage={storage} onAdd={handleAdd} onSave={handleSave} onView={handleView} viewProductDetailOrder={viewProductDetailOrder} onError={setError}/>;
+        return <StorageList storage={storage} onAdd={handleAdd} onSave={handleSave} onView={handleView} onDelete={handleDelete} onError={setError}/>;
     }
 };
 

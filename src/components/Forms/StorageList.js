@@ -4,7 +4,7 @@ import React from "react";
 import {StorageModel} from "../../models/logisticModel";
 import StorageItem from "./StorageItem";
 
-const StorageList = ({ storage, onAdd, onSave, onView, onError }) => {
+const StorageList = ({ storage, onAdd, onSave, onView, onDelete, onError }) => {
     onError(null)
     return (
         <div className="task-list">
@@ -26,7 +26,7 @@ const StorageList = ({ storage, onAdd, onSave, onView, onError }) => {
                     <tbody>
                     {storage.map((store) => (
                         <StorageItem key={store._codStorage} storage={store}
-                                   onView={onView}/>
+                                   onView={onView} onDelete={onDelete}/>
                     ))}
                     </tbody>
                 </table>
@@ -41,6 +41,7 @@ StorageList.propTypes = {
     onSave: PropTypes.func.isRequired,
     onAdd: PropTypes.func.isRequired,
     onView: PropTypes.func.isRequired,
+    onDelete: PropTypes.func.isRequired,
     onError: PropTypes.func.isRequired,
 };
 

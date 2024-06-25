@@ -16,7 +16,7 @@ import {
   searchStoragesByName,
   deleteCorridor,
   deleteShelf,
-  updateZone, fetchShelfByCode, updateShelfByCode, updateCorridorByCode, updateZoneByCode
+  updateZone, fetchShelfByCode, updateShelfByCode, updateCorridorByCode, updateZoneByCode, deleteZone, deleteStorage
 } from '../services/logisticService';
 
 export const addProduct = async (codShelf, product) => {
@@ -95,6 +95,14 @@ export const removeCorridor = async (codCorridor) => {
 
 export const removeShelf = async (codShelf) => {
   return await deleteShelf(codShelf);
+};
+
+export const removeZone = async (codZone) => {
+  return await deleteZone(codZone);
+};
+
+export const removeStorage = async (codStorage) => {
+  return await deleteStorage(codStorage);
 };
 
 export const modifyZone = async (codZone, zoneData) => {

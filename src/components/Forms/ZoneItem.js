@@ -28,7 +28,7 @@ const ZoneItem = ({ zone, onSave, onEdit, onDelete, onView }) => {
             <td className="action">
                 <div className="view"><FaEye className="view-icon" onClick={() => onView(corridors, zone._codZone)}/></div>
                 <div className="edit"><FiEdit2 className="edit-icon" onClick={() => onEdit(zone)}/></div>
-                <div className="delete"><MdDeleteOutline className="delete-icon" onClick={() => onDelete(zone)}/></div>
+                <div className="delete"><MdDeleteOutline className="delete-icon" onClick={() => onDelete(zone._codZone)}/></div>
             </td>
         </tr>
     );

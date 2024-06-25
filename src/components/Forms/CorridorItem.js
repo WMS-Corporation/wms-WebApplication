@@ -25,7 +25,7 @@ const CorridorItem = ({ corridor, onSave, onEdit, onDelete, onView }) => {
             <td className="action">
                 <div className="view"><FaEye className="view-icon" onClick={() => onView(shelfs, corridor._codCorridor)}/></div>
                 <div className="edit"><FiEdit2 className="edit-icon" onClick={() => onEdit(corridor)}/></div>
-                <div className="delete"><MdDeleteOutline className="delete-icon" onClick={() => onDelete(corridor)}/></div>
+                <div className="delete"><MdDeleteOutline className="delete-icon" onClick={() => onDelete(corridor._codCorridor)}/></div>
             </td>
         </tr>
     );

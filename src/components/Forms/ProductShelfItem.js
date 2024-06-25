@@ -13,7 +13,7 @@ const ProductShelfItem = ({ product, onSave, onEdit, onDelete }) => {
             <td>{product._stock}</td>
             <td className="action">
                 <div className="edit"><FiEdit2 className="edit-icon" onClick={() => onEdit(product)}/></div>
-                <div className="delete"><MdDeleteOutline className="delete-icon" onClick={() => onDelete(product)}/>
+                <div className="delete"><MdDeleteOutline className="delete-icon" onClick={() => onDelete(product._codProduct)}/>
                 </div>
 
             </td>

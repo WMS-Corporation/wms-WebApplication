@@ -49,6 +49,6 @@ describe('ShelfProductModel related functions', () => {
     it('deletes a product from a shelf', async () => {
       const result = await deleteProductFromShelf(mockCodShelf, mockCodProduct);
       expect(result).toBeUndefined();
-      expect(fetch).toHaveBeenCalledWith(`${API_URL}/shelf/${mockCodShelf}/product/${mockCodProduct}`, expect.anything());
+      expect(fetch).toHaveBeenCalledWith(`${API_URL}/logistics/shelf/${mockCodShelf}/product/${mockCodProduct}`, expect.anything());
     });
   });
