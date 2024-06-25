@@ -280,12 +280,15 @@ export const getProductFromShelf = async (codShelf, codProduct) => {
 
 export const updateProductInShelf = async (codShelf, codProduct, productData) => {
   try {
-    const response = await fetch(`${API_URL}/shelf/${codShelf}/product/${codProduct}`, {
+    const response = await fetch(`${API_URL}/logistics/shelf/${codShelf}/product/${codProduct}`, {
       method: 'PUT',
       headers: getAuthHeaders(),
-      body: JSON.stringify(productData),
+      body: simpleStringify(productData),
     });
-    if (!response.ok) throw new Error('Network response was not ok');
+    if (!response.ok){
+      const errorResponse = await response.json();
+      throw new Error(errorResponse.message)
+    }
     const data = await response.json();
     return new ShelfProductModel(data._codProduct, data._stock);
   } catch (error) {
@@ -365,20 +368,65 @@ export const deleteShelf = async (codShelf) => {
   }
 };
 
-export const updateZone = async (codZone, zoneData) => {
+export const updateZoneByCode = async (codZone, zoneData) => {
   try {
-    const response = await fetch(`${API_URL}/zone/${codZone}`, {
+    const response = await fetch(`${API_URL}/logistics/zone/${codZone}`, {
       method: 'PUT',
       headers: {
         ...getAuthHeaders(),
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(zoneData),
+      body: simpleStringify(zoneData),
     });
-    if (!response.ok) throw new Error('Network response was not ok');
+    if (!response.ok){
+      const errorResponse = await response.json();
+      throw new Error(errorResponse.message)
+    }
     return await response.json();
   } catch (error) {
     console.error('Error updating zone:', error);
+    throw error;
+  }
+};
+
+export const updateShelfByCode = async (codShelf, shelfData) => {
+  try {
+    const response = await fetch(`${API_URL}/logistics/shelf/${codShelf}`, {
+      method: 'PUT',
+      headers: {
+        ...getAuthHeaders(),
+        'Content-Type': 'application/json',
+      },
+      body: simpleStringify(shelfData),
+    });
+    if (!response.ok){
+      const errorResponse = await response.json();
+      throw new Error(errorResponse.message)
+    }
+    return await response.json();
+  } catch (error) {
+    console.error('Error updating shelf:', error);
+    throw error;
+  }
+};
+
+export const updateCorridorByCode = async (codCorridor, corridorData) => {
+  try {
+    const response = await fetch(`${API_URL}/logistics/corridor/${codCorridor}`, {
+      method: 'PUT',
+      headers: {
+        ...getAuthHeaders(),
+        'Content-Type': 'application/json',
+      },
+      body: simpleStringify(corridorData),
+    });
+    if (!response.ok){
+      const errorResponse = await response.json();
+      throw new Error(errorResponse.message)
+    }
+    return await response.json();
+  } catch (error) {
+    console.error('Error updating corridor:', error);
     throw error;
   }
 };

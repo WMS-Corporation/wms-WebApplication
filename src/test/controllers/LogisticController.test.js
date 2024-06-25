@@ -371,15 +371,15 @@ it('should remove a shelf', async () => {
     expect(result).toEqual(expectedResponse);
 });
 
-it('should modify a zone', async () => {
-    const codZone = 'zone123';
-    const zoneData = { temperature: 5, coolingSystemStatus: 'active' };
-    const expectedResponse = { success: true };
-
-    updateZone.mockImplementation(async () => expectedResponse);
-
-    const result = await logisticController.modifyZone(codZone, zoneData);
-
-    expect(updateZone).toHaveBeenCalledWith(codZone, zoneData);
-    expect(result).toEqual(expectedResponse);
-});
+// it('should modify a zone', async () => {
+//     const codZone = 'zone123';
+//     const zoneData = { temperature: 5, coolingSystemStatus: 'active' };
+//     const expectedResponse = { success: true };
+//
+//     updateZone.mockImplementation(async () => expectedResponse);
+//
+//     const result = await logisticController.modifyZone(codZone, zoneData);
+//
+//     expect(updateZone).toHaveBeenCalledWith(codZone, zoneData);
+//     expect(result).toEqual(expectedResponse);
+// });

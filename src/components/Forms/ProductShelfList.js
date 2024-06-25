@@ -17,7 +17,7 @@ const ProductShelfList = ({ products, onAdd, onSave, onCancel, onEdit, onDelete,
             {addingProduct ? (
                 <ProductShelfForm product={new ShelfProductModel()} onSave={onSave} onCancel={onCancel} onError={onError} error={error}/>
             ) : editingProduct ? (
-                <ProductShelfForm product={editingProduct} onSave={onSave} onCancel={onCancel} onError={onError} error={error}/>
+                <ProductShelfForm product={editingProduct} onSave={onSave} onCancel={onCancel} onError={onError} error={error} edit={true}/>
             ) : null
             }
             <div className="table-task">

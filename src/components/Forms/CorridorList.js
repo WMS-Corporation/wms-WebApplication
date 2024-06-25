@@ -5,7 +5,7 @@ import {CorridorModel, ZoneModel} from "../../models/logisticModel";
 import CorridorItem from "./CorridorItem";
 import CorridorForm from "./CorridorForm";
 
-const CorridorList = ({ corridors, onAdd, onSave, onCancel, onEdit, onDelete, onView, addingCorridor, onError, onBack, error }) => {
+const CorridorList = ({ corridors, onAdd, onSave, onCancel, onEdit, onDelete, onView, addingCorridor, editingCorridor, onError, onBack, error }) => {
     return (
         <div className="task-list">
             <div className="header-list">
@@ -16,6 +16,8 @@ const CorridorList = ({ corridors, onAdd, onSave, onCancel, onEdit, onDelete, on
             </div>
             {addingCorridor ? (
                 <CorridorForm corridor={new CorridorModel()} onSave={onSave} onCancel={onCancel} onError={onError} error={error}/>
+            ) : editingCorridor ? (
+                <CorridorForm corridor={editingCorridor} onSave={onSave} onCancel={onCancel} onError={onError} error={error}/>
             ) : null
             }
             <div className="table-task">
@@ -51,7 +53,8 @@ CorridorList.propTypes = {
     onError: PropTypes.func.isRequired,
     onBack: PropTypes.func.isRequired,
     addingCorridor: PropTypes.bool,
-    error: PropTypes.string
+    error: PropTypes.string,
+    editingCorridor: PropTypes.element
 };
 
 export default CorridorList;
