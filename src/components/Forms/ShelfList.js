@@ -5,7 +5,7 @@ import { ShelfModel} from "../../models/logisticModel";
 import ShelfItem from "./ShelfItem";
 import ShelfForm from "./ShelfForm";
 
-const ShelfList = ({ shelfs, onAdd, onSave, onCancel, onEdit, onDelete, onView, addingShelf, onError, onBack, error }) => {
+const ShelfList = ({ shelfs, onAdd, onSave, onCancel, onEdit, onDelete, onView, addingShelf, editingShelf, onError, onBack, error }) => {
     return (
         <div className="task-list">
             <div className="header-list">
@@ -16,6 +16,8 @@ const ShelfList = ({ shelfs, onAdd, onSave, onCancel, onEdit, onDelete, onView, 
             </div>
             {addingShelf ? (
                 <ShelfForm shelf={new ShelfModel()} onSave={onSave} onCancel={onCancel} onError={onError} error={error}/>
+            ) : editingShelf ? (
+                <ShelfForm shelf={editingShelf} onSave={onSave} onCancel={onCancel} onError={onError} error={error}/>
             ) : null
             }
             <div className="table-task">
@@ -52,7 +54,8 @@ ShelfList.propTypes = {
     onBack: PropTypes.func.isRequired,
     onCancel: PropTypes.func.isRequired,
     addingShelf: PropTypes.bool,
-    error: PropTypes.string
+    error: PropTypes.string,
+    editingShelf: PropTypes.element
 };
 
 export default ShelfList;

@@ -5,7 +5,7 @@ import '../styles/ProductEdit.css';
 import {CorridorModel, ShelfModel, ShelfProductModel, ZoneModel} from "../../models/logisticModel";
 import {getProducts} from "../../controllers/ProductController";
 
-const ProductShelfForm = ({ product, onSave, onCancel, error }) => {
+const ProductShelfForm = ({ product, onSave, onCancel, error, edit }) => {
     const [editedProduct, setEditedProduct] = React.useState(product);
     const [availableProducts, setAvailableProducts] = React.useState([]);
 
@@ -43,7 +43,7 @@ const ProductShelfForm = ({ product, onSave, onCancel, error }) => {
                     <div className="form-group">
                         <label>Product Code *</label>
                         <select className="form-control" name="_codProduct" value={product._codProduct}
-                                onChange={handleChange}>
+                                onChange={handleChange} disabled={edit}>
                             <option value="">Select a product</option>
                             {availableProducts.map(prod => (
                                 <option key={prod._codProduct} value={prod._codProduct}>{prod._codProduct}</option>
@@ -76,6 +76,7 @@ ProductShelfForm.propTypes = {
     onSave: PropTypes.func.isRequired,
     onCancel: PropTypes.func.isRequired,
     error: PropTypes.string,
+    edit: PropTypes.bool
 };
 
 export default ProductShelfForm;
