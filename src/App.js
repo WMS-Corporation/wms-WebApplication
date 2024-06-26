@@ -1,5 +1,11 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
+import io from 'socket.io-client';
+import { toast, ToastContainer } from 'react-toastify';
+
+import './App.css';
+import 'react-toastify/dist/ReactToastify.css';
+
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import PrivateRoute from './utils/PrivateRoute';
 import Home from './components/Home';
@@ -7,16 +13,14 @@ import Product from './components/Product';
 import Task from './components/Task';
 import Order from './components/Order';
 import Login from './components/Login';
-import './App.css';
 import Layout from "./components/Layout";
 import { AppGlobalProvider } from "./contexts/AppGlobalContext";
 import User from "./components/User";
 import Setting from "./components/Setting";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import Logistic from "./components/Logistic";
-import { SERVER_URL } from './config';
 
-import io from 'socket.io-client';
+import { SERVER_URL } from './config';
 
 const AppContent = () => {
     const { user } = useAuth();
@@ -25,7 +29,8 @@ const AppContent = () => {
         const socket = io(SERVER_URL);   
         // Ascolto degli eventi di alert di temperatura
         socket.on('temperature-alert', (data) => {
-          console.log('Temperature Alert:', data);
+          // console.log('Temperature Alert:', data);
+          toast(`Temperature Alert: ${data.zone} - ${data.temperature}°C`);
         });
     
         // Pulizia alla disconnessione
@@ -76,6 +81,7 @@ const App = () => {
                 <ThemeProvider>
                     <BrowserRouter>
                         <AppContent />
+                        <ToastContainer />
                     </BrowserRouter>
                 </ThemeProvider>
             </AppGlobalProvider>
