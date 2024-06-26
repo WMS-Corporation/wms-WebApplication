@@ -18,12 +18,11 @@ import { SERVER_URL } from './config';
 
 import io from 'socket.io-client';
 
-const socket = io(SERVER_URL);
-
 const AppContent = () => {
     const { user } = useAuth();
 
-    useEffect(() => {    
+    useEffect(() => { 
+        const socket = io(SERVER_URL);   
         // Ascolto degli eventi di alert di temperatura
         socket.on('temperature-alert', (data) => {
           console.log('Temperature Alert:', data);
