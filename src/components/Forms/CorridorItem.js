@@ -6,7 +6,7 @@ import {FiEdit2} from "react-icons/fi";
 import {MdDeleteOutline} from "react-icons/md";
 import {getShelfs} from "../../controllers/LogisticController";
 
-const CorridorItem = ({ corridor, onSave, onEdit, onDelete, onView }) => {
+const CorridorItem = ({ corridor, onSave, onEdit, onDelete, onView, type }) => {
     const [shelfs, setShelfs] = useState(null)
     const loadShelf = async () => {
         const result = await getShelfs(corridor._codCorridor);
@@ -24,8 +24,13 @@ const CorridorItem = ({ corridor, onSave, onEdit, onDelete, onView }) => {
             <td>{corridor._shelfCodeList.length}</td>
             <td className="action">
                 <div className="view"><FaEye className="view-icon" onClick={() => onView(shelfs, corridor._codCorridor)}/></div>
-                <div className="edit"><FiEdit2 className="edit-icon" onClick={() => onEdit(corridor)}/></div>
-                <div className="delete"><MdDeleteOutline className="delete-icon" onClick={() => onDelete(corridor._codCorridor)}/></div>
+                {type === "Admin" ? (
+                    <div className="edit"><FiEdit2 className="edit-icon" onClick={() => onEdit(corridor)}/></div>
+                ) : null}
+                {type === "Admin" ? (
+                    <div className="delete"><MdDeleteOutline className="delete-icon"
+                                                             onClick={() => onDelete(corridor._codCorridor)}/></div>
+                ) : null}
             </td>
         </tr>
     );
@@ -37,6 +42,7 @@ CorridorItem.propTypes = {
     onSave: PropTypes.func.isRequired,
     onEdit: PropTypes.func.isRequired,
     onDelete: PropTypes.func.isRequired,
+    type: PropTypes.string
 };
 
 export default CorridorItem;

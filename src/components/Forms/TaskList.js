@@ -4,16 +4,24 @@ import { TaskModel } from '../../models/taskModel';
 import TaskItem from './TaskItem';
 import '../styles/TaskList.css';
 import TaskProductDetails from "./TaskProductDetails";
+import {useAuth} from "../../contexts/AuthContext";
 
 const TaskList = ({ tasks, onAdd, onEdit, onSave, onView, viewProductDetailTask, onError }) => {
     onError(null)
+    const { user } = useAuth() || {};
+    let tasksOfUser = []
+    if(user._type === "Operational"){
+        tasksOfUser.push(...tasks.filter(task => task._codOperator === user._codUser))
+    }
     return (
         <div className="task-list">
             <div className="header-list">
                 <h1>Task List</h1>
-                <button className="btn-Add" onClick={onAdd}>
-                    Add Task
-                </button>
+                {user._type === "Admin" ? (
+                    <button className="btn-Add" onClick={onAdd}>
+                        Add Task
+                    </button>
+                ) : null}
             </div>
             <div className="table-task">
                 {viewProductDetailTask && viewProductDetailTask._productList ? (
@@ -44,9 +52,14 @@ const TaskList = ({ tasks, onAdd, onEdit, onSave, onView, viewProductDetailTask,
                         </tr>
                         </thead>
                         <tbody>
-                        {tasks.map((task) => (
+                        {user._type === "Operational" ? (
+                            tasksOfUser.map((task) => (
+                                <TaskItem key={task._codTask} task={task} onEdit={onEdit}
+                                          onSave={onSave} onView={onView} admin={false}/>
+                            ))
+                        ) : tasks.map((task) => (
                             <TaskItem key={task._codTask} task={task} onEdit={onEdit}
-                                      onSave={onSave} onView={onView}/>
+                                      onSave={onSave} onView={onView} admin={true}/>
                         ))}
                         </tbody>
                     </table>

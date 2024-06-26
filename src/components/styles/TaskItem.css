@@ -54,3 +54,13 @@
     border-radius: 1vw;
     background: #FF9770;
 }
+
+.done{
+    width: 3vw;
+    height: 4vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 1vw;
+    background: forestgreen;
+}

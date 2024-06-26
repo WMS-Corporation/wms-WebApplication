@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { getTasks, saveTask, deleteTask, addTask } from '../controllers/TaskController';
 import TaskList from './Forms/TaskList';
-import TaskEditForm from './Forms/TaskEditForm';
 import { TaskModel } from '../models/taskModel';
 import TaskAddForm from "./Forms/TaskAddForm";
 import {useApplicationGlobal} from "../contexts/AppGlobalContext";
+import {useAuth} from "../contexts/AuthContext";
 
 const Task = () => {
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const { user } = useAuth() || {};
 
   const {
     editingTask,
@@ -36,7 +37,13 @@ const Task = () => {
   }, []);
 
   const handleEdit = (task) => {
-    setEditingTask(task);
+    if (user._type === "Operational"){
+      task._status = "Completed"
+      handleSave(task)
+    } else {
+      setEditingTask(task);
+    }
+
   };
   
   const handleView = (task) => {

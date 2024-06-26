@@ -24,6 +24,7 @@ const Setting = () => {
             editedUser._password = ""
         }
         await saveUser(editedUser._codUser, editedUser);
+        window.confirm('Update Settings')
     };
     return (
         <div className="settings-page">

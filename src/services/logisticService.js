@@ -213,6 +213,24 @@ export const getAllShelfs = async (codCorridor) => {
   }
 };
 
+export const getShelf = async () => {
+  try {
+    const response = await fetch(`${API_URL}/logistics/shelf`, {
+      method: 'GET',
+      headers: getAuthHeaders(),
+    });
+    if (!response.ok){
+      const errorResponse = await response.json();
+      throw new Error(errorResponse.message)
+    }
+    const data = await response.json();
+    return data.map(item => new ShelfModel(item._name, item._productList, item._codShelf));
+  } catch (error) {
+    console.error('Error fetching all shelfs:', error);
+    throw error;
+  }
+};
+
 export const generateStorage = async (storageData) => {
   try {
     const response = await fetch(`${API_URL}/logistics/storage/generation`, {

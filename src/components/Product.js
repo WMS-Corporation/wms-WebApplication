@@ -4,6 +4,7 @@ import ProductList from './Forms/ProductList';
 import ProductModel from '../models/productModel';
 import ProductAddForm from "./Forms/ProductAddForm";
 import {useApplicationGlobal} from "../contexts/AppGlobalContext";
+import {useAuth} from "../contexts/AuthContext";
 
 const Product = () => {
   const [products, setProducts] = useState([]);

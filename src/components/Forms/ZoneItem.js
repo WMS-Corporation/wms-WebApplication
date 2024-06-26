@@ -6,7 +6,7 @@ import {FiEdit2} from "react-icons/fi";
 import {MdDeleteOutline} from "react-icons/md";
 import {getCorridors, getZones} from "../../controllers/LogisticController";
 
-const ZoneItem = ({ zone, onSave, onEdit, onDelete, onView }) => {
+const ZoneItem = ({ zone, onSave, onEdit, onDelete, onView, type }) => {
 
     const [corridors, setCorridors] = useState(null)
     const loadCorridors = async () => {
@@ -26,9 +26,16 @@ const ZoneItem = ({ zone, onSave, onEdit, onDelete, onView }) => {
             <td>{zone._humidityLevel}</td>
             <td>{zone._corridorCodeList.length}</td>
             <td className="action">
-                <div className="view"><FaEye className="view-icon" onClick={() => onView(corridors, zone._codZone)}/></div>
-                <div className="edit"><FiEdit2 className="edit-icon" onClick={() => onEdit(zone)}/></div>
-                <div className="delete"><MdDeleteOutline className="delete-icon" onClick={() => onDelete(zone._codZone)}/></div>
+                <div className="view"><FaEye className="view-icon" onClick={() => onView(corridors, zone._codZone)}/>
+                </div>
+                {type === "Admin" ? (
+                    <div className="edit"><FiEdit2 className="edit-icon" onClick={() => onEdit(zone)}/></div>
+                ) : null}
+                {type === "Admin" ? (
+                    <div className="delete"><MdDeleteOutline className="delete-icon"
+                                                             onClick={() => onDelete(zone._codZone)}/></div>
+                ) : null}
+
             </td>
         </tr>
     );
@@ -40,6 +47,7 @@ ZoneItem.propTypes = {
     onSave: PropTypes.func.isRequired,
     onEdit: PropTypes.func.isRequired,
     onDelete: PropTypes.func.isRequired,
+    type: PropTypes.string
 };
 
 export default ZoneItem;

@@ -19,6 +19,7 @@ describe('Component Task item', () => {
             task: mockTask,
             onEdit: mockOnEdit,
             onView: mockOnView,
+            admin: true,
             ...overrideProps,
         };
 

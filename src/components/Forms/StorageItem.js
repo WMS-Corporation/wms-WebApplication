@@ -4,8 +4,9 @@ import React, {useEffect, useState} from "react";
 import {StorageModel} from "../../models/logisticModel";
 import { getZones} from "../../controllers/LogisticController";
 import {MdDeleteOutline} from "react-icons/md";
+import {FiEdit2} from "react-icons/fi";
 
-const StorageItem = ({ storage, onView, onDelete }) => {
+const StorageItem = ({ storage, onView, onDelete, type }) => {
     const [zones, setZones] = useState(null)
     const loadZones = async () => {
         const result = await getZones(storage._codStorage);
@@ -23,8 +24,10 @@ const StorageItem = ({ storage, onView, onDelete }) => {
             <td className="action">
                 <div className="view"><FaEye className="view-icon" onClick={() => onView(zones, storage._codStorage)}/>
                 </div>
-                <div className="delete"><MdDeleteOutline className="delete-icon"
-                                                         onClick={() => onDelete(storage._codStorage)}/></div>
+                {type === "Admin" ? (
+                    <div className="delete"><MdDeleteOutline className="delete-icon"
+                                                             onClick={() => onDelete(storage._codStorage)}/></div>
+                ) : null}
             </td>
         </tr>
     );
@@ -33,7 +36,8 @@ const StorageItem = ({ storage, onView, onDelete }) => {
 StorageItem.propTypes = {
     storage: PropTypes.instanceOf(StorageModel).isRequired,
     onView: PropTypes.func.isRequired,
-    onDelete: PropTypes.func.isRequired
+    onDelete: PropTypes.func.isRequired,
+    type: PropTypes.string
 };
 
 export default StorageItem;

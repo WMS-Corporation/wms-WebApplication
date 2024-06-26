@@ -15,7 +15,7 @@ import {
     getStorages,
     getZones,
     addProduct,
-    getShelf,
+    getShelfOfCorridor,
     updateProduct,
     updateShelf,
     updateCorridor,
@@ -82,7 +82,7 @@ const Logistic = (viewStorage) => {
                 const result = await getShelfs(currentCorridor);
                 setShelfs(result);
             } else if(viewProduct){
-                const res = await getShelf(currentShelf)
+                const res = await getShelfOfCorridor(currentShelf)
                 const result = res._productList.map(product => new ShelfProductModel(product._codProduct, product._stock))
                 setProduct(result);
             }

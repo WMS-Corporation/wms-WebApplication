@@ -4,15 +4,19 @@ import React from "react";
 import { ShelfModel} from "../../models/logisticModel";
 import ShelfItem from "./ShelfItem";
 import ShelfForm from "./ShelfForm";
+import {useAuth} from "../../contexts/AuthContext";
 
 const ShelfList = ({ shelfs, onAdd, onSave, onCancel, onEdit, onDelete, onView, addingShelf, editingShelf, onError, onBack, error }) => {
+    const { user } = useAuth() || {};
     return (
         <div className="task-list">
             <div className="header-list">
                 <h1>Shelf List</h1>
-                <button className="btn-Add" onClick={onAdd}>
-                    Add Shelf
-                </button>
+                {user._type === "Admin" ? (
+                    <button className="btn-Add" onClick={onAdd}>
+                        Add Shelf
+                    </button>
+                ) : null}
             </div>
             {addingShelf ? (
                 <ShelfForm shelf={new ShelfModel()} onSave={onSave} onCancel={onCancel} onError={onError} error={error}/>
@@ -33,7 +37,7 @@ const ShelfList = ({ shelfs, onAdd, onSave, onCancel, onEdit, onDelete, onView, 
                     <tbody>
                     {shelfs.map((shelf) => (
                         <ShelfItem key={shelf._codShelf} shelf={shelf}
-                                  onSave={onSave} onEdit={onEdit} onDelete={onDelete} onView={onView}/>
+                                  onSave={onSave} onEdit={onEdit} onDelete={onDelete} onView={onView} type={user._type}/>
                     ))}
                     </tbody>
                 </table>

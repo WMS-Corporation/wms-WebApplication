@@ -4,15 +4,19 @@ import React from "react";
 import {CorridorModel, ZoneModel} from "../../models/logisticModel";
 import CorridorItem from "./CorridorItem";
 import CorridorForm from "./CorridorForm";
+import {useAuth} from "../../contexts/AuthContext";
 
 const CorridorList = ({ corridors, onAdd, onSave, onCancel, onEdit, onDelete, onView, addingCorridor, editingCorridor, onError, onBack, error }) => {
+    const { user } = useAuth() || {};
     return (
         <div className="task-list">
             <div className="header-list">
                 <h1>Corridor List</h1>
-                <button className="btn-Add" onClick={onAdd}>
-                    Add Corridor
-                </button>
+                {user._type === "Admin" ? (
+                    <button className="btn-Add" onClick={onAdd}>
+                        Add Corridor
+                    </button>
+                ) : null}
             </div>
             {addingCorridor ? (
                 <CorridorForm corridor={new CorridorModel()} onSave={onSave} onCancel={onCancel} onError={onError} error={error}/>
@@ -33,7 +37,7 @@ const CorridorList = ({ corridors, onAdd, onSave, onCancel, onEdit, onDelete, on
                     <tbody>
                     {corridors.map((corridor) => (
                         <CorridorItem key={corridor._codCorridor} corridor={corridor}
-                                      onSave={onSave} onEdit={onEdit} onDelete={onDelete} onView={onView}/>
+                                      onSave={onSave} onEdit={onEdit} onDelete={onDelete} onView={onView} type={user._type}/>
                     ))}
                     </tbody>
                 </table>

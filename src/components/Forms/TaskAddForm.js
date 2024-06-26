@@ -4,6 +4,8 @@ import { TaskModel } from '../../models/taskModel';
 import '../styles/TaskEdit.css';
 import {MdDeleteOutline} from "react-icons/md";
 import {getProducts} from "../../controllers/ProductController";
+import {viewAllShelf} from "../../controllers/LogisticController";
+import {getAllUsers} from "../../controllers/UserController";
 
 const TaskAddForm = ({ task, onSave, onCancel, error }) => {
     const [editedTask, setEditedTask] = React.useState(task);
@@ -14,6 +16,8 @@ const TaskAddForm = ({ task, onSave, onCancel, error }) => {
         _quantity: ''
     });
     const [availableProducts, setAvailableProducts] = React.useState([]);
+    const [availableShelf, setAvailableShelf] = React.useState([]);
+    const [availableUsers, setAvailableUsers] = React.useState([]);
 
     React.useEffect(() => {
         const fetchProducts = async () => {
@@ -25,7 +29,27 @@ const TaskAddForm = ({ task, onSave, onCancel, error }) => {
             }
         };
 
+        const fetchShelf = async () => {
+            try {
+                const shelf = await viewAllShelf();
+                setAvailableShelf(shelf);
+            } catch (error) {
+                console.error('Error fetching products:', error);
+            }
+        };
+
+        const fetchUsers = async () => {
+            try {
+                const users = await getAllUsers();
+                setAvailableUsers(users.filter(item => item._type === "Operational"));
+            } catch (error) {
+                console.error('Error fetching users:', error);
+            }
+        };
+
         fetchProducts();
+        fetchShelf();
+        fetchUsers();
     }, []);
 
     const handleTaskChange = (event) => {
@@ -42,7 +66,7 @@ const TaskAddForm = ({ task, onSave, onCancel, error }) => {
         const { name, value } = event.target;
         setProduct(prevState => ({
             ...prevState,
-            [name]: value === '' ? null : value
+            [name]: value === '' ? null : value,
         }));
     };
 
@@ -81,9 +105,14 @@ const TaskAddForm = ({ task, onSave, onCancel, error }) => {
                                 <div className="col-md-6">
                                     <div className="form-group">
                                         <label>Operator Code*</label>
-                                        <input className="form-control" type="text" name="_codOperator"
-                                               value={editedTask._codOperator}
-                                               onChange={handleTaskChange}/>
+                                        <select className="form-control" name="_codOperator" value={editedTask._codOperator}
+                                                onChange={handleTaskChange}>
+                                            <option value="">Select operator</option>
+                                            {availableUsers.map(user => (
+                                                <option key={user._codUser}
+                                                        value={user._codUser}>{user._codUser}</option>
+                                            ))}
+                                        </select>
                                     </div>
                                 </div>
                                 <div className="col-md-6">
@@ -95,7 +124,7 @@ const TaskAddForm = ({ task, onSave, onCancel, error }) => {
                                     </div>
                                 </div>
                                 <div className="col-md-6">
-                                    <div className="form-group">
+                                <div className="form-group">
                                         <label>Type *</label>
                                         <select className="form-control" name="_type" value={editedTask._type}
                                                 onChange={handleTaskChange}>
@@ -127,7 +156,7 @@ const TaskAddForm = ({ task, onSave, onCancel, error }) => {
                                     <label>Product Code*</label>
                                         <select className="form-control" name="_codProduct" value={product._codProduct}
                                                 onChange={handleProductChange}>
-                                            <option value="">Select a product</option>
+                                            <option value="">Select product</option>
                                             {availableProducts.map(prod => (
                                                 <option key={prod._codProduct} value={prod._codProduct}>{prod._codProduct}</option>
                                             ))}
@@ -137,15 +166,29 @@ const TaskAddForm = ({ task, onSave, onCancel, error }) => {
                                 <div className="col-md-6">
                                     <div className="form-group">
                                         <label>From*</label>
-                                        <input className="form-control" type="text" name="_from" value={product._from}
-                                               onChange={handleProductChange}/>
+                                        <select className="form-control" name="_from" value={product._from}
+                                                onChange={handleProductChange}>
+                                            <option value="">Select shelf</option>
+                                            {availableShelf.map(shelf => (
+                                                <option key={shelf._codShelf}
+                                                        value={shelf._codShelf}>{shelf._codShelf}</option>
+                                            ))}
+                                            <option value="">Outside</option>
+                                        </select>
                                     </div>
                                 </div>
                                 <div className="col-md-6">
                                     <div className="form-group">
                                         <label>To*</label>
-                                        <input className="form-control" type="text" name="_to" value={product._to}
-                                               onChange={handleProductChange}/>
+                                        <select className="form-control" name="_to" value={product._to}
+                                                onChange={handleProductChange}>
+                                            <option value="">Select shelf</option>
+                                            {availableShelf.map(shelf => (
+                                                <option key={shelf._codShelf}
+                                                        value={shelf._codShelf}>{shelf._codShelf}</option>
+                                            ))}
+                                            <option value="Outside">Outside</option>
+                                        </select>
                                     </div>
                                 </div>
                                 <div className="col-md-6">

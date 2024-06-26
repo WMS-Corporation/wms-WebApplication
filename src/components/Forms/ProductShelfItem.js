@@ -5,18 +5,18 @@ import {CorridorModel, ShelfModel, ShelfProductModel, ZoneModel} from "../../mod
 import {FiEdit2} from "react-icons/fi";
 import {MdDeleteOutline} from "react-icons/md";
 
-const ProductShelfItem = ({ product, onSave, onEdit, onDelete }) => {
+const ProductShelfItem = ({ product, onSave, onEdit, onDelete, type }) => {
 
     return (
         <tr key={product._codProduct}>
             <td>{product._codProduct}</td>
             <td>{product._stock}</td>
-            <td className="action">
-                <div className="edit"><FiEdit2 className="edit-icon" onClick={() => onEdit(product)}/></div>
-                <div className="delete"><MdDeleteOutline className="delete-icon" onClick={() => onDelete(product._codProduct)}/>
-                </div>
-
-            </td>
+            {type === "Admin" ? (
+                <td className="action">
+                    <div className="edit"><FiEdit2 className="edit-icon" onClick={() => onEdit(product)}/></div>
+                    <div className="delete"><MdDeleteOutline className="delete-icon" onClick={() => onDelete(product._codProduct)}/></div>
+                </td>
+            ) : null}
         </tr>
     );
 };
@@ -26,6 +26,7 @@ ProductShelfItem.propTypes = {
     onSave: PropTypes.func.isRequired,
     onEdit: PropTypes.func.isRequired,
     onDelete: PropTypes.func.isRequired,
+    type: PropTypes.string
 };
 
 export default ProductShelfItem;

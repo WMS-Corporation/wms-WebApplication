@@ -20,6 +20,7 @@ describe('Component Product item', () => {
             product: mockProduct,
             onEdit: mockOnEdit,
             onDelete: mockOnDelete,
+            type: "Admin",
             ...overrideProps,
         };
 

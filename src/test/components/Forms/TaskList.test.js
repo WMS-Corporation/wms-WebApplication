@@ -3,6 +3,15 @@ import React from "react";
 import {TaskModel} from "../../../models/taskModel";
 import TaskList from "../../../components/Forms/TaskList";
 
+jest.mock('../../../contexts/AuthContext', () => ({
+    useAuth: () => ({
+        user: {
+            _type: 'Admin',
+            _codUser: 'admin123'
+        }
+    })
+}));
+
 describe('TaskList Component', () => {
     const tasks = [
         new TaskModel('Operator1', '2024-06-15', 'Type1', 'Status1', [], '_codTask1' ),
@@ -32,6 +41,7 @@ describe('TaskList Component', () => {
                 onView={mockOnView}
                 viewProductDetailTask={viewProductDetailTask}
                 onError={mockOnError}
+
             />
         );
     };

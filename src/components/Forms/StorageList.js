@@ -3,20 +3,24 @@ import PropTypes from "prop-types";
 import React from "react";
 import {StorageModel} from "../../models/logisticModel";
 import StorageItem from "./StorageItem";
+import {useAuth} from "../../contexts/AuthContext";
 
 const StorageList = ({ storage, onAdd, onSave, onView, onDelete, onError }) => {
     onError(null)
+    const { user } = useAuth() || {};
     return (
         <div className="task-list">
             <div className="header-list">
                 <h1>Storage List</h1>
-                <button className="btn-Add" onClick={onSave}>
-                    Add Storage
-                </button>
+                {user._type === "Admin" ? (
+                    <button className="btn-Add" onClick={onSave}>
+                        Add Storage
+                    </button>
+                ) : null}
             </div>
             <div className="table-task">
                 <table>
-                    <thead>
+                <thead>
                     <tr>
                         <th>Storage Code</th>
                         <th>Zones</th>
@@ -26,7 +30,7 @@ const StorageList = ({ storage, onAdd, onSave, onView, onDelete, onError }) => {
                     <tbody>
                     {storage.map((store) => (
                         <StorageItem key={store._codStorage} storage={store}
-                                   onView={onView} onDelete={onDelete}/>
+                                   onView={onView} onDelete={onDelete} type={user._type}/>
                     ))}
                     </tbody>
                 </table>
