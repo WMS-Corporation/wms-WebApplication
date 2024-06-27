@@ -153,10 +153,14 @@ export const getAllCorridors = async (codZone) => {
       method: 'GET',
       headers: getAuthHeaders(),
     });
+    if (!response) {
+      throw new Error('No response from server');
+    }
     if (!response.ok) throw new Error('Network response was not ok');
     const data = await response.json();
     const promises = data.map(item => fetchCorridorByCode(item));
-    return await Promise.all(promises);
+    const corridors = await Promise.all(promises);
+    return corridors;
   } catch (error) {
     console.error('Error fetching all corridors:', error);
     throw error;

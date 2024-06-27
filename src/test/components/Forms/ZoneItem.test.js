@@ -1,15 +1,27 @@
-import {render, fireEvent, screen} from '@testing-library/react';
-import OrderItem from '../../../components/Forms/OrderItem'; // Aggiusta il percorso se necessario
-import {CorridorModel, ZoneModel} from "../../../models/logisticModel";
-import CorridorItem from "../../../components/Forms/CorridorItem";
+import { render, fireEvent, screen } from '@testing-library/react';
+import '@testing-library/jest-dom/extend-expect';
 import React from "react";
 import ZoneItem from "../../../components/Forms/ZoneItem";
+import { getCorridors } from '../../../controllers/LogisticController';
 
-const mockZone = new ZoneModel('20', 'Active', '10', ['000123', '000234'], '000543');
+const mockZone = {
+    _codZone: 'Z001',
+    _temperature: '5°C',
+    _coolingSystemStatus: 'Active',
+    _humidityLevel: '45%',
+    _corridorCodeList: ['C001', 'C002'],
+};
+
 const mockOnEdit = jest.fn();
 const mockOnView = jest.fn();
 const mockOnDelete = jest.fn();
+
+jest.mock('../../../controllers/LogisticController', () => ({
+    getCorridors: jest.fn(),
+}));
+
 describe('Zone item component', () => {
+
     const renderComponent = (overrideProps = {}) => {
         const props = {
             zone: mockZone,
@@ -22,6 +34,10 @@ describe('Zone item component', () => {
 
         return render(<ZoneItem {...props} />);
     };
+
+    beforeEach(() => {
+        getCorridors.mockResolvedValue([]);
+    });
 
     test('renders zone details correctly', () => {
         renderComponent()
