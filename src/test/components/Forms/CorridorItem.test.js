@@ -1,32 +1,38 @@
-import {render, fireEvent, screen} from '@testing-library/react';
-import OrderItem from '../../../components/Forms/OrderItem'; // Aggiusta il percorso se necessario
-import {CorridorModel} from "../../../models/logisticModel";
-import CorridorItem from "../../../components/Forms/CorridorItem";
+import {fireEvent, render, screen} from "@testing-library/react";
+import TaskItem from "../../../components/Forms/TaskItem";
 import React from "react";
 
-const mockCorridor = new CorridorModel('Corridor 2', ['000123', '000234'], '000045');
+const mockTask = {
+    _codTask: '000001',
+    _codOperator: '000012',
+    _status: 'Completed',
+    _date: new Date(),
+    _type: 'loading',
+};
+
 const mockOnEdit = jest.fn();
 const mockOnView = jest.fn();
-const mockOnDelete = jest.fn();
-describe('Corridor item component', () => {
+describe('Component Task item', () => {
+
     const renderComponent = (overrideProps = {}) => {
         const props = {
-            corridor: mockCorridor,
+            task: mockTask,
             onEdit: mockOnEdit,
             onView: mockOnView,
-            onDelete: mockOnDelete,
-            type: "Admin",
+            admin: true,
             ...overrideProps,
         };
 
-        return render(<CorridorItem {...props} />);
+        return render(<TaskItem {...props} />);
     };
 
-    test('renders corridor details correctly', () => {
+    test('renders task details correctly', () => {
         renderComponent()
 
-        expect(screen.getByText('000045')).toBeInTheDocument();
-        expect(screen.getByText('Corridor 2')).toBeInTheDocument();
+        expect(screen.getByText('000012')).toBeInTheDocument();
+        expect(screen.getByText('Completed')).toBeInTheDocument();
+        expect(screen.getByText(mockTask._date.toISOString().substring(0, 10))).toBeInTheDocument();
+        expect(screen.getByText('loading')).toBeInTheDocument();
     });
 
     test('calls onEdit when the edit icon is clicked', () => {
@@ -34,7 +40,7 @@ describe('Corridor item component', () => {
 
         const editIcon = container.querySelector('.edit-icon');
         fireEvent.click(editIcon);
-        expect(mockOnEdit).toHaveBeenCalledWith(mockCorridor);
+        expect(mockOnEdit).toHaveBeenCalledWith(mockTask);
     });
 
     test('calls onView when the view icon is clicked', () => {
@@ -42,15 +48,6 @@ describe('Corridor item component', () => {
 
         const viewIcon = container.querySelector('.view-icon');
         fireEvent.click(viewIcon);
-        expect(mockOnView).toHaveBeenCalledWith(null, mockCorridor._codCorridor);
+        expect(mockOnView).toHaveBeenCalledWith(mockTask);
     });
-
-    test('calls onDelete when the delete icon is clicked', () => {
-        const { container } = renderComponent();
-
-        const deleteIcon = container.querySelector('.delete-icon');
-        fireEvent.click(deleteIcon);
-        expect(mockOnDelete).toHaveBeenCalledWith(mockCorridor._codCorridor);
-    });
-
 });
