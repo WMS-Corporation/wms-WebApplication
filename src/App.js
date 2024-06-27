@@ -27,13 +27,11 @@ const AppContent = () => {
 
     useEffect(() => { 
         const socket = io(SERVER_URL);   
-        // Ascolto degli eventi di alert di temperatura
         socket.on('temperature-alert', (data) => {
           // console.log('Temperature Alert:', data);
-          toast(`Temperature Alert: ${data.zone} - ${data.temperature}°C`);
+          toast(`Temperature Alert: Zone ${data.zone} - ${data.temperature}°C`);
         });
     
-        // Pulizia alla disconnessione
         return () => {
           socket.off('temperature-alert');
           socket.disconnect();
