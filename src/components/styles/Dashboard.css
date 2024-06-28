@@ -27,7 +27,7 @@
     border: 1px solid #DCDFE8;
     flex: 1 1 30%;
     max-width: 32%;
-    height: 65vh;
+    height: 35%;
     box-sizing: border-box;
 }
 
@@ -39,7 +39,15 @@
     margin-bottom: 8vh;
     flex: 1 1 82%;
     max-width: 82%;
-    height: 75vh;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+.chart-item.zone {
+    display: flex;
+    flex-direction: column;
+    height: 55%; /* Assicura che il contenitore del grafico riempia l'altezza disponibile */
 }
 
 canvas {
@@ -164,19 +172,39 @@ h4{
     }
 }
 
-.dashboard{
-    flex-direction: row;
+.form-group-dashboard{
     border-top: 1px solid #DCDFE8;
     margin-top: 2vh;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
 
-.dashboard select{
-    margin-left: 2vw;
-    margin-top: 3vh;
+.form-control-dashboard{
+    height: 6vh;
+    line-height: 4.5vh;
+    background: #ffffff;
+    border: 1px solid #DCDFE8;
+    font-size: 1.4vw;
+    color: #676E8A;
+    border-radius: 1vw;
+    margin-top: 4vh;
+    box-shadow: none;
+    display: block;
+    width: 20vw;
+    padding: 0.375rem 0.75rem;
+    font-weight: 400;
+    background-clip: padding-box;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
-.dashboard label{
-    margin-top: 3.5vh;
+.form-group-dashboard label{
+    margin-top: 4.5vh;
     font-size: 1.5vw;
+    width: 10vw;
+}
+
+.temp-chart{
+    border: none;
 }
 

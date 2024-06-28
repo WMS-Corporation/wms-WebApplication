@@ -6,7 +6,7 @@ import { getTasks } from '../../controllers/TaskController';
 import '../styles/Dashboard.css'
 import {FaClipboardList, FaPeopleCarry, FaTasks} from "react-icons/fa";
 import {getAllUsers} from "../../controllers/UserController";
-import {getStorages} from "../../controllers/LogisticController";
+import {getStorages, getZones} from "../../controllers/LogisticController";
 
 const Dashboard = () => {
     const [orders, setOrders] = useState([]);
@@ -16,9 +16,13 @@ const Dashboard = () => {
     const [tasks, setTasks] = useState([]);
     const [users, setUsers] = useState([]);
     const [avainableStorages, setAvainableStorage] = useState([]);
-    const [storage, setStorage] = useState({_codStorage: ''});
+    const [storage, setStorage] = useState({_codStorage: '', _zoneCodeList:''});
+    const [zones, setZones] = useState([]);
     const taskChartRef = useRef(null);
     const ctxTaskRef = useRef(null);
+
+    const tempChartRef = useRef(null);
+    const ctxTempRef = useRef(null);
 
     useEffect(() => {
         const loadOrders = async () => {
@@ -52,6 +56,8 @@ const Dashboard = () => {
             try {
                 const fetchedStorages = await getStorages();
                 setAvainableStorage(fetchedStorages);
+                setStorage(fetchedStorages[0])
+                await fetchZones(fetchedStorages[0]._codStorage)
             } catch (error) {
                 console.error('Failed to fetch storages:', error);
             }
@@ -62,6 +68,16 @@ const Dashboard = () => {
         fetchTasksData();
         fetchUsersData()
     }, []);
+
+    const fetchZones = async (codStorage) => {
+        console.error(codStorage)
+        try {
+            const fetchedZones = await getZones(codStorage);
+            setZones(fetchedZones);
+        } catch (error) {
+            console.error('Failed to fetch zones:', error);
+        }
+    };
 
     const handleChange = (event) => {
         setStorage({
@@ -136,6 +152,58 @@ const Dashboard = () => {
         }
     };
 
+    const generateTemperatureChart = () => {
+        if (ctxTempRef.current) {
+            const ctx = ctxTempRef.current.getContext('2d');
+
+            if (tempChartRef.current) {
+                tempChartRef.current.destroy();
+            }
+
+            console.log(zones)
+            const zoneTemperatures = zones.reduce((acc, zone) => {
+                acc[zone._codZone] = zone._temperature;
+                return acc;
+            }, {});
+
+            tempChartRef.current = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: Object.keys(zoneTemperatures),
+                    datasets: [{
+                        label: 'Temperature',
+                        data: Object.values(zoneTemperatures),
+                        backgroundColor: ['#1E90FF', '#4682B4', '#87CEFA', '#B0C4DE', '#708090'],
+                        borderColor: ['#1E90FF', '#4682B4', '#87CEFA', '#B0C4DE', '#708090'],
+                        borderWidth: 1
+                    }],
+                },
+                options: {
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Temperature'
+                            }
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Zone Code'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+    }
+
     useEffect(() => {
         if (orders.length > 0) {
             generateOrderChart();
@@ -147,6 +215,10 @@ const Dashboard = () => {
             generateTaskChart();
         }
     }, [tasks]);
+
+    useEffect(() => {
+        generateTemperatureChart()
+    }, [zones]);
 
     return (
         <div className="Container">
@@ -213,13 +285,13 @@ const Dashboard = () => {
                 </div>
                 <div className="chart-item">
                     <h4>Order Overview</h4>
-                    <canvas ref={ctxOrderRef}></canvas>
+                    <canvas className="temp-chart" ref={ctxOrderRef}></canvas>
                 </div>
                 <div className="chart-item zone">
                     <h4>Zone Temperature Overview</h4>
-                    <div className="form-group dashboard">
+                    <div className="form-group-dashboard">
                         <label>Storage</label>
-                        <select className="form-control" name="_codStorage" value={storage._codStorage}
+                        <select className="form-control-dashboard" name="_codStorage" value={storage._codStorage}
                                 onChange={handleChange}>
                             {avainableStorages.map(storage => (
                                 <option key={storage._codStorage}
@@ -227,6 +299,10 @@ const Dashboard = () => {
                             ))}
                         </select>
                     </div>
+                    <div className="chart">
+                        <canvas className="temp-chart" ref={ctxTempRef}></canvas>
+                    </div>
+
                 </div>
             </div>
         </div>

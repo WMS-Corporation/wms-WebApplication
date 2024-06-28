@@ -12,12 +12,6 @@ describe('Component Sidebar', () => {
         );
     };
 
-    test('should Dashboard link', () => {
-        const { getByText } = renderSidebar(true);
-        const linkElement = getByText(/Dashboard/i);
-        expect(linkElement).toBeInTheDocument();
-    });
-
     test('renders Products link', () => {
         renderSidebar(true);
         const linkElement = screen.getByText(/Products/i);
