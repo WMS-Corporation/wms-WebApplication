@@ -1,8 +1,7 @@
-import React, {useState} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import ProductModel from '../../models/productModel';
 import '../styles/ProductEdit.css';
-import {CorridorModel, ZoneModel} from "../../models/logisticModel";
+import {CorridorModel} from "../../models/logisticModel";
 
 const CorridorForm = ({ corridor, onSave, onCancel, error }) => {
     const [editedCorridor, setEditedCorridor] = React.useState(corridor);
