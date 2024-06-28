@@ -41,15 +41,17 @@ const Sidebar = ({ isOpen }) => {
     <div className='navbar'>
       <nav className={isOpen ? 'sidebar-menu' : 'nav-menu'}>
         <ul className="nav-menu-items">
-          <li className="sidebar-item">
-            <Link to="/home">
-              <FaCube />
-              <span>Dashboard</span>
-            </Link>
-          </li>
+          {user && user._type === 'Admin' && (
+              <li className="sidebar-item">
+                <Link to="/home">
+                  <FaCube/>
+                  <span>Dashboard</span>
+                </Link>
+              </li>
+          )}
           <li className="sidebar-item">
             <Link to="/products" onClick={handleLinkClick}>
-              <HiTemplate />
+              <HiTemplate/>
               <span>Products</span>
             </Link>
           </li>

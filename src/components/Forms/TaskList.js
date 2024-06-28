@@ -44,7 +44,9 @@ const TaskList = ({ tasks, onAdd, onEdit, onSave, onView, viewProductDetailTask,
                     <table>
                         <thead>
                         <tr>
-                            <th>Operator Code</th>
+                            {user._type === "Admin" ? (
+                                <th>Operator Code</th>
+                            ) : null}
                             <th>Date</th>
                             <th>Type</th>
                             <th>Status</th>

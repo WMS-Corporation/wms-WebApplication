@@ -20,7 +20,13 @@ const Login = () => {
         try {
             const data = await loginUser(username, password);
             login(data.token, data.user);
-            navigate("/home");
+            console.log(data.user._type)
+            if(data.user._type === "Admin"){
+                navigate("/home");
+            }else{
+                navigate("/tasks")
+            }
+
         } catch (error) {
             console.error('Error logging in:', error);
             throw error;

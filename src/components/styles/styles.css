@@ -14,6 +14,7 @@ body.light {
 body.dark {
     background-color: var(--background-color-dark);
     color: var(--text-color-dark);
+
 }
 
 /* Per assicurarsi che tutti gli elementi all'interno dell'applicazione ereditino il tema */

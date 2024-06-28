@@ -10,7 +10,9 @@ import { MdDoneOutline } from "react-icons/md";
 const TaskItem = ({ task, onEdit, onView, admin }) => {
   return (
     <tr key={task._codTask}>
-      <td>{task._codOperator}</td>
+        {admin ? (
+            <td>{task._codOperator}</td>
+        ) : null}
       <td>{task._date instanceof Date && !isNaN(task._date) ? task._date.toISOString().substring(0, 10) : 'N/A'}</td>
       <td>{task._type}</td>
       <td>{task._status}</td>

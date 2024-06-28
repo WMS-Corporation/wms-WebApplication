@@ -30,7 +30,10 @@ body.dark {
 }
 
 body.dark h1,
-body.dark h2 {
+body.dark h2,
+body.dark h4,
+body.dark p,
+body.dark .chart-legend-label{
   color: var(--title-color-dark);
 }
 
