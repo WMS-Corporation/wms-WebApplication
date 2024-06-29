@@ -7,8 +7,16 @@ import TaskProductDetails from "./TaskProductDetails";
 import {useAuth} from "../../contexts/AuthContext";
 
 const TaskList = ({ tasks, onAdd, onEdit, onSave, onView, viewProductDetailTask, onError }) => {
-    onError(null)
+
     const { user } = useAuth() || {};
+    const handleAdd = onAdd || (() => {});
+    const handleEdit = onEdit || (() => {});
+    const handleSave = onSave || (() => {});
+    const handleView = onView || (() => {});
+    const handleViewDetail = viewProductDetailTask || (() => {});
+    const handleError = onError || (() => {});
+    handleError(null)
+
     let tasksOfUser = []
     if(user._type === "Operational"){
         tasksOfUser.push(...tasks.filter(task => task._codOperator === user._codUser))
@@ -18,7 +26,7 @@ const TaskList = ({ tasks, onAdd, onEdit, onSave, onView, viewProductDetailTask,
             <div className="header-list">
                 <h1>Task List</h1>
                 {user._type === "Admin" ? (
-                    <button className="btn-Add" onClick={onAdd}>
+                    <button className="btn-Add" onClick={handleAdd}>
                         Add Task
                     </button>
                 ) : null}
@@ -44,6 +52,7 @@ const TaskList = ({ tasks, onAdd, onEdit, onSave, onView, viewProductDetailTask,
                     <table>
                         <thead>
                         <tr>
+                            <th>Task Code</th>
                             {user._type === "Admin" ? (
                                 <th>Operator Code</th>
                             ) : null}
@@ -56,12 +65,12 @@ const TaskList = ({ tasks, onAdd, onEdit, onSave, onView, viewProductDetailTask,
                         <tbody>
                         {user._type === "Operational" ? (
                             tasksOfUser.map((task) => (
-                                <TaskItem key={task._codTask} task={task} onEdit={onEdit}
-                                          onSave={onSave} onView={onView} admin={false}/>
+                                <TaskItem key={task._codTask} task={task} onEdit={handleEdit}
+                                          onSave={handleSave} onView={handleView} admin={false} dashboard={false}/>
                             ))
                         ) : tasks.map((task) => (
-                            <TaskItem key={task._codTask} task={task} onEdit={onEdit}
-                                      onSave={onSave} onView={onView} admin={true}/>
+                            <TaskItem key={task._codTask} task={task} onEdit={handleEdit}
+                                      onSave={handleSave} onView={handleView} admin={true} dashboard={false}/>
                         ))}
                         </tbody>
                     </table>

@@ -7,8 +7,12 @@ import '../styles/Dashboard.css'
 import {FaClipboardList, FaPeopleCarry, FaTasks} from "react-icons/fa";
 import {getAllUsers} from "../../controllers/UserController";
 import {getStorages, getZones} from "../../controllers/LogisticController";
+import {useAuth} from "../../contexts/AuthContext";
+import TaskList from "./TaskList";
+import TaskItem from "./TaskItem";
 
 const Dashboard = () => {
+    const {user} = useAuth() || {};
     const [orders, setOrders] = useState([]);
     const orderChartRef = useRef(null);
     const ctxOrderRef = useRef(null);
@@ -80,10 +84,14 @@ const Dashboard = () => {
     };
 
     const handleChange = (event) => {
-        setStorage({
+        const updatedStorage = {
             ...storage,
             [event.target.name]: event.target.value,
-        });
+        };
+        setStorage(updatedStorage);
+        console.log(storage)
+        fetchZones(updatedStorage._codStorage)
+        generateTemperatureChart()
     };
 
     const generateOrderChart = () => {
@@ -145,7 +153,9 @@ const Dashboard = () => {
                     plugins: {
                         legend: {
                             position: 'right',
+                            width: 1
                         }
+
                     }
                 }
             });
@@ -160,11 +170,28 @@ const Dashboard = () => {
                 tempChartRef.current.destroy();
             }
 
-            console.log(zones)
             const zoneTemperatures = zones.reduce((acc, zone) => {
                 acc[zone._codZone] = zone._temperature;
                 return acc;
             }, {});
+
+            const thresholdRefrigerated = process.env.REACT_APP_TEMPERATURE_REFRIGERATED_VALID_RANGE;
+            const thresholdNoRefrigerated = process.env.REACT_APP_TEMPERATURE_NOT_REFRIGERATED_VALID_RANGE;
+            const colors = ['#1E90FF', '#4682B4', '#87CEFA', '#B0C4DE', '#708090'];
+
+            const backgroundColors = Object.values(zones).map((zone, index) => {
+                const temp = zone._temperature;
+                const status = zone._coolingSystemStatus;
+
+                if (
+                    (status === 'Active' && (temp < thresholdRefrigerated[0] || temp > thresholdRefrigerated[1])) ||
+                    (status !== 'Active' && (temp < thresholdNoRefrigerated[0] || temp > thresholdNoRefrigerated[1]))
+                ) {
+                    return 'red';
+                } else {
+                    return colors[index % colors.length];
+                }
+            });
 
             tempChartRef.current = new Chart(ctx, {
                 type: 'bar',
@@ -173,15 +200,18 @@ const Dashboard = () => {
                     datasets: [{
                         label: 'Temperature',
                         data: Object.values(zoneTemperatures),
-                        backgroundColor: ['#1E90FF', '#4682B4', '#87CEFA', '#B0C4DE', '#708090'],
-                        borderColor: ['#1E90FF', '#4682B4', '#87CEFA', '#B0C4DE', '#708090'],
+                        backgroundColor: backgroundColors,
+                        borderColor: backgroundColors,
                         borderWidth: 1
                     }],
                 },
                 options: {
                     plugins: {
                         legend: {
-                            display: false
+                            display: false,
+                            labels: {
+                                color: document.body.classList.contains('dark') ? 'white' : 'black',
+                            }
                         }
                     },
                     scales: {
@@ -231,80 +261,130 @@ const Dashboard = () => {
             </div>
             <div className="col-lg-8">
                 <div className="row">
-                    <div className="col-lg-4 col-md-4">
-                        <div className="card card-block card-stretch card-height">
-                            <div className="card-body">
-                                <div className="d-flex align-items-center mb-4 card-total-sale">
-                                    <div className="icon iq-icon-box-2 bg-info-light">
-                                        <FaTasks />
+                    {user?._type === "Operational" ? (
+                        <>
+                            <div className="col-lg-4 col-md-4" style={{ marginLeft: '35vw' }}>
+                                <div className="card card-block card-stretch card-height">
+                                    <div className="card-body">
+                                        <div className="d-flex align-items-center mb-4 card-total-sale">
+                                            <div className="icon iq-icon-box-2 bg-info-light">
+                                                <FaTasks/>
+                                            </div>
+                                            <div>
+                                                <p className="mb-2">Tasks</p>
+                                                <h4>{tasks.filter(task => task._status !== "Completed").length}</h4>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div>
-                                        <p className="mb-2">Tasks</p>
-                                        <h4>{tasks.filter(task => task._status !== "Completed").length}</h4>
+                                </div>
+                            </div>
+                        </>
+                    ) : <>
+                        <div className="col-lg-4 col-md-4">
+                            <div className="card card-block card-stretch card-height">
+                                <div className="card-body">
+                                    <div className="d-flex align-items-center mb-4 card-total-sale">
+                                        <div className="icon iq-icon-box-2 bg-info-light">
+                                            <FaTasks/>
+                                        </div>
+                                        <div>
+                                            <p className="mb-2">Tasks</p>
+                                            <h4>{tasks.filter(task => task._status !== "Completed").length}</h4>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div className="col-lg-4 col-md-4">
-                        <div className="card card-block card-stretch card-height">
-                            <div className="card-body">
-                                <div className="d-flex align-items-center mb-4 card-total-sale">
-                                    <div className="icon iq-icon-box-2 bg-info-light">
-                                        <FaClipboardList />
-                                    </div>
-                                    <div>
-                                        <p className="mb-2">Orders</p>
-                                        <h4>{orders.filter(order => order._status !== "Completed").length}</h4>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="col-lg-4 col-md-4">
-                        <div className="card card-block card-stretch card-height">
-                            <div className="card-body">
-                                <div className="d-flex align-items-center mb-4 card-total-sale">
-                                    <div className="icon iq-icon-box-2 bg-info-light">
-                                        <FaPeopleCarry />
-                                    </div>
-                                    <div>
-                                        <p className="mb-2">Operational</p>
-                                        <h4>{users.filter(user => user._type === "Operational").length}</h4>
+                    </>}
+                    {user?._type === "Admin" ? (
+                        <>
+                            <div className="col-lg-4 col-md-4">
+                                <div className="card card-block card-stretch card-height">
+                                    <div className="card-body">
+                                        <div className="d-flex align-items-center mb-4 card-total-sale">
+                                            <div className="icon iq-icon-box-2 bg-info-light">
+                                                <FaClipboardList/>
+                                            </div>
+                                            <div>
+                                                <p className="mb-2">Orders</p>
+                                                <h4>{orders.filter(order => order._status !== "Completed").length}</h4>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div className="chart-container">
-                <div className="chart-item">
-                    <h4>Task Overview</h4>
-                    <canvas ref={ctxTaskRef}></canvas>
-                </div>
-                <div className="chart-item">
-                    <h4>Order Overview</h4>
-                    <canvas className="temp-chart" ref={ctxOrderRef}></canvas>
-                </div>
-                <div className="chart-item zone">
-                    <h4>Zone Temperature Overview</h4>
-                    <div className="form-group-dashboard">
-                        <label>Storage</label>
-                        <select className="form-control-dashboard" name="_codStorage" value={storage._codStorage}
-                                onChange={handleChange}>
-                            {avainableStorages.map(storage => (
-                                <option key={storage._codStorage}
-                                        value={storage._codStorage}>{storage._codStorage}</option>
-                            ))}
-                        </select>
-                    </div>
-                    <div className="chart">
-                        <canvas className="temp-chart" ref={ctxTempRef}></canvas>
-                    </div>
+                            <div className="col-lg-4 col-md-4">
+                                <div className="card card-block card-stretch card-height">
+                                    <div className="card-body">
+                                        <div className="d-flex align-items-center mb-4 card-total-sale">
+                                            <div className="icon iq-icon-box-2 bg-info-light">
+                                                <FaPeopleCarry/>
+                                            </div>
+                                            <div>
+                                                <p className="mb-2">Operational</p>
+                                                <h4>{users.filter(user => user._type === "Operational").length}</h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </>
+                    ) : null}
 
                 </div>
             </div>
+            {user?._type === "Admin" ? (
+                <>
+                    <div className="chart-container">
+                        <div className="chart-item">
+                            <h4>Task Overview</h4>
+                            <canvas className="pie-chart" ref={ctxTaskRef}></canvas>
+                        </div>
+                        <div className="chart-item">
+                            <h4>Order Overview</h4>
+                            <canvas className="pie-chart" ref={ctxOrderRef}></canvas>
+                        </div>
+                        <div className="chart-item zone">
+                            <h4>Zone Temperature Overview</h4>
+                            <div className="form-group-dashboard">
+                                <label>Storage</label>
+                                <select className="form-control-dashboard" name="_codStorage"
+                                        value={storage._codStorage}
+                                        onChange={handleChange}>
+                                    {avainableStorages.map(storage => (
+                                        <option key={storage._codStorage}
+                                                value={storage._codStorage}>{storage._codStorage}</option>
+                                    ))}
+                                </select>
+                            </div>
+                            <div className="chart">
+                                <canvas className="temp-chart" ref={ctxTempRef}></canvas>
+                            </div>
+
+                        </div>
+                    </div>
+                </>
+            ) : <>
+                <table style={{marginLeft:"2vw", marginRight:"4vw"}}>
+                    <thead>
+                    <tr>
+                        <th>Task Code</th>
+                        <th>Date</th>
+                        <th>Type</th>
+                        <th>Status</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {tasks.filter(task => task._codOperator === user._codUser && task._status !== "Completed").map((task) => (
+                        <TaskItem key={task._codTask} task={task} onEdit={null}
+                                  onSave={null} onView={null} admin={false} dashboard={true}/>
+                    ))}
+                    </tbody>
+                </table>
+            </>}
+            {user?._type === "Admin" ? (
+                <button className="btn-Add-Report">Generate Report</button>
+            ) : null}
         </div>
     )
         ;

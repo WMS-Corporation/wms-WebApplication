@@ -7,23 +7,33 @@ import { FaEye } from "react-icons/fa";
 import '../styles/TaskItem.css';
 import { MdDoneOutline } from "react-icons/md";
 
-const TaskItem = ({ task, onEdit, onView, admin }) => {
+const TaskItem = ({ task, onEdit, onView, admin, dashboard }) => {
+    const handleEdit = onEdit || (() => {});
+    const handleView = onView || (() => {});
   return (
-    <tr key={task._codTask}>
-        {admin ? (
-            <td>{task._codOperator}</td>
-        ) : null}
-      <td>{task._date instanceof Date && !isNaN(task._date) ? task._date.toISOString().substring(0, 10) : 'N/A'}</td>
-      <td>{task._type}</td>
-      <td>{task._status}</td>
-        <td className="action">
-            <div className="view"><FaEye className="view-icon" onClick={() => onView(task)}/></div>
-            {admin ? (
-                <div className="edit"><FiEdit2 className="edit-icon" onClick={() => onEdit(task)}/></div>
-            ) : (
-                !admin && task._status !== "Completed" ? (<div className="done"><MdDoneOutline className="edit-icon" onClick={() => onEdit(task)}/></div>) : null)}
-        </td>
-    </tr>
+      <tr key={task._codTask}>
+          <td>{task._codTask}</td>
+          {admin ? (
+              <td>{task._codOperator}</td>
+          ) : null}
+          <td>{task._date instanceof Date && !isNaN(task._date) ? task._date.toISOString().substring(0, 10) : 'N/A'}</td>
+          <td>{task._type}</td>
+          <td>{task._status}</td>
+          {!dashboard ? (
+              <>
+                  <td className="action">
+                      <div className="view"><FaEye className="view-icon" onClick={() => handleView(task)}/></div>
+                      {admin ? (
+                          <div className="edit"><FiEdit2 className="edit-icon" onClick={() => handleEdit(task)}/></div>
+                      ) : (
+                          !admin && task._status !== "Completed" ? (
+                              <div className="done"><MdDoneOutline className="edit-icon"
+                                                                   onClick={() => handleEdit(task)}/>
+                              </div>) : null)}
+                  </td>
+              </>
+          ) : null}
+      </tr>
   );
 };
 
@@ -31,7 +41,8 @@ TaskItem.propTypes = {
     task: PropTypes.instanceOf(TaskModel).isRequired,
     onEdit: PropTypes.func.isRequired,
     onView: PropTypes.func.isRequired,
-    admin: PropTypes.bool
+    admin: PropTypes.bool,
+    dashboard: PropTypes.bool
 };
 
 export default TaskItem;

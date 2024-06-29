@@ -69,6 +69,18 @@ body.light h1,
 body.light h2 {
   color: var(--title-color-light);
 }
+body.dark .chart-legend-label {
+  color: var(--title-color-dark);
+}
+
+body.dark .chartjs-render-monitor {
+  color: var(--title-color-dark);
+}
+
+body.dark .chart-grid-lines {
+  stroke: var(--title-color-dark);
+}
+
 
 /* Per assicurarsi che tutti gli elementi all'interno dell'applicazione ereditino il tema */
 .app-container {
