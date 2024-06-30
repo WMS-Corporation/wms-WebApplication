@@ -49,6 +49,6 @@ describe('Component Corridor item', () => {
 
         const viewIcon = container.querySelector('.view-icon');
         fireEvent.click(viewIcon);
-        expect(mockOnView).toHaveBeenCalledWith(null, mockCorridor._codCorridor);
+        expect(mockOnView).toHaveBeenCalledWith(null, mockCorridor);
     });
 });
