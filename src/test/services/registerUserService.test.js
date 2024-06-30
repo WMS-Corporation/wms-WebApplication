@@ -10,11 +10,14 @@ beforeEach(() => {
   fetchMock.resetMocks();
 });
 
-test('register › should register a user and return the user data', async () => {
-  const mockData = { id: 1, username: 'TestUser', name: 'Test', surname: 'User', role: 'Operational' };
+test('register › should register a user and return the user data along with a token', async () => {
+  const mockData = {
+    token: 'fakeToken123',
+    user: { id: 1, username: 'TestUser', name: 'Test', surname: 'User', role: 'Operational' }
+  };
   fetchMock.mockResponseOnce(JSON.stringify(mockData));
 
-  const data = await register('TestUser', process.env.REACT_APP_LOGIN_TEST_PASSWORD, 'Test', 'User');
+  const data = await register('TestUser', process.env.REACT_APP_LOGIN_TEST_PASSWORD, 'Test', 'User', 'Operational');
 
   expect(fetchMock).toHaveBeenCalledWith(`${API_URL}/users/register`, {
     method: 'POST',
