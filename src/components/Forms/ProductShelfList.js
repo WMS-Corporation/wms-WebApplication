@@ -33,7 +33,7 @@ const ProductShelfList = ({ products, onAdd, onSave, onEdit, onDelete, currentSh
 
             ) : null}
             <div className="header-list">
-                <h1>Product List</h1>
+                <h2>Product List</h2>
                 {user._type === "Admin" ? (
                     <button className="btn-Add" onClick={onAdd}>
                         Add Product

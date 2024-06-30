@@ -1,14 +1,10 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { Pie, Bar } from 'react-chartjs-2';
 import { Chart, registerables } from 'chart.js/auto';
-import { getOrders } from '../../controllers/OrderController';
-import { getTasks } from '../../controllers/TaskController';
 import '../styles/Dashboard.css'
 import {FaClipboardList, FaPeopleCarry, FaTasks} from "react-icons/fa";
-import {getAllUsers} from "../../controllers/UserController";
-import {getStorages, getZones} from "../../controllers/LogisticController";
+import {getUsers, getStorages, getZones, getOrders, getTasks} from "../../controllers/DashboardController";
+import {} from "../../controllers/LogisticController";
 import {useAuth} from "../../contexts/AuthContext";
-import TaskList from "./TaskList";
 import TaskItem from "./TaskItem";
 
 const Dashboard = () => {
@@ -49,7 +45,7 @@ const Dashboard = () => {
 
         const fetchUsersData = async () => {
             try {
-                const fetchedUsers = await getAllUsers();
+                const fetchedUsers = await getUsers();
                 setUsers(fetchedUsers);
             } catch (error) {
                 console.error('Failed to fetch user:', error);
@@ -89,7 +85,6 @@ const Dashboard = () => {
             [event.target.name]: event.target.value,
         };
         setStorage(updatedStorage);
-        console.log(storage)
         fetchZones(updatedStorage._codStorage)
         generateTemperatureChart()
     };
@@ -119,7 +114,7 @@ const Dashboard = () => {
                 options: {
                     plugins: {
                         legend: {
-                            position: 'right',
+                            display: false
                         }
                     }
                 }
@@ -152,10 +147,8 @@ const Dashboard = () => {
                 options: {
                     plugins: {
                         legend: {
-                            position: 'right',
-                            width: 1
+                            display: false
                         }
-
                     }
                 }
             });
@@ -252,20 +245,33 @@ const Dashboard = () => {
 
     return (
         <div className="Container">
-            <div className="col-lg-4 border-none">
-                <div className="card card-transparent card-block card-stretch card-height border-none">
-                    <div className="card-body p-0 mt-lg-2 mt-0">
-                        <h1>Welcome to Warehouse Master System</h1>
+            {user._type === "Operational" ? (
+                <div className="col-lg-4 border-none">
+                    <div className="card card-transparent card-block card-stretch card-height border-none">
+                        <div className="card-body p-0 mt-lg-2 mt-0">
+                            <h1>Welcome to Warehouse Master System</h1>
+                        </div>
                     </div>
                 </div>
-            </div>
+            ) : <>
+                <div className="title-container">
+                    <h1>Welcome to Warehouse Master System</h1>
+                </div>
+                <div className="col-lg-4 border-none">
+                    <div className="card card-transparent card-block card-stretch card-height border-none">
+                        <div className="card-body p-0 mt-lg-2 mt-0">
+                            <button className="btn-Add-Report">Generate Report</button>
+                        </div>
+                    </div>
+                </div>
+            </>}
             <div className="col-lg-8">
                 <div className="row">
-                    {user?._type === "Operational" ? (
+                {user?._type === "Operational" ? (
                         <>
-                            <div className="col-lg-4 col-md-4" style={{ marginLeft: '35vw' }}>
+                            <div className="col-lg-4 col-md-4" style={{marginLeft: '35vw'}}>
                                 <div className="card card-block card-stretch card-height">
-                                    <div className="card-body">
+                                <div className="card-body">
                                         <div className="d-flex align-items-center mb-4 card-total-sale">
                                             <div className="icon iq-icon-box-2 bg-info-light">
                                                 <FaTasks/>
@@ -382,9 +388,6 @@ const Dashboard = () => {
                     </tbody>
                 </table>
             </>}
-            {user?._type === "Admin" ? (
-                <button className="btn-Add-Report">Generate Report</button>
-            ) : null}
         </div>
     )
         ;

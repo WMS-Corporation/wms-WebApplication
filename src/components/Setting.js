@@ -3,7 +3,7 @@ import './styles/SettingsPage.css';
 import React, { useState } from 'react';
 import { useTheme } from '../contexts/ThemeContext';
 import {useAuth} from "../contexts/AuthContext";
-import {saveUser} from "../controllers/UserController";
+import {saveUser} from "../controllers/SettingController";
 const Setting = () => {
     const { theme, toggleTheme } = useTheme() || {};
     const [selectedTheme, setSelectedTheme] = useState(theme);

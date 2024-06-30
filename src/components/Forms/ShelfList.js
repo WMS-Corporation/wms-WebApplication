@@ -33,7 +33,7 @@ const ShelfList = ({ shelfs, onAdd, onSave, onEdit, onDelete, onView, currentCor
 
             ) : null}
             <div className="header-list">
-                <h1>Shelf List</h1>
+                <h2>Shelf List</h2>
                 {user._type === "Admin" ? (
                     <button className="btn-Add" onClick={onAdd}>
                         Add Shelf

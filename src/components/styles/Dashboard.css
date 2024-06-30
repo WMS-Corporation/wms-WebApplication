@@ -26,8 +26,8 @@
     border-radius: 8px;
     border: 1px solid #DCDFE8;
     flex: 1 1 30%;
-    max-width: 32%;
-    height: 25%;
+    max-width: 25%;
+    height: 40%;
     box-sizing: border-box;
 }
 
@@ -42,7 +42,7 @@
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    height: 48%;
+    height: 52%;
 }
 
 h4 {
@@ -191,14 +191,14 @@ p {
 .temp-chart{
     border: none;
     width: 60% !important;
-    margin-top: 4vh;
-    height: 80% !important;
+    margin-top: 2vh;
+    height: 90% !important;
     margin-left: 15vw;
 }
 
 .pie-chart{
     border: none;
-    margin-top: -10vh;
+    margin-left: 0.6vw;
 }
 
 .btn-Add-Report {
@@ -206,7 +206,6 @@ p {
     background-color: #32BDEA;
     border-color: #32BDEA;
     box-shadow: unset;
-    margin-top: -9vh;
     width: 10vw;
     display: inline-block;
     font-family: "Lato", sans-serif;
@@ -219,10 +218,17 @@ p {
     text-align: center;
     cursor: pointer;
     font-size: 1.5vw;
-    margin-bottom: 5vh;
-    margin-left: 83vw;
+    margin-top: 3vh;
+    margin-left: 2vw;
 }
 
 .chart-legend-label {
     font-size: 10px; /* Modifica la dimensione del testo */
+}
+
+.title-container {
+    width: 100%;
+    text-align: left;
+    margin-left: 2vw;
+    margin-top: 2vh;
 }
