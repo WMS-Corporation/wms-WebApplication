@@ -1,22 +1,22 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Chart, registerables } from 'chart.js/auto';
 import '../styles/Dashboard.css'
-import {FaClipboardList, FaPeopleCarry, FaTasks} from "react-icons/fa";
-import {getUsers, getStorages, getZones, getOrders, getTasks} from "../../controllers/DashboardController";
-import {} from "../../controllers/LogisticController";
-import {useAuth} from "../../contexts/AuthContext";
+import { FaClipboardList, FaPeopleCarry, FaTasks, FaFileAlt } from "react-icons/fa";
+import { getUsers, getStorages, getZones, getOrders, getTasks, generateAndDownloadReport  } from "../../controllers/DashboardController";
+import { } from "../../controllers/LogisticController";
+import { useAuth } from "../../contexts/AuthContext";
 import TaskItem from "./TaskItem";
 
 const Dashboard = () => {
-    const {user} = useAuth() || {};
+    const { user } = useAuth() || {};
     const [orders, setOrders] = useState([]);
     const orderChartRef = useRef(null);
     const ctxOrderRef = useRef(null);
-    
+
     const [tasks, setTasks] = useState([]);
     const [users, setUsers] = useState([]);
     const [avainableStorages, setAvainableStorage] = useState([]);
-    const [storage, setStorage] = useState({_codStorage: '', _zoneCodeList:''});
+    const [storage, setStorage] = useState({ _codStorage: '', _zoneCodeList: '' });
     const [zones, setZones] = useState([]);
     const taskChartRef = useRef(null);
     const ctxTaskRef = useRef(null);
@@ -121,7 +121,7 @@ const Dashboard = () => {
             });
         }
     };
-    
+
     const generateTaskChart = () => {
         if (ctxTaskRef.current) { // Check if the ref is not null
             const ctx = ctxTaskRef.current.getContext('2d');
@@ -244,37 +244,90 @@ const Dashboard = () => {
     }, [zones]);
 
     return (
-        <div className="Container">
-            {user._type === "Operational" ? (
-                <div className="col-lg-4 border-none">
-                    <div className="card card-transparent card-block card-stretch card-height border-none">
-                        <div className="card-body p-0 mt-lg-2 mt-0">
-                            <h1>Welcome to Warehouse Master System</h1>
+        <div >
+            <div className="col-lg-4 border-none">
+                <div className="welcome">
+                    <h1>Welcome {user._username}</h1>
+                </div>
+            </div>
+            <div className="Container">
+                {user?._type === "Admin" ? (
+                    <>
+                        <div className="chart-container">
+                            <div className="chart-item">
+                                <h4>Task Overview</h4>
+                                <canvas className="pie-chart" ref={ctxTaskRef}></canvas>
+                            </div>
+                            <div className="chart-item">
+                                <h4>Order Overview</h4>
+                                <canvas className="pie-chart" ref={ctxOrderRef}></canvas>
+                            </div>
+                            <div className="chart-item zone">
+                                <h4>Zone Temperature Overview</h4>
+                                <div className="form-group-dashboard">
+                                    <label>Storage</label>
+                                    <select className="form-control-dashboard" name="_codStorage"
+                                        value={storage._codStorage}
+                                        onChange={handleChange}>
+                                        {avainableStorages.map(storage => (
+                                            <option key={storage._codStorage}
+                                                value={storage._codStorage}>{storage._codStorage}</option>
+                                        ))}
+                                    </select>
+                                </div>
+                                <div className="chart">
+                                    <canvas className="temp-chart" ref={ctxTempRef}></canvas>
+                                </div>
+
+                            </div>
                         </div>
-                    </div>
-                </div>
-            ) : <>
-                <div className="title-container">
-                    <h1>Welcome to Warehouse Master System</h1>
-                </div>
-                <div className="col-lg-4 border-none">
-                    <div className="card card-transparent card-block card-stretch card-height border-none">
-                        <div className="card-body p-0 mt-lg-2 mt-0">
-                            <button className="btn-Add-Report">Generate Report</button>
-                        </div>
-                    </div>
-                </div>
-            </>}
-            <div className="col-lg-8">
-                <div className="row">
-                {user?._type === "Operational" ? (
-                        <>
-                            <div className="col-lg-4 col-md-4" style={{marginLeft: '35vw'}}>
+                    </>
+                ) : <>
+                    <table style={{ marginLeft: "2vw", marginRight: "4vw" }}>
+                        <thead>
+                            <tr>
+                                <th>Task Code</th>
+                                <th>Date</th>
+                                <th>Type</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {tasks.filter(task => task._codOperator === user._codUser && task._status !== "Completed").map((task) => (
+                                <TaskItem key={task._codTask} task={task} onEdit={null}
+                                    onSave={null} onView={null} admin={false} dashboard={true} />
+                            ))}
+                        </tbody>
+                    </table>
+                </>}
+
+                <div className="col-lg-8">
+                    <div className="row">
+                        {user?._type === "Operational" ? (
+                            <>
+                                <div className="col-lg-4 col-md-4" style={{ marginLeft: '35vw' }}>
+                                    <div className="card card-block card-stretch card-height">
+                                        <div className="card-body">
+                                            <div className="d-flex align-items-center mb-4 card-total-sale">
+                                                <div className="icon iq-icon-box-2 bg-info-light">
+                                                    <FaTasks />
+                                                </div>
+                                                <div>
+                                                    <p className="mb-2">Tasks</p>
+                                                    <h4>{tasks.filter(task => task._status !== "Completed").length}</h4>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </>
+                        ) : <>
+                            <div className="col-lg-4 col-md-4">
                                 <div className="card card-block card-stretch card-height">
-                                <div className="card-body">
+                                    <div className="card-body">
                                         <div className="d-flex align-items-center mb-4 card-total-sale">
                                             <div className="icon iq-icon-box-2 bg-info-light">
-                                                <FaTasks/>
+                                                <FaTasks />
                                             </div>
                                             <div>
                                                 <p className="mb-2">Tasks</p>
@@ -284,110 +337,55 @@ const Dashboard = () => {
                                     </div>
                                 </div>
                             </div>
-                        </>
-                    ) : <>
-                        <div className="col-lg-4 col-md-4">
-                            <div className="card card-block card-stretch card-height">
-                                <div className="card-body">
-                                    <div className="d-flex align-items-center mb-4 card-total-sale">
-                                        <div className="icon iq-icon-box-2 bg-info-light">
-                                            <FaTasks/>
-                                        </div>
-                                        <div>
-                                            <p className="mb-2">Tasks</p>
-                                            <h4>{tasks.filter(task => task._status !== "Completed").length}</h4>
+                        </>}
+                        {user?._type === "Admin" ? (
+                            <>
+                                <div className="col-lg-4 col-md-4">
+                                    <div className="card card-block card-stretch card-height">
+                                        <div className="card-body">
+                                            <div className="d-flex align-items-center mb-4 card-total-sale">
+                                                <div className="icon iq-icon-box-2 bg-info-light">
+                                                    <FaClipboardList />
+                                                </div>
+                                                <div>
+                                                    <p className="mb-2">Orders</p>
+                                                    <h4>{orders.filter(order => order._status !== "Completed").length}</h4>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                    </>}
-                    {user?._type === "Admin" ? (
-                        <>
-                            <div className="col-lg-4 col-md-4">
+                                <div className="col-lg-4 col-md-4">
+                                    <div className="card card-block card-stretch card-height">
+                                        <div className="card-body">
+                                            <div className="d-flex align-items-center mb-4 card-total-sale">
+                                                <div className="icon iq-icon-box-2 bg-info-light">
+                                                    <FaPeopleCarry />
+                                                </div>
+                                                <div>
+                                                    <p className="mb-2">Operational</p>
+                                                    <h4>{users.filter(user => user._type === "Operational").length}</h4>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </>
+                        ) : null}
+                        {user?._type === "Admin" ? (
+                            <div className="col-lg-10 col-md-10">
                                 <div className="card card-block card-stretch card-height">
-                                    <div className="card-body">
-                                        <div className="d-flex align-items-center mb-4 card-total-sale">
-                                            <div className="icon iq-icon-box-2 bg-info-light">
-                                                <FaClipboardList/>
-                                            </div>
-                                            <div>
-                                                <p className="mb-2">Orders</p>
-                                                <h4>{orders.filter(order => order._status !== "Completed").length}</h4>
-                                            </div>
-                                        </div>
+                                    <div className="card-body d-flex align-items-center justify-content-center">
+                                        <button className="btn-Submit-task btn btn-primary btn-lg d-flex align-items-center justify-content-center" onClick={generateAndDownloadReport}>
+                                            <FaFileAlt className="me-2" /> Generate Report
+                                        </button>
                                     </div>
                                 </div>
                             </div>
-                            <div className="col-lg-4 col-md-4">
-                                <div className="card card-block card-stretch card-height">
-                                    <div className="card-body">
-                                        <div className="d-flex align-items-center mb-4 card-total-sale">
-                                            <div className="icon iq-icon-box-2 bg-info-light">
-                                                <FaPeopleCarry/>
-                                            </div>
-                                            <div>
-                                                <p className="mb-2">Operational</p>
-                                                <h4>{users.filter(user => user._type === "Operational").length}</h4>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </>
-                    ) : null}
-
+                        ) : null}
+                    </div>
                 </div>
             </div>
-            {user?._type === "Admin" ? (
-                <>
-                    <div className="chart-container">
-                        <div className="chart-item">
-                            <h4>Task Overview</h4>
-                            <canvas className="pie-chart" ref={ctxTaskRef}></canvas>
-                        </div>
-                        <div className="chart-item">
-                            <h4>Order Overview</h4>
-                            <canvas className="pie-chart" ref={ctxOrderRef}></canvas>
-                        </div>
-                        <div className="chart-item zone">
-                            <h4>Zone Temperature Overview</h4>
-                            <div className="form-group-dashboard">
-                                <label>Storage</label>
-                                <select className="form-control-dashboard" name="_codStorage"
-                                        value={storage._codStorage}
-                                        onChange={handleChange}>
-                                    {avainableStorages.map(storage => (
-                                        <option key={storage._codStorage}
-                                                value={storage._codStorage}>{storage._codStorage}</option>
-                                    ))}
-                                </select>
-                            </div>
-                            <div className="chart">
-                                <canvas className="temp-chart" ref={ctxTempRef}></canvas>
-                            </div>
-
-                        </div>
-                    </div>
-                </>
-            ) : <>
-                <table style={{marginLeft:"2vw", marginRight:"4vw"}}>
-                    <thead>
-                    <tr>
-                        <th>Task Code</th>
-                        <th>Date</th>
-                        <th>Type</th>
-                        <th>Status</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {tasks.filter(task => task._codOperator === user._codUser && task._status !== "Completed").map((task) => (
-                        <TaskItem key={task._codTask} task={task} onEdit={null}
-                                  onSave={null} onView={null} admin={false} dashboard={true}/>
-                    ))}
-                    </tbody>
-                </table>
-            </>}
         </div>
     )
         ;

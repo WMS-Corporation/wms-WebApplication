@@ -1,14 +1,17 @@
 .Container {
     display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
+    justify-content: center;
+    align-items: center; /* Se vuoi centrare anche verticalmente */
+    width: 100%;
+}
+
+.welcome {
+    margin-left: 20px;
 }
 
 .col-lg-4{
-    position: relative;
-    width: 100%;
-    margin-top: 2vh;
 }
+
 .card-body{
     flex: 1 1 auto;
     min-height: 1px;
@@ -28,7 +31,6 @@
     flex: 1 1 30%;
     max-width: 25%;
     height: 40%;
-    box-sizing: border-box;
 }
 
 .zone{
@@ -53,17 +55,14 @@ h4 {
 }
 
 .col-lg-8{
-    position: relative;
-    width: 100%;
-    padding-right: 1vw;
     padding-left: 1vw;
-    margin-top: 2vh;
 }
 
 .row{
     display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: center; /* Centra gli elementi figli orizzontalmente */
+    width: 100%; /* Assicurati che occupi la larghezza desiderata */
+    flex-wrap: wrap
 }
 
 .card-block{
@@ -193,7 +192,7 @@ p {
     width: 60% !important;
     margin-top: 2vh;
     height: 90% !important;
-    margin-left: 15vw;
+    margin-left: 5vw;
 }
 
 .pie-chart{
