@@ -25,18 +25,24 @@ import { SERVER_URL } from './config';
 const AppContent = () => {
     const { user } = useAuth();
 
-    useEffect(() => { 
-        const socket = io(SERVER_URL);   
+    useEffect(() => {
+        const socket = io(SERVER_URL);
         socket.on('temperature-alert', (data) => {
-          // console.log('Temperature Alert:', data);
-          toast(`Temperature Alert: Zone ${data.zone} - ${data.temperature}°C`);
+            // console.log('Temperature Alert:', data);
+            toast(`Temperature alert: Zone ${data.zone} - ${data.temperature}°C`);
         });
-    
+
+        socket.on('shelf-event', (data) => {
+            // console.log('Product stock alert:', data);
+            toast(`Product stock alert: Product ${data.productCode} - Actual quantity ${data.totalStock}`);
+        });
+
         return () => {
-          socket.off('temperature-alert');
-          socket.disconnect();
+            socket.off('temperature-alert');
+            socket.off('shelf-event-alert');
+            socket.disconnect();
         };
-      }, []);
+    }, []);
 
     const viewStorage = true
     return (
