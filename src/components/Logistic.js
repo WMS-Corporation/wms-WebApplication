@@ -26,12 +26,15 @@ import {
 } from "../controllers/LogisticController";
 import StorageList from "./Forms/StorageList";
 import ZoneList from "./Forms/ZoneList";
-import {ShelfProductModel, ZoneModel} from "../models/logisticModel";
+import {CorridorModel, ShelfModel, ShelfProductModel, ZoneModel} from "../models/logisticModel";
 import CorridorList from "./Forms/CorridorList";
 import ShelfList from "./Forms/ShelfList";
 import ProductShelfList from "./Forms/ProductShelfList";
 import ZoneForm from "./Forms/ZoneForm";
 import PropTypes from "prop-types";
+import CorridorForm from "./Forms/CorridorForm";
+import ShelfForm from "./Forms/ShelfForm";
+import ProductShelfForm from "./Forms/ProductShelfForm";
 
 const Logistic = (viewStorage) => {
     const [storage, setStorage] = useState([]);
@@ -61,28 +64,19 @@ const Logistic = (viewStorage) => {
     const [editingCorridor, setEditingCorridor] = useState(null);
     const [editingZone, setEditingZone] = useState(null);
 
-    const {
-        editingOrder,
-        setEditingOrder,
-        addingOrder,
-        setAddingOrder,
-        viewProductDetailOrder,
-        setViewProductDetailOrder,
-    } = useApplicationGlobal() || {};
-
     const load = async () => {
         try {
             if(viewZones || addingZone){
-                const result = await getZones(currentStorage);
+                const result = await getZones(currentStorage._codStorage);
                 setZones(result);
             } else if(viewCorridors){
-                const result = await getCorridors(currentZone);
+                const result = await getCorridors(currentZone._codZone);
                 setCorridors(result);
             } else if(viewShelf){
-                const result = await getShelfs(currentCorridor);
+                const result = await getShelfs(currentCorridor._codCorridor);
                 setShelfs(result);
             } else if(viewProduct){
-                const res = await getShelfOfCorridor(currentShelf)
+                const res = await getShelfOfCorridor(currentShelf._codShelf)
                 const result = res._productList.map(product => new ShelfProductModel(product._codProduct, product._stock))
                 setProduct(result);
             }
@@ -96,10 +90,6 @@ const Logistic = (viewStorage) => {
     };
 
     useEffect(() => {
-        if(viewStorage){
-            console.log("ciao")
-        }
-
         load();
     }, []);
 
@@ -120,20 +110,23 @@ const Logistic = (viewStorage) => {
             setEditingProduct(item)
             setCurrentProduct(item._codProduct)
             setAddingProduct(false)
+            setViewProduct(false)
             setError(null)
         }else if(viewShelf){
             setEditingShelf(item)
-            setCurrentShelf(item._codShelf)
+            setCurrentShelf(item)
             setAddingShelf(false)
+            setViewShelf(false)
             setError(null)
         }else if(viewCorridors){
             setEditingCorridor(item)
-            setCurrentCorridor(item._codCorridor)
+            setCurrentCorridor(item)
             setAddingCorridor(false)
+            setViewCorridors(false)
             setError(null)
         } else if(viewZones){
             setEditingZone(item)
-            setCurrentZone(item._codZone)
+            setCurrentZone(item)
             setViewZones(false)
             setAddingZone(false)
             setError(null)
@@ -192,7 +185,14 @@ const Logistic = (viewStorage) => {
             setViewZones(false)
             setViewShelf(false)
             setViewProduct(false)
-        } else {
+        } else if (viewProduct) {
+            setAddingProduct(false)
+            setError(null)
+            setViewZones(false)
+            setViewShelf(true)
+            setViewCorridors(false)
+            setViewProduct(false)
+        }else {
             setViewCorridors(false)
             setViewZones(false)
             setViewShelf(true)
@@ -211,14 +211,17 @@ const Logistic = (viewStorage) => {
         } else if (viewCorridors){
             setAddingCorridor(true)
             setEditingCorridor(null)
+            setViewCorridors(false)
             setError(null)
         } else if (viewShelf){
             setAddingShelf(true)
             setEditingShelf(null)
+            setViewShelf(false)
             setError(null)
         } else if (viewProduct){
             setAddingProduct(true)
             setEditingProduct(null)
+            setViewProduct(false)
             setError(null)
         }
 
@@ -227,36 +230,42 @@ const Logistic = (viewStorage) => {
     const handleSave = async (item) => {
         try {
             if (addingZone){
-                await createZone(currentStorage, item)
+                await createZone(currentStorage._codStorage, item)
                 setAddingZone(false);
                 setViewZones(true)
                 load();
             } else if (addingCorridor){
-                await createCorridor(currentZone, item);
+                await createCorridor(currentZone._codZone, item);
                 setAddingCorridor(false);
+                setViewCorridors(true)
                 load();
             } else if (addingShelf){
-                await createShelf(currentCorridor, item);
+                await createShelf(currentCorridor._codCorridor, item);
                 setAddingShelf(false);
+                setViewShelf(true)
                 load();
             } else if (addingProduct){
-                let res = await addProduct(currentShelf, item);
+                await addProduct(currentShelf._codShelf, item);
                 setAddingProduct(false);
+                setViewProduct(true)
                 load();
             } else if (editingProduct){
-                await updateProduct(currentShelf, currentProduct, item);
+                await updateProduct(currentShelf._codShelf, currentProduct, item);
                 setEditingProduct(null);
+                setViewProduct(true)
                 load();
             }else if (editingShelf){
-                await updateShelf(currentShelf, item)
+                await updateShelf(currentShelf._codShelf, item)
                 setEditingShelf(null);
+                setViewShelf(true)
                 load();
             } else if (editingCorridor){
-                await updateCorridor(currentCorridor, item)
+                await updateCorridor(currentCorridor._codCorridor, item)
                 setEditingCorridor(null);
+                setViewCorridors(true)
                 load();
             } else if (editingZone){
-                await modifyZone(currentZone, item)
+                await modifyZone(currentZone._codZone, item)
                 setEditingZone(null);
                 setViewZones(true)
                 load();
@@ -279,16 +288,22 @@ const Logistic = (viewStorage) => {
             setViewZones(true)
         } else if(addingCorridor){
             setAddingCorridor(false)
+            setViewCorridors(true)
         } else if(addingShelf){
             setAddingShelf(false)
+            setViewShelf(true)
         } else if(addingProduct){
             setAddingProduct(false)
+            setViewProduct(true)
         } else if(editingProduct){
             setEditingProduct(null)
+            setViewProduct(true)
         } else if(editingShelf){
             setEditingShelf(null)
+            setViewShelf(true)
         } else if(editingCorridor){
             setEditingCorridor(null)
+            setViewCorridors(true)
         } else if(editingZone){
             setEditingZone(null)
             setViewZones(true)
@@ -300,7 +315,7 @@ const Logistic = (viewStorage) => {
         if(viewProduct){
             if (window.confirm('Are you sure you want to delete this product?')) {
                 try {
-                    await deleteProduct(currentShelf, item);
+                    await deleteProduct(currentShelf._codShelf, item);
                     load();
                 } catch (error) {
                     setError(error);
@@ -350,17 +365,29 @@ const Logistic = (viewStorage) => {
     }
 
     if (viewZones) {
-        return <ZoneList zones={zones} onAdd={handleAdd} onSave={handleSave} onEdit={handleEdit} onDelete={handleDelete} onView={handleView} viewProductDetailOrder={viewProductDetailOrder} onError={setError} onBack={handleBack}/>;
+        return <ZoneList zones={zones} onAdd={handleAdd} onSave={handleSave} onEdit={handleEdit} onDelete={handleDelete} onView={handleView} currentStorage={currentStorage} onError={setError} onBack={handleBack}/>;
     } else if(viewCorridors) {
-        return <CorridorList corridors={corridors} onAdd={handleAdd} onSave={handleSave} onCancel={handleCancel} onEdit={handleEdit} onDelete={handleDelete} onView={handleView} addingCorridor={addingCorridor} editingCorridor={editingCorridor} onError={setError} onBack={handleBack} error={error}/>;
+        return <CorridorList corridors={corridors} onAdd={handleAdd} onSave={handleSave} onCancel={handleCancel} onEdit={handleEdit} onDelete={handleDelete} onView={handleView} currentZone={currentZone} addingCorridor={addingCorridor} editingCorridor={editingCorridor} onError={setError} onBack={handleBack} error={error}/>;
     } else if(viewShelf) {
-        return <ShelfList shelfs={shelfs} onAdd={handleAdd} onSave={handleSave} onCancel={handleCancel} onEdit={handleEdit} onDelete={handleDelete} onView={handleView} addingShelf={addingShelf} editingShelf={editingShelf} onError={setError} onBack={handleBack} error={error}/>;
+        return <ShelfList shelfs={shelfs} onAdd={handleAdd} onSave={handleSave} onEdit={handleEdit} onDelete={handleDelete} onView={handleView} currentCorridor={currentCorridor} onError={setError} onBack={handleBack}/>;
     } else if(viewProduct) {
-        return <ProductShelfList products={product} onAdd={handleAdd} onSave={handleSave} onCancel={handleCancel} onEdit={handleEdit} onDelete={handleDelete} onView={handleView} addingProduct={addingProduct} editingProduct={editingProduct} onError={setError} onBack={handleBack} error={error}/>;
+        return <ProductShelfList products={product} onAdd={handleAdd} onSave={handleSave} onEdit={handleEdit} onDelete={handleDelete} onView={handleView} currentShelf={currentShelf} onBack={handleBack}/>;
     }else if(addingZone) {
         return <ZoneForm zone={new ZoneModel()} onSave={handleSave} onCancel={handleCancel} error={error}/>;
     } else if(editingZone) {
         return <ZoneForm zone={editingZone} onSave={handleSave} onCancel={handleCancel} error={error}/>;
+    }else if(addingCorridor) {
+        return <CorridorForm corridor={new CorridorModel()} onSave={handleSave} onCancel={handleCancel} error={error}/>
+    }else if(editingCorridor) {
+        return <CorridorForm corridor={editingCorridor} onSave={handleSave} onCancel={handleCancel} error={error}/>
+    }else if(addingShelf) {
+        return <ShelfForm shelf={new ShelfModel()} onSave={handleSave} onCancel={handleCancel} error={error}/>
+    }else if(editingShelf) {
+        return <ShelfForm shelf={editingShelf} onSave={handleSave} onCancel={handleCancel} error={error}/>
+    }else if(addingProduct) {
+        return <ProductShelfForm product={new ShelfProductModel()} onSave={handleSave} onCancel={handleCancel} error={error}/>
+    }else if(editingProduct) {
+        return <ProductShelfForm product={editingProduct} onSave={handleSave} onCancel={handleCancel} error={error}/>
     }else {
         return <StorageList storage={storage} onAdd={handleAdd} onSave={handleSave} onView={handleView} onDelete={handleDelete} onError={setError}/>;
     }

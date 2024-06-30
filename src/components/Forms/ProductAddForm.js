@@ -24,7 +24,9 @@ const ProductAddForm = ({ product, onSave, onCancel, error }) => {
     return (
         <div className="edit-page">
             <div className="header-edit">
-                <h1>Add Product</h1>
+                {editedProduct._name ? (
+                    <h1>Edit Product</h1>
+                ) : <h1>Add Product</h1>}
             </div>
             <div className="body-edit">
                 <form onSubmit={handleSubmit}>
@@ -57,6 +59,7 @@ const ProductAddForm = ({ product, onSave, onCancel, error }) => {
                                 <label>Type *</label>
                                 <select className="form-control" name="_type" value={editedProduct._type}
                                         onChange={handleChange}>
+                                    <option value="">Select type</option>
                                     <option value="Refrigerated">Refrigerated</option>
                                     <option value="NoRefrigerated">NoRefrigerated</option>
                                 </select>

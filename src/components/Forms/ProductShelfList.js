@@ -6,10 +6,32 @@ import ProductShelfItem from "./ProductShelfItem";
 import ProductShelfForm from "./ProductShelfForm";
 import {useAuth} from "../../contexts/AuthContext";
 
-const ProductShelfList = ({ products, onAdd, onSave, onCancel, onEdit, onDelete, addingProduct, editingProduct, onError, onBack, error }) => {
+const ProductShelfList = ({ products, onAdd, onSave, onEdit, onDelete, currentShelf, onBack }) => {
     const { user } = useAuth() || {};
     return (
         <div className="task-list">
+            {currentShelf ? (
+                <>
+                    <h1>Shelf</h1>
+                    <div className="content-section-view">
+                        <div className="col-md-6">
+                            <div className="form-group">
+                                <label>Shelf Code</label>
+                                <input className="form-control" type="string"
+                                       value={currentShelf._codShelf} readOnly={true}/>
+                            </div>
+                        </div>
+                        <div className="col-md-6">
+                            <div className="form-group">
+                                <label>Name</label>
+                                <input className="form-control" type="string"
+                                       value={currentShelf._name} readOnly={true}/>
+                            </div>
+                        </div>
+                    </div>
+                </>
+
+            ) : null}
             <div className="header-list">
                 <h1>Product List</h1>
                 {user._type === "Admin" ? (
@@ -18,12 +40,6 @@ const ProductShelfList = ({ products, onAdd, onSave, onCancel, onEdit, onDelete,
                     </button>
                 ) : null}
             </div>
-            {addingProduct ? (
-                <ProductShelfForm product={new ShelfProductModel()} onSave={onSave} onCancel={onCancel} onError={onError} error={error}/>
-            ) : editingProduct ? (
-                <ProductShelfForm product={editingProduct} onSave={onSave} onCancel={onCancel} onError={onError} error={error} edit={true}/>
-            ) : null
-            }
             <div className="table-task">
                 <table>
                     <thead>
@@ -42,7 +58,7 @@ const ProductShelfList = ({ products, onAdd, onSave, onCancel, onEdit, onDelete,
                     ))}
                     </tbody>
                 </table>
-                <button className="btn-Back" type="submit" onClick={() => onBack(products)}>Back To Shelf</button>
+                <button className="btn-Back" type="submit" onClick={() => onBack(products)}>Back to Corridor</button>
             </div>
         </div>
     );
@@ -54,12 +70,8 @@ ProductShelfList.propTypes = {
     onAdd: PropTypes.func.isRequired,
     onEdit: PropTypes.func.isRequired,
     onDelete: PropTypes.func.isRequired,
-    onError: PropTypes.func.isRequired,
     onBack: PropTypes.func.isRequired,
-    onCancel: PropTypes.func.isRequired,
-    addingProduct: PropTypes.bool,
-    error: PropTypes.string,
-    editingProduct: PropTypes.element
+    currentShelf: PropTypes.element
 };
 
 export default ProductShelfList;

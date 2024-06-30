@@ -23,9 +23,55 @@ const TaskList = ({ tasks, onAdd, onEdit, onSave, onView, viewProductDetailTask,
     }
     return (
         <div className="task-list">
+            {viewProductDetailTask ? (
+                <>
+                    <h1>Task</h1>
+                    <div className="content-section-view">
+                        <div className="col-md-6">
+                            <div className="form-group">
+                                <label>Task Code</label>
+                                <input className="form-control" type="string"
+                                       value={viewProductDetailTask._codOperator} readOnly={true}/>
+                            </div>
+                        </div>
+                        <div className="col-md-6">
+                            <div className="form-group">
+                                <label>Operator Code</label>
+                                <input className="form-control" type="string"
+                                       value={viewProductDetailTask._codOperator} readOnly={true}/>
+                            </div>
+                        </div>
+                        <div className="col-md-6">
+                            <div className="form-group">
+                                <label>Date</label>
+                                <input className="form-control" type="date"
+                                       value={new Date(viewProductDetailTask._date).toISOString().split('T')[0]}
+                                       readOnly={true}/>
+                            </div>
+                        </div>
+                        <div className="col-md-6">
+                            <div className="form-group">
+                                <label>Type</label>
+                                <input className="form-control" type="string"
+                                       value={viewProductDetailTask._type} readOnly={true}/>
+                            </div>
+                        </div>
+                        <div className="col-md-6">
+                            <div className="form-group">
+                                <label>Status</label>
+                                <input className="form-control" type="string"
+                                       value={viewProductDetailTask._status} readOnly={true}/>
+                            </div>
+                        </div>
+                    </div>
+                </>
+
+            ) : null}
             <div className="header-list">
-                <h1>Task List</h1>
-                {user._type === "Admin" ? (
+                {viewProductDetailTask ? (
+                    <h2>Product List</h2>
+                ) : <h1>Task List</h1>}
+                {user._type === "Admin" && !viewProductDetailTask ? (
                     <button className="btn-Add" onClick={handleAdd}>
                         Add Task
                     </button>

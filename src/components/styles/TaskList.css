@@ -87,3 +87,15 @@
   font-size: 1.2vw;
   margin-top: 5vh;
 }
+
+.content-section-view{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  flex-wrap: wrap;
+  margin: 0.8vw;
+}
+
+.content-section-view-zone{
+  flex-wrap: wrap;
+  margin: 0.8vw;
+}

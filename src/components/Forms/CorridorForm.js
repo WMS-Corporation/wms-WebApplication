@@ -23,22 +23,32 @@ const CorridorForm = ({ corridor, onSave, onCancel, error }) => {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <div className="content-edit">
-                <div className="col-md-6">
-                    <div className="form-group">
-                        <label>Name *</label>
-                        <input className="form-control" type="string" name="_name"
-                               value={editedCorridor._name} onChange={handleChange}/>
-                    </div>
+            <div className="edit-page">
+                <div className="header-edit">
+                    {editedCorridor._name ? (
+                        <h1>Edit Corridor</h1>
+                    ) : <h1>Add Corridor</h1>}
+
                 </div>
-                <div className="button-div-corridor">
-                    <button className="btn-Submit" type="submit" onClick={onSave}>Save</button>
-                    <button className="btn-Cancel" type="button" onClick={onCancel}>Cancel</button>
+                <div className="body-edit">
+                    <form onSubmit={handleSubmit}>
+                        <div className="content-edit">
+                            <div className="col-md-6">
+                                <div className="form-group">
+                                    <label>Name *</label>
+                                    <input className="form-control" type="string" name="_name"
+                                           value={editedCorridor._name} onChange={handleChange}/>
+                                </div>
+                            </div>
+                            <div className="button-div-corridor">
+                                <button className="btn-Submit" type="submit" onClick={onSave}>Save</button>
+                                <button className="btn-Cancel" type="button" onClick={onCancel}>Cancel</button>
+                            </div>
+                        </div>
+                        {error && <div className="error-form">{error}</div>}
+                    </form>
                 </div>
             </div>
-            {error && <div className="error-form">{error}</div>}
-        </form>
     );
 };
 

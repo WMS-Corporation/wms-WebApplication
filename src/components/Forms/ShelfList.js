@@ -6,10 +6,32 @@ import ShelfItem from "./ShelfItem";
 import ShelfForm from "./ShelfForm";
 import {useAuth} from "../../contexts/AuthContext";
 
-const ShelfList = ({ shelfs, onAdd, onSave, onCancel, onEdit, onDelete, onView, addingShelf, editingShelf, onError, onBack, error }) => {
+const ShelfList = ({ shelfs, onAdd, onSave, onEdit, onDelete, onView, currentCorridor, onBack }) => {
     const { user } = useAuth() || {};
     return (
         <div className="task-list">
+            {currentCorridor ? (
+                <>
+                    <h1>Corridor</h1>
+                    <div className="content-section-view">
+                        <div className="col-md-6">
+                            <div className="form-group">
+                                <label>Corridor Code</label>
+                                <input className="form-control" type="string"
+                                       value={currentCorridor._codCorridor} readOnly={true}/>
+                            </div>
+                        </div>
+                        <div className="col-md-6">
+                            <div className="form-group">
+                                <label>Name</label>
+                                <input className="form-control" type="string"
+                                       value={currentCorridor._name} readOnly={true}/>
+                            </div>
+                        </div>
+                    </div>
+                </>
+
+            ) : null}
             <div className="header-list">
                 <h1>Shelf List</h1>
                 {user._type === "Admin" ? (
@@ -18,12 +40,6 @@ const ShelfList = ({ shelfs, onAdd, onSave, onCancel, onEdit, onDelete, onView, 
                     </button>
                 ) : null}
             </div>
-            {addingShelf ? (
-                <ShelfForm shelf={new ShelfModel()} onSave={onSave} onCancel={onCancel} onError={onError} error={error}/>
-            ) : editingShelf ? (
-                <ShelfForm shelf={editingShelf} onSave={onSave} onCancel={onCancel} onError={onError} error={error}/>
-            ) : null
-            }
             <div className="table-task">
                 <table>
                     <thead>
@@ -41,7 +57,7 @@ const ShelfList = ({ shelfs, onAdd, onSave, onCancel, onEdit, onDelete, onView, 
                     ))}
                     </tbody>
                 </table>
-                <button className="btn-Back" type="submit" onClick={() => onBack(shelfs)}>Back To Corridor</button>
+                <button className="btn-Back" type="submit" onClick={() => onBack(shelfs)}>Back To Zone</button>
             </div>
         </div>
     );
@@ -56,10 +72,7 @@ ShelfList.propTypes = {
     onDelete: PropTypes.func.isRequired,
     onError: PropTypes.func.isRequired,
     onBack: PropTypes.func.isRequired,
-    onCancel: PropTypes.func.isRequired,
-    addingShelf: PropTypes.bool,
-    error: PropTypes.string,
-    editingShelf: PropTypes.element
+    currentCorridor: PropTypes.element
 };
 
 export default ShelfList;
