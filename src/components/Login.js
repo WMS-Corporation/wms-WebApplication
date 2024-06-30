@@ -32,7 +32,7 @@ const Login = () => {
     const handleRegister = async (username, password, name, surname, type) => {
         try {
             const data = await registerUser(username, password, name, surname, type);
-            login(data.token);
+            login(data.token, data.user);
             navigate("/home");
         } catch (error) {
             console.error('Error logging in:', error);

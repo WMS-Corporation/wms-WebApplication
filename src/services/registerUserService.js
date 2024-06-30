@@ -18,7 +18,7 @@ export const register = async (username, password, name, surname, type) => {
             throw new Error(errorResponse.message)
         }
         const data = await response.json();
-        return data
+        return { token: data.token, user: data.user }
     } catch (error) {
         console.error('Error logging in:', error);
         throw error;
