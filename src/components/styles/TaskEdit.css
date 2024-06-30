@@ -61,6 +61,22 @@
     display: flex;
     flex-direction: column;
 }
+.form-group-zone {
+    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: row;
+}
+
+.form-group-zone label{
+    color: #01041b;
+    width: 12%;
+    font-size: 1.4vw;
+}
+
+.form-group-zone input{
+    width: 20%;
+}
+
 label{
     color: #01041b;
     display: inline-block;

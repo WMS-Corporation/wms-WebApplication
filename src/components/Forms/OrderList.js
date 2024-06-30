@@ -9,32 +9,65 @@ const OrderList = ({ orders, onAdd, onEdit, onSave, onView, viewProductDetailOrd
     onError(null)
     return (
         <div className="order-list">
+            {viewProductDetailOrder ? (
+                <>
+                    <h1>Order</h1>
+                    <div className="content-section-view">
+                        <div className="col-md-6">
+                            <div className="form-group">
+                                <label>Order Code</label>
+                                <input className="form-control" type="string"
+                                       value={viewProductDetailOrder._codOrder} readOnly={true}/>
+                            </div>
+                        </div>
+                        <div className="col-md-6">
+                            <div className="form-group">
+                                <label>Date</label>
+                                <input className="form-control" type="date"
+                                       value={new Date(viewProductDetailOrder._date).toISOString().split('T')[0]}
+                                       readOnly={true}/>
+                            </div>
+                        </div>
+                        <div className="col-md-6">
+                            <div className="form-group">
+                                <label>Status</label>
+                                <input className="form-control" type="string"
+                                       value={viewProductDetailOrder._status} readOnly={true}/>
+                            </div>
+                        </div>
+                    </div>
+                </>
+            ) : null}
             <div className="header-list-order">
-                <h1>Order List</h1>
-                <button className="btn-Add-order" onClick={onAdd}>
-                    Add Order
-                </button>
+                {viewProductDetailOrder ? (
+                    <h2>Product List</h2>
+                ) : <h1>Order List</h1>}
+                {!viewProductDetailOrder ? (
+                    <button className="btn-Add-order" onClick={onAdd}>
+                        Add Order
+                    </button>
+                ) : null}
             </div>
             <div className="table-order">
                 {viewProductDetailOrder && viewProductDetailOrder._productList ? (
                     <table>
                         <thead>
-                            <tr>
-                                <th>Product Code</th>
-                                <th>Quantity</th>
-                            </tr>
+                        <tr>
+                            <th>Product Code</th>
+                            <th>Quantity</th>
+                        </tr>
                         </thead>
                         <tbody>
-                            {viewProductDetailOrder._productList.map((product) => (
-                                <OrderProductDetails key={product._codProduct} product={product} />
-                            ))}
+                        {viewProductDetailOrder._productList.map((product) => (
+                            <OrderProductDetails key={product._codProduct} product={product}/>
+                        ))}
                         </tbody>
                     </table>
                 ) : (
                     <table>
                         <thead>
-                            <tr>
-                                <th>Order Code</th>
+                        <tr>
+                        <th>Order Code</th>
                                 <th>Date</th>
                                 <th>Status</th>
                                 <th>Products</th>

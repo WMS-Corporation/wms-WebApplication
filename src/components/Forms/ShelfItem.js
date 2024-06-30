@@ -13,7 +13,7 @@ const ShelfItem = ({ shelf, onSave, onEdit, onDelete, onView, type }) => {
             <td>{shelf._name}</td>
             <td>{shelf._productList.length}</td>
             <td className="action">
-                <div className="view"><FaEye className="view-icon" onClick={() => onView(shelf._productList.map(product => new ShelfProductModel(product._codProduct, product._stock)), shelf._codShelf)}/></div>
+                <div className="view"><FaEye className="view-icon" onClick={() => onView(shelf._productList.map(product => new ShelfProductModel(product._codProduct, product._stock)), shelf)}/></div>
                 {type === "Admin" ? (
                     <div className="edit"><FiEdit2 className="edit-icon" onClick={() => onEdit(shelf)}/></div>
                 ) : null}

@@ -24,23 +24,33 @@ const ShelfForm = ({ shelf, onSave, onCancel, error }) => {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <div className="content-edit">
-                <div className="col-md-6">
-                    <div className="form-group">
-                        <label>Name *</label>
-                        <input className="form-control" type="string" name="_name"
-                               value={editedShelf._name} onChange={handleChange}/>
+    <div className="edit-page">
+        <div className="header-edit">
+            {editedShelf._name ? (
+                <h1>Edit Shelf</h1>
+            ) : <h1>Add Shelf</h1>}
+        </div>
+        <div className="body-edit">
+            <form onSubmit={handleSubmit}>
+                <div className="content-edit">
+                    <div className="col-md-6">
+                        <div className="form-group">
+                            <label>Name *</label>
+                            <input className="form-control" type="string" name="_name"
+                                   value={editedShelf._name} onChange={handleChange}/>
+                        </div>
+                    </div>
+                    <div className="button-div-corridor">
+                        <button className="btn-Submit" type="submit" onClick={onSave}>Save</button>
+                        <button className="btn-Cancel" type="button" onClick={onCancel}>Cancel</button>
                     </div>
                 </div>
-                <div className="button-div-corridor">
-                    <button className="btn-Submit" type="submit" onClick={onSave}>Save</button>
-                    <button className="btn-Cancel" type="button" onClick={onCancel}>Cancel</button>
-                </div>
-            </div>
-            {error && <div className="error-form">{typeof error === 'string' ? error : error.toString()}</div>}
-        </form>
-    );
+                {error && <div className="error-form">{typeof error === 'string' ? error : error.toString()}</div>}
+            </form>
+        </div>
+    </div>
+)
+    ;
 };
 
 ShelfForm.propTypes = {

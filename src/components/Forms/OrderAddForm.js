@@ -69,7 +69,9 @@ const OrderAddForm = ({ order, onSave, onCancel, error }) => {
     return (
         <div className="edit-order-page">
             <div className="header-edit-order">
-                <h1>Add Order</h1>
+                {editedOrder._status ? (
+                    <h1>Edit Order</h1>
+                ) : <h1>Add Order</h1>}
             </div>
             <div className="body-order-edit">
                 <form onSubmit={handleSubmit}>

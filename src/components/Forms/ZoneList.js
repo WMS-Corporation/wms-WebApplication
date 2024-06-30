@@ -5,13 +5,27 @@ import {ZoneModel} from "../../models/logisticModel";
 import ZoneItem from "./ZoneItem";
 import {useAuth} from "../../contexts/AuthContext";
 
-const ZoneList = ({ zones, onAdd, onSave, onEdit, onDelete, onView, onError, onBack }) => {
+const ZoneList = ({ zones, onAdd, onSave, onEdit, onDelete, onView, onError, onBack, currentStorage }) => {
     onError(null)
     const { user } = useAuth() || {};
     return (
         <div className="task-list">
+            {currentStorage ? (
+                <>
+                    <h1>Storage</h1>
+                    <div className="content-section-view-zone">
+                        <div className="col-md-6">
+                            <div className="form-group-zone">
+                                <label>Storage Code</label>
+                                <input className="form-control" type="string"
+                                       value={currentStorage._codStorage} readOnly={true}/>
+                            </div>
+                        </div>
+                    </div>
+                </>
+            ) : null}
             <div className="header-list">
-                <h1>Zone List</h1>
+                <h2>Zone List</h2>
                 {user._type === "Admin" ? (
                     <button className="btn-Add" onClick={onAdd}>
                         Add Zone
@@ -37,7 +51,7 @@ const ZoneList = ({ zones, onAdd, onSave, onEdit, onDelete, onView, onError, onB
                     ))}
                     </tbody>
                 </table>
-                <button className="btn-Back" type="submit" onClick={() => onBack()}>Back To Storage</button>
+                <button className="btn-Back" type="submit" onClick={() => onBack()}>Back</button>
             </div>
         </div>
     );
@@ -52,6 +66,7 @@ ZoneList.propTypes = {
     onDelete: PropTypes.func.isRequired,
     onError: PropTypes.func.isRequired,
     onBack: PropTypes.func.isRequired,
+    currentStorage: PropTypes.element
 };
 
 export default ZoneList;

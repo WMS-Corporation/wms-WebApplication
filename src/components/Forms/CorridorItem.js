@@ -23,7 +23,7 @@ const CorridorItem = ({ corridor, onSave, onEdit, onDelete, onView, type }) => {
             <td>{corridor._name}</td>
             <td>{corridor._shelfCodeList.length}</td>
             <td className="action">
-                <div className="view"><FaEye className="view-icon" onClick={() => onView(shelfs, corridor._codCorridor)}/></div>
+                <div className="view"><FaEye className="view-icon" onClick={() => onView(shelfs, corridor)}/></div>
                 {type === "Admin" ? (
                     <div className="edit"><FiEdit2 className="edit-icon" onClick={() => onEdit(corridor)}/></div>
                 ) : null}

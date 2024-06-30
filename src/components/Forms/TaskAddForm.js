@@ -32,6 +32,7 @@ const TaskAddForm = ({ task, onSave, onCancel, error }) => {
         const fetchShelf = async () => {
             try {
                 const shelf = await viewAllShelf();
+                console.log(shelf)
                 setAvailableShelf(shelf);
             } catch (error) {
                 console.error('Error fetching products:', error);
@@ -95,7 +96,9 @@ const TaskAddForm = ({ task, onSave, onCancel, error }) => {
     return (
         <div className="edit-task-page">
             <div className="header-edit">
-                <h1>Add Task</h1>
+                {editedTask._codOperator ? (
+                    <h1>Edit Task</h1>
+                ) : <h1>Add Task</h1>}
             </div>
             <div className="body-task-edit">
                 <form onSubmit={handleSubmit}>

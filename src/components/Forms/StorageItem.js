@@ -22,7 +22,7 @@ const StorageItem = ({ storage, onView, onDelete, type }) => {
             <td>{storage._codStorage}</td>
             <td>{storage._zoneCodeList.length}</td>
             <td className="action">
-                <div className="view"><FaEye className="view-icon" onClick={() => onView(zones, storage._codStorage)}/>
+                <div className="view"><FaEye className="view-icon" onClick={() => onView(zones, storage)}/>
                 </div>
                 {type === "Admin" ? (
                     <div className="delete"><MdDeleteOutline className="delete-icon"

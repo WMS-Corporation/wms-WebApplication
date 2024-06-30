@@ -49,6 +49,10 @@ body.dark .header{
 body.dark .navbar{
 }
 
+label{
+  font-size: 1.4vw;
+}
+
 body.dark .sidebar-item svg{
   color: var(--title-color-dark);
 }

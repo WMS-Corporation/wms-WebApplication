@@ -6,24 +6,55 @@ import CorridorItem from "./CorridorItem";
 import CorridorForm from "./CorridorForm";
 import {useAuth} from "../../contexts/AuthContext";
 
-const CorridorList = ({ corridors, onAdd, onSave, onCancel, onEdit, onDelete, onView, addingCorridor, editingCorridor, onError, onBack, error }) => {
+const CorridorList = ({ corridors, onAdd, onSave, onEdit, onDelete, onView, currentZone, onBack }) => {
     const { user } = useAuth() || {};
     return (
         <div className="task-list">
+            {currentZone ? (
+                <>
+                    <h1>Zone</h1>
+                    <div className="content-section-view">
+                        <div className="col-md-6">
+                            <div className="form-group">
+                                <label>Zone Code</label>
+                                <input className="form-control" type="string"
+                                       value={currentZone._codZone} readOnly={true}/>
+                            </div>
+                        </div>
+                        <div className="col-md-6">
+                            <div className="form-group">
+                                <label>Temperature</label>
+                                <input className="form-control" type="string"
+                                       value={currentZone._temperature} readOnly={true}/>
+                            </div>
+                        </div>
+                        <div className="col-md-6">
+                            <div className="form-group">
+                                <label>Cooling System</label>
+                                <input className="form-control" type="string"
+                                       value={currentZone._coolingSystemStatus}
+                                       readOnly={true}/>
+                            </div>
+                        </div>
+                        <div className="col-md-6">
+                            <div className="form-group">
+                                <label>Humidity Level</label>
+                                <input className="form-control" type="string"
+                                       value={currentZone._humidityLevel} readOnly={true}/>
+                            </div>
+                        </div>
+                    </div>
+                </>
+
+            ) : null}
             <div className="header-list">
-                <h1>Corridor List</h1>
+                <h2>Corridor List</h2>
                 {user._type === "Admin" ? (
                     <button className="btn-Add" onClick={onAdd}>
                         Add Corridor
                     </button>
                 ) : null}
             </div>
-            {addingCorridor ? (
-                <CorridorForm corridor={new CorridorModel()} onSave={onSave} onCancel={onCancel} onError={onError} error={error}/>
-            ) : editingCorridor ? (
-                <CorridorForm corridor={editingCorridor} onSave={onSave} onCancel={onCancel} onError={onError} error={error}/>
-            ) : null
-            }
             <div className="table-task">
                 <table>
                     <thead>
@@ -37,11 +68,12 @@ const CorridorList = ({ corridors, onAdd, onSave, onCancel, onEdit, onDelete, on
                     <tbody>
                     {corridors.map((corridor) => (
                         <CorridorItem key={corridor._codCorridor} corridor={corridor}
-                                      onSave={onSave} onEdit={onEdit} onDelete={onDelete} onView={onView} type={user._type}/>
+                                      onSave={onSave} onEdit={onEdit} onDelete={onDelete} onView={onView}
+                                      type={user._type}/>
                     ))}
                     </tbody>
                 </table>
-                <button className="btn-Back" type="submit" onClick={() => onBack()}>Back To Zone</button>
+                <button className="btn-Back" type="submit" onClick={() => onBack()}>Back to Storage</button>
             </div>
         </div>
     );
@@ -49,16 +81,13 @@ const CorridorList = ({ corridors, onAdd, onSave, onCancel, onEdit, onDelete, on
 CorridorList.propTypes = {
     corridors: PropTypes.arrayOf(PropTypes.instanceOf(CorridorModel)).isRequired,
     onSave: PropTypes.func.isRequired,
-    onCancel: PropTypes.func.isRequired,
     onAdd: PropTypes.func.isRequired,
     onView: PropTypes.func.isRequired,
     onEdit: PropTypes.func.isRequired,
     onDelete: PropTypes.func.isRequired,
     onError: PropTypes.func.isRequired,
     onBack: PropTypes.func.isRequired,
-    addingCorridor: PropTypes.bool,
-    error: PropTypes.string,
-    editingCorridor: PropTypes.element
+    currentZone: PropTypes.element
 };
 
 export default CorridorList;

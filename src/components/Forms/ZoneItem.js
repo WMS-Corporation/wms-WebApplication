@@ -26,7 +26,7 @@ const ZoneItem = ({ zone, onSave, onEdit, onDelete, onView, type }) => {
             <td>{zone._humidityLevel}</td>
             <td>{zone._corridorCodeList.length}</td>
             <td className="action">
-                <div className="view"><FaEye className="view-icon" onClick={() => onView(corridors, zone._codZone)}/>
+                <div className="view"><FaEye className="view-icon" onClick={() => onView(corridors, zone)}/>
                 </div>
                 {type === "Admin" ? (
                     <div className="edit"><FiEdit2 className="edit-icon" onClick={() => onEdit(zone)}/></div>

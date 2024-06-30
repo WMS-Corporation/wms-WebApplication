@@ -26,7 +26,9 @@ const ZoneForm = ({ zone, onSave, onCancel, error }) => {
     return (
         <div className="edit-page">
             <div className="header-edit">
-                <h1>Add Zone</h1>
+                {editedZone._temperature ? (
+                    <h1>Edit Zone</h1>
+                ) : <h1>Add Zone</h1>}
             </div>
             <div className="body-edit">
                 <form onSubmit={handleSubmit}>

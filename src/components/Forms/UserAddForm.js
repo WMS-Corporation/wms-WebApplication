@@ -22,7 +22,9 @@ const UserAddForm = ({ user, onSave, onCancel, error }) => {
     return (
         <div className="edit-page">
             <div className="header-edit">
-                <h1>Add User</h1>
+                {editedUser._name ? (
+                    <h1>Edit User</h1>
+                ) : <h1>Add User</h1>}
             </div>
             <div className="body-edit">
                 <form onSubmit={handleSubmit}>
