@@ -32,14 +32,14 @@ const AppContent = () => {
             toast(`Temperature alert: Zone ${data.zone} - ${data.temperature}°C`);
         });
 
-        socket.on('shelf-event', (data) => {
+        socket.on('lowStockAlert', (data) => {
             // console.log('Product stock alert:', data);
             toast(`Product stock alert: Product ${data.productCode} - Actual quantity ${data.totalStock}`);
         });
 
         return () => {
             socket.off('temperature-alert');
-            socket.off('shelf-event-alert');
+            socket.off('lowStockAlert');
             socket.disconnect();
         };
     }, []);
