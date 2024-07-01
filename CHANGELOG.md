@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.1.1](https://github.com/WMS-Corporation/wms-WebApplication/compare/v1.1.0...v1.1.1) (2024-07-01)
+
+
+### Bug Fixes
+
+* Updated Dashboard view ([1826df8](https://github.com/WMS-Corporation/wms-WebApplication/commit/1826df80f8f524e033e58c5ae9709203a3b3528d))
+* Updated method that modified product data ([b78ed4f](https://github.com/WMS-Corporation/wms-WebApplication/commit/b78ed4f9e8965389d1f72448135aecad25076b29))
+
 ## [1.1.0](https://github.com/WMS-Corporation/wms-WebApplication/compare/v1.0.0...v1.1.0) (2024-06-30)
 
 
