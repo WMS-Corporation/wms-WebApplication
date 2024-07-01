@@ -1,5 +1,5 @@
 import { fetchOrders, updateOrder, removeOrder, addOrder } from '../../services/orderService';
-import { OrderModel, ProductOrderModel } from '../../models/orderModel';
+import { OrderModel } from '../../models/orderModel';
 import { API_URL } from '../../config';
 import fetchMock from 'jest-fetch-mock';
 

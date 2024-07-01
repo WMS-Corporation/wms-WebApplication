@@ -4,9 +4,9 @@ import React, {useEffect, useState} from "react";
 import { ZoneModel} from "../../models/logisticModel";
 import {FiEdit2} from "react-icons/fi";
 import {MdDeleteOutline} from "react-icons/md";
-import {getCorridors, getZones} from "../../controllers/LogisticController";
+import {getCorridors} from "../../controllers/LogisticController";
 
-const ZoneItem = ({ zone, onSave, onEdit, onDelete, onView, type }) => {
+const ZoneItem = ({ zone, onEdit, onDelete, onView, type }) => {
 
     const [corridors, setCorridors] = useState(null)
     const loadCorridors = async () => {
@@ -44,7 +44,6 @@ const ZoneItem = ({ zone, onSave, onEdit, onDelete, onView, type }) => {
 ZoneItem.propTypes = {
     zone: PropTypes.instanceOf(ZoneModel).isRequired,
     onView: PropTypes.func.isRequired,
-    onSave: PropTypes.func.isRequired,
     onEdit: PropTypes.func.isRequired,
     onDelete: PropTypes.func.isRequired,
     type: PropTypes.string

@@ -1,10 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { getOrders, saveOrder, addOrder } from '../controllers/OrderController';
-import OrderList from './Forms/OrderList';
-import { OrderModel } from '../models/orderModel';
-import OrderAddForm from "./Forms/OrderAddForm";
-import { useApplicationGlobal } from "../contexts/AppGlobalContext";
-import {fetchAllStorages, generateStorage} from "../services/logisticService";
 import {
     createCorridor,
     createShelf,
@@ -36,12 +30,10 @@ import CorridorForm from "./Forms/CorridorForm";
 import ShelfForm from "./Forms/ShelfForm";
 import ProductShelfForm from "./Forms/ProductShelfForm";
 
-const Logistic = (viewStorage) => {
+const Logistic = () => {
     const [storage, setStorage] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const [editingStorage, setEditingStorage] = useState(null);
-    const [addingStorage, setAddingStorage] = useState(false);
     const [zones, setZones] = useState(null);
     const [corridors, setCorridors] = useState(null);
     const [viewZones, setViewZones] = useState(false);
@@ -271,9 +263,7 @@ const Logistic = (viewStorage) => {
                 load();
             } else {
                 await createStorage({_zoneCodeList: []});
-                setAddingStorage(false);
                 load();
-                setEditingStorage(null);
             }
 
         } catch (error) {
@@ -385,9 +375,9 @@ const Logistic = (viewStorage) => {
     }else if(editingShelf) {
         return <ShelfForm shelf={editingShelf} onSave={handleSave} onCancel={handleCancel} error={error}/>
     }else if(addingProduct) {
-        return <ProductShelfForm product={new ShelfProductModel()} onSave={handleSave} onCancel={handleCancel} error={error}/>
+        return <ProductShelfForm product={new ShelfProductModel()} onSave={handleSave} onCancel={handleCancel} error={error} edit={false}/>
     }else if(editingProduct) {
-        return <ProductShelfForm product={editingProduct} onSave={handleSave} onCancel={handleCancel} error={error}/>
+        return <ProductShelfForm product={editingProduct} onSave={handleSave} onCancel={handleCancel} error={error} edit={true}/>
     }else {
         return <StorageList storage={storage} onAdd={handleAdd} onSave={handleSave} onView={handleView} onDelete={handleDelete} onError={setError}/>;
     }

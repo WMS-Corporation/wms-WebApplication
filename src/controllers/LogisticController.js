@@ -1,5 +1,4 @@
 import {
-  fetchAllStorages,
   fetchStorageByCode,
   generateZone,
   getAllZones,
@@ -15,8 +14,7 @@ import {
   deleteProductFromShelf,
   searchStoragesByName,
   deleteCorridor,
-  deleteShelf,
-  updateZone, fetchShelfByCode, updateShelfByCode, updateCorridorByCode, updateZoneByCode, deleteZone, deleteStorage, getShelf
+  deleteShelf, fetchShelfByCode, updateShelfByCode, updateCorridorByCode, updateZoneByCode, deleteZone, deleteStorage, getShelf
 } from '../services/logisticService';
 
 export const addProduct = async (codShelf, product) => {

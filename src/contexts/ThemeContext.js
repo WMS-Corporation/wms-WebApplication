@@ -1,7 +1,6 @@
 
 import React, { createContext, useState, useContext, useEffect } from 'react';
 import PropTypes from "prop-types";
-import {AuthProvider} from "./AuthContext";
 
 const ThemeContext = createContext();
 

@@ -1,4 +1,4 @@
-import { addProductToShelf, getProductFromShelf, updateProductInShelf, deleteProductFromShelf, generateShelf, getAllShelfs } from '../../services/logisticService';
+import { addProductToShelf, getProductFromShelf, updateProductInShelf, deleteProductFromShelf } from '../../services/logisticService';
 import { API_URL } from '../../config';
 import fetchMock from 'jest-fetch-mock';
 

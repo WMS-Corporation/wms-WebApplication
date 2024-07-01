@@ -1,14 +1,12 @@
-import React, {useState} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import ProductModel from '../../models/productModel';
 import '../styles/ProductEdit.css';
-import {CorridorModel, ShelfModel, ShelfProductModel, ZoneModel} from "../../models/logisticModel";
+import {ShelfProductModel} from "../../models/logisticModel";
 import {getProducts} from "../../controllers/ProductController";
 
 const ProductShelfForm = ({ product, onSave, onCancel, error, edit }) => {
     const [editedProduct, setEditedProduct] = React.useState(product);
     const [availableProducts, setAvailableProducts] = React.useState([]);
-
     React.useEffect(() => {
         const fetchProducts = async () => {
             try {
@@ -39,7 +37,7 @@ const ProductShelfForm = ({ product, onSave, onCancel, error, edit }) => {
     return (
     <div className="edit-page">
         <div className="header-edit">
-            {editedProduct._quantity ? (
+            {edit ? (
                 <h1>Edit Product</h1>
             ) : <h1>Add Product</h1>}
         </div>

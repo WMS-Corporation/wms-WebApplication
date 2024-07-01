@@ -1,9 +1,8 @@
 
 import PropTypes from "prop-types";
 import React from "react";
-import {CorridorModel, ZoneModel} from "../../models/logisticModel";
+import {CorridorModel} from "../../models/logisticModel";
 import CorridorItem from "./CorridorItem";
-import CorridorForm from "./CorridorForm";
 import {useAuth} from "../../contexts/AuthContext";
 
 const CorridorList = ({ corridors, onAdd, onSave, onEdit, onDelete, onView, currentZone, onBack }) => {

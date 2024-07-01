@@ -1,6 +1,5 @@
 
 import {fireEvent, render, screen} from "@testing-library/react";
-import TaskItem from "../../../components/Forms/TaskItem";
 import React from "react";
 import CorridorItem from "../../../components/Forms/CorridorItem";
 

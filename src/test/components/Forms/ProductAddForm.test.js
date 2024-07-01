@@ -1,4 +1,4 @@
-import {fireEvent, render, screen} from "@testing-library/react";
+import {render, screen} from "@testing-library/react";
 import React from "react";
 import ProductAddForm from "../../../components/Forms/ProductAddForm";
 import ProductModel from "../../../models/productModel";

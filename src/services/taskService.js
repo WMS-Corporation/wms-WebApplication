@@ -1,4 +1,4 @@
-import { TaskModel, ProductTaskModel } from '../models/taskModel';
+import { TaskModel } from '../models/taskModel';
 import { getAuthHeaders } from './authService';
 import { API_URL } from '../config';
 

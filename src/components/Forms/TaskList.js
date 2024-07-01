@@ -13,7 +13,6 @@ const TaskList = ({ tasks, onAdd, onEdit, onSave, onView, viewProductDetailTask,
     const handleEdit = onEdit || (() => {});
     const handleSave = onSave || (() => {});
     const handleView = onView || (() => {});
-    const handleViewDetail = viewProductDetailTask || (() => {});
     const handleError = onError || (() => {});
     handleError(null)
 

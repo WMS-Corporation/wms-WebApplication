@@ -1,12 +1,12 @@
 import {FaEye} from "react-icons/fa";
 import PropTypes from "prop-types";
 import React, {useEffect, useState} from "react";
-import {CorridorModel, ZoneModel} from "../../models/logisticModel";
+import {CorridorModel} from "../../models/logisticModel";
 import {FiEdit2} from "react-icons/fi";
 import {MdDeleteOutline} from "react-icons/md";
 import {getShelfs} from "../../controllers/LogisticController";
 
-const CorridorItem = ({ corridor, onSave, onEdit, onDelete, onView, type }) => {
+const CorridorItem = ({ corridor, onEdit, onDelete, onView, type }) => {
     const [shelfs, setShelfs] = useState(null)
     const loadShelf = async () => {
         const result = await getShelfs(corridor._codCorridor);
@@ -39,7 +39,6 @@ const CorridorItem = ({ corridor, onSave, onEdit, onDelete, onView, type }) => {
 CorridorItem.propTypes = {
     corridor: PropTypes.instanceOf(CorridorModel).isRequired,
     onView: PropTypes.func.isRequired,
-    onSave: PropTypes.func.isRequired,
     onEdit: PropTypes.func.isRequired,
     onDelete: PropTypes.func.isRequired,
     type: PropTypes.string

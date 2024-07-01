@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { OrderModel, ProductOrderModel } from '../../models/orderModel';
+import { OrderModel } from '../../models/orderModel';
 import { FiEdit2 } from "react-icons/fi";
-import { MdDeleteOutline } from "react-icons/md";
 import { FaEye } from "react-icons/fa";
 import '../styles/OrderItem.css';
 

@@ -1,6 +1,6 @@
-import {fireEvent, render, screen, waitFor} from '@testing-library/react';
+import {fireEvent, render, screen} from '@testing-library/react';
 import Login from '../../components/Login'
-import {MemoryRouter, Router} from 'react-router-dom';
+import {MemoryRouter} from 'react-router-dom';
 import React from "react";
 import PropTypes from "prop-types";
 

@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { TaskModel, ProductTaskModel } from '../../models/taskModel';
+import { TaskModel } from '../../models/taskModel';
 import { FiEdit2 } from "react-icons/fi";
-import { MdDeleteOutline } from "react-icons/md";
 import { FaEye } from "react-icons/fa";
 import '../styles/TaskItem.css';
 import { MdDoneOutline } from "react-icons/md";

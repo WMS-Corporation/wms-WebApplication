@@ -4,7 +4,6 @@ import React, {useEffect, useState} from "react";
 import {StorageModel} from "../../models/logisticModel";
 import { getZones} from "../../controllers/LogisticController";
 import {MdDeleteOutline} from "react-icons/md";
-import {FiEdit2} from "react-icons/fi";
 
 const StorageItem = ({ storage, onView, onDelete, type }) => {
     const [zones, setZones] = useState(null)

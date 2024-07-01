@@ -1,6 +1,5 @@
-import React, {useState} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import ProductModel from '../../models/productModel';
 import '../styles/ProductEdit.css';
 import {ZoneModel} from "../../models/logisticModel";
 

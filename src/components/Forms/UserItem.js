@@ -3,7 +3,6 @@ import {MdDeleteOutline} from "react-icons/md";
 import PropTypes from "prop-types";
 import React from "react";
 import UserModel from "../../models/userModel";
-import ProductItem from "./ProductItem";
 
 const UserItem = ({ user, onEdit, onDelete }) => {
     return (

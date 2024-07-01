@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { Chart, registerables } from 'chart.js/auto';
+import { Chart } from 'chart.js/auto';
 import '../styles/Dashboard.css'
 import { FaClipboardList, FaPeopleCarry, FaTasks, FaFileAlt } from "react-icons/fa";
 import { getUsers, getStorages, getZones, getOrders, getTasks, generateAndDownloadReport  } from "../../controllers/DashboardController";

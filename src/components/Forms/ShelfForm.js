@@ -1,8 +1,7 @@
-import React, {useState} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import ProductModel from '../../models/productModel';
 import '../styles/ProductEdit.css';
-import {CorridorModel, ShelfModel, ZoneModel} from "../../models/logisticModel";
+import {ShelfModel} from "../../models/logisticModel";
 
 const ShelfForm = ({ shelf, onSave, onCancel, error }) => {
     const [editedShelf, setEditedShelf] = React.useState(shelf);

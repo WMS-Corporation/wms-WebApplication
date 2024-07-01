@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import React from "react";
 import {ShelfProductModel} from "../../models/logisticModel";
 import ProductShelfItem from "./ProductShelfItem";
-import ProductShelfForm from "./ProductShelfForm";
 import {useAuth} from "../../contexts/AuthContext";
 
 const ProductShelfList = ({ products, onAdd, onSave, onEdit, onDelete, currentShelf, onBack }) => {

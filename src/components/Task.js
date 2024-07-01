@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { getTasks, saveTask, deleteTask, addTask } from '../controllers/TaskController';
+import { getTasks, saveTask, addTask } from '../controllers/TaskController';
 import TaskList from './Forms/TaskList';
 import { TaskModel } from '../models/taskModel';
 import TaskAddForm from "./Forms/TaskAddForm";

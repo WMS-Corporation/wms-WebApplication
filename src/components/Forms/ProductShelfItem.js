@@ -1,12 +1,11 @@
-import {FaEye} from "react-icons/fa";
+
 import PropTypes from "prop-types";
-import React, {useEffect} from "react";
-import {CorridorModel, ShelfModel, ShelfProductModel, ZoneModel} from "../../models/logisticModel";
+import React from "react";
+import {ShelfProductModel} from "../../models/logisticModel";
 import {FiEdit2} from "react-icons/fi";
 import {MdDeleteOutline} from "react-icons/md";
 
-const ProductShelfItem = ({ product, onSave, onEdit, onDelete, type }) => {
-
+const ProductShelfItem = ({ product, onEdit, onDelete, type }) => {
     return (
         <tr key={product._codProduct}>
             <td>{product._codProduct}</td>
@@ -23,7 +22,6 @@ const ProductShelfItem = ({ product, onSave, onEdit, onDelete, type }) => {
 
 ProductShelfItem.propTypes = {
     product: PropTypes.instanceOf(ShelfProductModel).isRequired,
-    onSave: PropTypes.func.isRequired,
     onEdit: PropTypes.func.isRequired,
     onDelete: PropTypes.func.isRequired,
     type: PropTypes.string

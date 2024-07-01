@@ -1,4 +1,4 @@
-import { OrderModel, ProductOrderModel } from '../models/orderModel';
+import { OrderModel } from '../models/orderModel';
 import { getAuthHeaders } from './authService';
 import { API_URL } from '../config';
 

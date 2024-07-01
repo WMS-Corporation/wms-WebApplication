@@ -15,8 +15,7 @@ import {
     deleteProductFromShelf,
     searchStoragesByName, 
     deleteCorridor, 
-    deleteShelf, 
-    updateZone 
+    deleteShelf
 } from '../../services/logisticService';
 
 jest.mock('../../services/logisticService');

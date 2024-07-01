@@ -5,7 +5,7 @@ import {StorageModel} from "../../models/logisticModel";
 import StorageItem from "./StorageItem";
 import {useAuth} from "../../contexts/AuthContext";
 
-const StorageList = ({ storage, onAdd, onSave, onView, onDelete, onError }) => {
+const StorageList = ({ storage, onSave, onView, onDelete, onError }) => {
     onError(null)
     const { user } = useAuth() || {};
     return (
@@ -43,7 +43,6 @@ const StorageList = ({ storage, onAdd, onSave, onView, onDelete, onError }) => {
 StorageList.propTypes = {
     storage: PropTypes.arrayOf(PropTypes.instanceOf(StorageModel)).isRequired,
     onSave: PropTypes.func.isRequired,
-    onAdd: PropTypes.func.isRequired,
     onView: PropTypes.func.isRequired,
     onDelete: PropTypes.func.isRequired,
     onError: PropTypes.func.isRequired,

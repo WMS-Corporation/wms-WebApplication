@@ -301,6 +301,7 @@ export const getProductFromShelf = async (codShelf, codProduct) => {
 };
 
 export const updateProductInShelf = async (codShelf, codProduct, productData) => {
+
   try {
     const response = await fetch(`${API_URL}/logistics/shelf/${codShelf}/product/${codProduct}`, {
       method: 'PUT',
@@ -312,6 +313,7 @@ export const updateProductInShelf = async (codShelf, codProduct, productData) =>
       throw new Error(errorResponse.message)
     }
     const data = await response.json();
+    console.log(data)
     return new ShelfProductModel(data._codProduct, data._stock);
   } catch (error) {
     console.error('Error updating product in shelf:', error);
