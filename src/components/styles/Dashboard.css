@@ -6,45 +6,51 @@
 }
 
 .welcome {
-    margin-left: 20px;
+    margin-top: -4vh;
+    margin-left: 2vw;
+    flex: 0 0 22%;
 }
 
+.col-lg-4 .col-md-4{
+    max-width: 20%;
+    margin-left: 1vw;
+}
 .col-lg-4{
+    flex-wrap: nowrap;
 }
 
-.card-body{
-    flex: 1 1 auto;
-    min-height: 1px;
+.col-lg-10 .card{
+    flex-wrap: nowrap;
+    box-shadow: none;
+    margin-left: 19vw;
 }
 
 .chart-container {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    width: 100%;
+    height: 58vh;
 }
 
-.chart-item {
+.chart-item-pie {
     padding: 10px;
     border-radius: 8px;
-    border: 1px solid #DCDFE8;
-    flex: 1 1 30%;
-    max-width: 25%;
-    height: 40%;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    flex: 0 0 23%;
+    margin-left: 1.5vw;
 }
 
-.zone{
+.chart-item-zone{
     padding: 10px;
     border-radius: 8px;
-    border: 1px solid #DCDFE8;
-    margin-top: 4vh;
-    margin-bottom: 8vh;
-    flex: 1 1 82%;
-    max-width: 82%;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    flex: 0 0 40%;
     box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    height: 52%;
+    margin-left: 1.5vw;
+    grid-row: span 2; /* Si estende su due righe */
+}
+
+.temp-chart{
+    border: none;
+    margin-top: 4vh;
 }
 
 h4 {
@@ -52,17 +58,14 @@ h4 {
     font-size: 1.5vw;
     color: gray;
     margin-top: -1vh;
+    height: 1vh;
 }
 
 .col-lg-8{
-    padding-left: 1vw;
-}
-
-.row{
     display: flex;
-    justify-content: center; /* Centra gli elementi figli orizzontalmente */
-    width: 100%; /* Assicurati che occupi la larghezza desiderata */
-    flex-wrap: wrap
+    flex-wrap: wrap;
+    margin-top: 5vh;
+    flex: 0 0 73%;
 }
 
 .card-block{
@@ -82,15 +85,14 @@ h4 {
     -o-border-radius: 10px;
     border-radius: 10px;
     margin-bottom: 30px;
-    border: 1px solid #DCDFE8;
-    box-shadow: none;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
     height: 60%;
 }
 
 .card-body{
     flex: 1 1 auto;
     min-height: 1px;
-    padding: 20px;
+    padding: 10px;
 }
 
 .card-block.card-stretch {
@@ -121,7 +123,6 @@ h4 {
     -ms-border-radius: 10px;
     -o-border-radius: 10px;
     border-radius: 10px;
-    margin-top: -3vh;
 }
 .bg-info-light {
     color: #00aadb !important;
@@ -141,34 +142,40 @@ p {
     border: none;
 }
 
-@media (min-width: 992px) {
+@media (min-width: 800px) {
     .col-lg-4 {
-        flex: 0 0 42%;
-        max-width: 42%;
+        flex: 0 0 15%;
+        flex-wrap: nowrap;
     }
     .col-md-4{
-        max-width: 30%;
+        max-width: 21%;
     }
     .col-lg-8 {
-        flex: 0 0 54%;
-        max-width: 54%;
+        margin-top: 5vh;
     }
+}
+
+.header-and-cards {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 25vh;
 }
 
 .form-group-dashboard{
-    border-top: 1px solid #DCDFE8;
-    margin-top: 2vh;
     display: flex;
     flex-direction: row;
     align-items: center;
+    height: 10%;
 }
 
 .form-control-dashboard{
-    height: 6vh;
+    height: 4.5vh;
     line-height: 4.5vh;
     background: #ffffff;
     border: 1px solid #DCDFE8;
-    font-size: 1.4vw;
+    font-size: 1vw;
     color: #676E8A;
     border-radius: 1vw;
     margin-top: 4vh;
@@ -183,22 +190,18 @@ p {
 
 .form-group-dashboard label{
     margin-top: 4.5vh;
-    font-size: 1.5vw;
+    font-size: 1vw;
     width: 10vw;
 }
 
-.temp-chart{
-    border: none;
-    width: 60% !important;
-    margin-top: 2vh;
-    height: 90% !important;
-    margin-left: 5vw;
-}
+
 
 .pie-chart{
     border: none;
     margin-left: 0.6vw;
 }
+
+
 
 .btn-Add-Report {
     color: #fff;

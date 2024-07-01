@@ -114,7 +114,8 @@ const Dashboard = () => {
                 options: {
                     plugins: {
                         legend: {
-                            display: false
+                            display: true,
+                            position: 'right'
                         }
                     }
                 }
@@ -147,7 +148,14 @@ const Dashboard = () => {
                 options: {
                     plugins: {
                         legend: {
-                            display: false
+                            display: true,
+                            position: 'right',
+                            font: {
+                                size: 10 // Imposta la dimensione del font della legenda
+                            },
+                            boxWidth: 10, // Imposta la dimensione del rettangolino
+                            usePointStyle: true, // Utilizza il punto stile per le etichette
+                            padding: 5 // Riduce il padding tra le etichette
                         }
                     }
                 }
@@ -246,71 +254,19 @@ const Dashboard = () => {
     return (
         <div >
             <div className="col-lg-4 border-none">
-                <div className="welcome">
-                    <h1>Welcome {user._username}</h1>
-                </div>
-            </div>
-            <div className="Container">
-                {user?._type === "Admin" ? (
-                    <>
-                        <div className="chart-container">
-                            <div className="chart-item">
-                                <h4>Task Overview</h4>
-                                <canvas className="pie-chart" ref={ctxTaskRef}></canvas>
-                            </div>
-                            <div className="chart-item">
-                                <h4>Order Overview</h4>
-                                <canvas className="pie-chart" ref={ctxOrderRef}></canvas>
-                            </div>
-                            <div className="chart-item zone">
-                                <h4>Zone Temperature Overview</h4>
-                                <div className="form-group-dashboard">
-                                    <label>Storage</label>
-                                    <select className="form-control-dashboard" name="_codStorage"
-                                        value={storage._codStorage}
-                                        onChange={handleChange}>
-                                        {avainableStorages.map(storage => (
-                                            <option key={storage._codStorage}
-                                                value={storage._codStorage}>{storage._codStorage}</option>
-                                        ))}
-                                    </select>
-                                </div>
-                                <div className="chart">
-                                    <canvas className="temp-chart" ref={ctxTempRef}></canvas>
-                                </div>
-
-                            </div>
-                        </div>
-                    </>
-                ) : <>
-                    <table style={{ marginLeft: "2vw", marginRight: "4vw" }}>
-                        <thead>
-                            <tr>
-                                <th>Task Code</th>
-                                <th>Date</th>
-                                <th>Type</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {tasks.filter(task => task._codOperator === user._codUser && task._status !== "Completed").map((task) => (
-                                <TaskItem key={task._codTask} task={task} onEdit={null}
-                                    onSave={null} onView={null} admin={false} dashboard={true} />
-                            ))}
-                        </tbody>
-                    </table>
-                </>}
-
-                <div className="col-lg-8">
-                    <div className="row">
+                <div className="header-and-cards">
+                    <div className="welcome">
+                        <h1>Welcome {user._username}</h1>
+                    </div>
+                    <div className="col-lg-8">
                         {user?._type === "Operational" ? (
                             <>
-                                <div className="col-lg-4 col-md-4" style={{ marginLeft: '35vw' }}>
+                                <div className="col-lg-4 col-md-4" style={{marginLeft: '56vw'}}>
                                     <div className="card card-block card-stretch card-height">
                                         <div className="card-body">
                                             <div className="d-flex align-items-center mb-4 card-total-sale">
                                                 <div className="icon iq-icon-box-2 bg-info-light">
-                                                    <FaTasks />
+                                                    <FaTasks/>
                                                 </div>
                                                 <div>
                                                     <p className="mb-2">Tasks</p>
@@ -327,7 +283,7 @@ const Dashboard = () => {
                                     <div className="card-body">
                                         <div className="d-flex align-items-center mb-4 card-total-sale">
                                             <div className="icon iq-icon-box-2 bg-info-light">
-                                                <FaTasks />
+                                                <FaTasks/>
                                             </div>
                                             <div>
                                                 <p className="mb-2">Tasks</p>
@@ -345,7 +301,7 @@ const Dashboard = () => {
                                         <div className="card-body">
                                             <div className="d-flex align-items-center mb-4 card-total-sale">
                                                 <div className="icon iq-icon-box-2 bg-info-light">
-                                                    <FaClipboardList />
+                                                    <FaClipboardList/>
                                                 </div>
                                                 <div>
                                                     <p className="mb-2">Orders</p>
@@ -360,7 +316,7 @@ const Dashboard = () => {
                                         <div className="card-body">
                                             <div className="d-flex align-items-center mb-4 card-total-sale">
                                                 <div className="icon iq-icon-box-2 bg-info-light">
-                                                    <FaPeopleCarry />
+                                                    <FaPeopleCarry/>
                                                 </div>
                                                 <div>
                                                     <p className="mb-2">Operational</p>
@@ -376,8 +332,10 @@ const Dashboard = () => {
                             <div className="col-lg-10 col-md-10">
                                 <div className="card card-block card-stretch card-height">
                                     <div className="card-body d-flex align-items-center justify-content-center">
-                                        <button className="btn-Submit-task btn btn-primary btn-lg d-flex align-items-center justify-content-center" onClick={generateAndDownloadReport}>
-                                            <FaFileAlt className="me-2" /> Generate Report
+                                        <button
+                                            className="btn-Submit-task btn btn-primary btn-lg d-flex align-items-center justify-content-center"
+                                            onClick={generateAndDownloadReport}>
+                                            <FaFileAlt className="me-2"/> Generate Report
                                         </button>
                                     </div>
                                 </div>
@@ -385,6 +343,56 @@ const Dashboard = () => {
                         ) : null}
                     </div>
                 </div>
+            </div>
+
+            <div className="Container">
+                {user?._type === "Admin" ? (
+                    <>
+                        <div className="chart-container">
+                            <div className="chart-item-pie">
+                                <h4>Task Overview</h4>
+                                <canvas className="pie-chart" ref={ctxTaskRef}></canvas>
+                            </div>
+                            <div className="chart-item-pie">
+                                <h4>Order Overview</h4>
+                                <canvas className="pie-chart" ref={ctxOrderRef}></canvas>
+                            </div>
+                            <div className="chart-item-zone">
+                                <h4>Zone Temperature Overview</h4>
+                                <div className="form-group-dashboard">
+                                    <label>Storage</label>
+                                    <select className="form-control-dashboard" name="_codStorage"
+                                            value={storage._codStorage}
+                                            onChange={handleChange}>
+                                        {avainableStorages.map(storage => (
+                                            <option key={storage._codStorage}
+                                                    value={storage._codStorage}>{storage._codStorage}</option>
+                                        ))}
+                                    </select>
+                                </div>
+                                <canvas className="temp-chart" ref={ctxTempRef}></canvas>
+
+                            </div>
+                        </div>
+                    </>
+                ) : <>
+                    <table style={{marginLeft: "2vw", marginRight: "4vw"}}>
+                        <thead>
+                        <tr>
+                            <th>Task Code</th>
+                            <th>Date</th>
+                            <th>Type</th>
+                            <th>Status</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {tasks.filter(task => task._codOperator === user._codUser && task._status !== "Completed").map((task) => (
+                            <TaskItem key={task._codTask} task={task} onEdit={null}
+                                      onSave={null} onView={null} admin={false} dashboard={true}/>
+                        ))}
+                        </tbody>
+                    </table>
+                </>}
             </div>
         </div>
     )
