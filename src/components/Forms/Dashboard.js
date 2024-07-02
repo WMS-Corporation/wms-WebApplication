@@ -176,8 +176,8 @@ const Dashboard = () => {
                 return acc;
             }, {});
 
-            const thresholdRefrigerated = process.env.REACT_APP_TEMPERATURE_REFRIGERATED_VALID_RANGE || -18;0;
-            const thresholdNoRefrigerated = process.env.REACT_APP_TEMPERATURE_NOT_REFRIGERATED_VALID_RANGE || 0;25;
+            const thresholdRefrigerated = process.env.REACT_APP_TEMPERATURE_REFRIGERATED_VALID_RANGE || "-18;0";
+            const thresholdNoRefrigerated = process.env.REACT_APP_TEMPERATURE_NOT_REFRIGERATED_VALID_RANGE || "0;25";
             const colors = ['#1E90FF', '#4682B4', '#87CEFA', '#B0C4DE', '#708090'];
 
             const backgroundColors = Object.values(zones).map((zone, index) => {
