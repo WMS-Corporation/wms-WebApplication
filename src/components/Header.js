@@ -5,6 +5,7 @@ import {FaBars} from "react-icons/fa";
 import { IoMdPower } from "react-icons/io";
 import logo from "../assets/logo.png";
 import './styles/Header.css';
+import {Link} from "react-router-dom";
 
 const Header = ({toggleSidebar}) => {
 
@@ -21,7 +22,9 @@ const Header = ({toggleSidebar}) => {
         <header className="header">
             <FaBars className="sidebar-toggle" onClick={toggleSidebar}/>
             <div className="logo-container">
-                <img src={logo} alt="WMS Logo" className="logo"/>
+                <Link to="/">
+                    <img src={logo} alt="WMS Logo" className="logo" />
+                </Link>
                 <h3 className="sidebar-logo">WMS</h3>
             </div>
             <IoMdPower className="power-off" onClick={handleLogout}/>

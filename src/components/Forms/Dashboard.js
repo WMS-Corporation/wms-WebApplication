@@ -261,7 +261,7 @@ const Dashboard = () => {
                     <div className="col-lg-8">
                         {user?._type === "Operational" ? (
                             <>
-                                <div className="col-lg-4 col-md-4" style={{marginLeft: '56vw'}}>
+                                <div className="col-lg-4 col-md-4" style={{marginLeft: '50vw'}}>
                                     <div className="card card-block card-stretch card-height">
                                         <div className="card-body">
                                             <div className="d-flex align-items-center mb-4 card-total-sale">

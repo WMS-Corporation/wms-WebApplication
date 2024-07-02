@@ -2,13 +2,16 @@ import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import Header from '../../components/Header';
+import {MemoryRouter} from "react-router-dom";
 
 describe('Component Header', () => {
     const mockToggleSidebar = jest.fn();
 
     const renderHeader = () => {
         return render(
-            <Header toggleSidebar={mockToggleSidebar} />
+            <MemoryRouter>
+                <Header toggleSidebar={mockToggleSidebar} />
+            </MemoryRouter>
         );
     };
 

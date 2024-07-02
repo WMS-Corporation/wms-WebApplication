@@ -155,6 +155,25 @@ p {
     }
 }
 
+@media (max-width: 1450px) {
+    .col-lg-4 {
+        flex: 0 0 30%;
+        flex-wrap: nowrap;
+    }
+    .col-md-4{
+        max-width: 30%;
+    }
+    .col-lg-10 .card {
+        margin-left: 9vw;
+    }
+    .col-lg-8 {
+        margin-top: 6vh;
+    }
+    .chart-item-zone{
+        flex: 0 0 37%;
+    }
+}
+
 .header-and-cards {
     display: flex;
     align-items: center;
