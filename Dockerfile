@@ -9,8 +9,10 @@ COPY src ./src
 COPY package*.json ./
 
 RUN npm ci
-
 RUN npm run build
+
+COPY sostituisci-env.sh ./
+RUN chmod +x sostituisci-env.sh
 
 # Set the react app port
 ENV PORT 5000
@@ -18,4 +20,5 @@ ENV PORT 5000
 EXPOSE 5000
 
 # Start the application
+ENTRYPOINT ["./sostituisci-env.sh"]
 CMD ["npm", "start"]
