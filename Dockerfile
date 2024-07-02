@@ -1,4 +1,4 @@
-FROM node:13.12.0-alpine as build-step
+FROM node:13.12.0-alpine AS build-step
 
 # Install the app
 RUN mkdir /app
@@ -7,9 +7,7 @@ COPY package.json /app
 RUN npm install --silent
 
 # Build the app
-COPY public ./app/public
-COPY src ./app/src
-COPY package*.json ./app/
+COPY . /app
 RUN npm run-script build
 
 # Create nginx server and copy build there
