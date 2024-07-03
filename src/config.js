@@ -1,11 +1,2 @@
-// export const API_URL = process.env.REACT_APP_API_SERVER_URL + '/api';
-// export const SERVER_URL = process.env.REACT_APP_API_SERVER_URL;
-
-const config = window._env_ || {
-    REACT_APP_API_SERVER_URL: process.env.REACT_APP_API_SERVER_URL,
-    REACT_APP_TEMPERATURE_REFRIGERATED_VALID_RANGE: process.env.REACT_APP_TEMPERATURE_REFRIGERATED_VALID_RANGE,
-    REACT_APP_TEMPERATURE_NOT_REFRIGERATED_VALID_RANGE: process.env.REACT_APP_TEMPERATURE_NOT_REFRIGERATED_VALID_RANGE,
-};
-
-export const API_URL = config.REACT_APP_API_SERVER_URL + '/api';
-export const SERVER_URL = config.REACT_APP_API_SERVER_URL;
+export const API_URL = process.env.REACT_APP_API_SERVER_URL + '/api';
+export const SERVER_URL = process.env.REACT_APP_API_SERVER_URL;
