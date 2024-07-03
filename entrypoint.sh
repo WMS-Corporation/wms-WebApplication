@@ -1,5 +1,8 @@
 #!/bin/sh
 
+
+envsubst < /etc/nginx/conf.d/nginx.conf.template > /etc/nginx/conf.d/default.conf
+
 # Replace placeholders in env-config.js with environment variables
 echo "window._env_ = {" > /usr/share/nginx/html/env-config.js
 echo "  REACT_APP_API_SERVER_URL: \"$REACT_APP_API_SERVER_URL\"," >> /usr/share/nginx/html/env-config.js
