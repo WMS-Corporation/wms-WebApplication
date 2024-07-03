@@ -14,7 +14,7 @@ FROM nginx:alpine
 COPY --from=build /wms-WebApplication/build /usr/share/nginx/html
 
 # Copy the custom nginx config template
-COPY nginx.conf.template /etc/nginx/conf.d/nginx.conf.template
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 # Copy the entrypoint script
 COPY entrypoint.sh /entrypoint.sh
