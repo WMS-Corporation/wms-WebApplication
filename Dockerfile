@@ -27,5 +27,6 @@ ENV REACT_APP_TEMPERATURE_NOT_REFRIGERATED_VALID_RANGE="0;25"
 
 ENTRYPOINT ["/entrypoint.sh"]
 
+EXPOSE 4000
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
